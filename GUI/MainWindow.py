@@ -1,27 +1,24 @@
 #!python2
 #-*- coding: utf-8 -*-
-#  2SP-2TP-SP.py
+#  MainWindow.py
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-10-27
 #  Fecha última modificación: 2015-10-21
 #  Versión: 1.01
 
-import sys
-from MundoVirtual import *
-from LearningStructure import *
+#import sys
+#sys.path.append("..")
+from VirtualWorld import VirtualWorld
 from functools import partial
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication
 
-class GuiPrincipal:
+class MainWindow:
 
-    def __init__(self):
-
-        self.structure = LearningStructure()
-        self.structure.train(10)
+    def __init__(self, structure):
         
-        app = QApplication([])
-        self.frame = uic.loadUi('VirtualWorld.ui')
+        self.structure = structure
+        
+        self.frame = uic.loadUi('GUI/MainWindow.ui')
         self.world = VirtualWorld(self.frame)
         
         self.configFrame()
@@ -29,18 +26,16 @@ class GuiPrincipal:
         
         self.frame.show()
         
-        sys.exit(app.exec_())
+    def configFrame(self):
+        
+        self.frame.virtualWorld = self.world
+        self.initEvents()
         
     def configVirtualWorld(self):
     
         self.world.setMinimumWidth(500)
         self.world.setMinimumHeight(600)
         self.world.setFocus()
-        
-    def configFrame(self):
-        
-        self.frame.virtualWorld = self.world
-        self.initEvents()
     
     def initEvents(self):
     
@@ -60,4 +55,3 @@ class GuiPrincipal:
         self.structure.actionTM.reset()
         self.structure.generalTM.reset()
 
-GuiPrincipal()
