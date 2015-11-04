@@ -80,28 +80,28 @@ class VirtualWorld(QFrame):
                 self.worldGrid[self.p1.y][self.p1.x].setPixmap(QPixmap())
                 self.p1.x += -1 
                 self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
-            return "Me he movido a la izquierda"
+            return "Me he movido a la izquierda\n"
             
         elif direction == 'derecha':
             if self.p1.x < self.numColumns - 1:
                 self.worldGrid[self.p1.y][self.p1.x].setPixmap(QPixmap())
                 self.p1.x += 1 
                 self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
-            return "Me he movido a la izquierda"
+            return "Me he movido a la derecha\n"
             
         elif direction == 'arriba':
             if self.p1.y > 0: 
                 self.worldGrid[self.p1.y][self.p1.x].setPixmap(QPixmap())
                 self.p1.y += -1
                 self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
-            return "Me he movido a la izquierda"
+            return "Me he movido hacia arriba\n"
             
         elif direction == 'abajo':
             if self.p1.y < self.numRows - 1: 
                 self.worldGrid[self.p1.y][self.p1.x].setPixmap(QPixmap())
                 self.p1.y += 1
                 self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
-            return "Me he movido a la izquierda"
+            return "Me he movido hacia abajo\n"
         
         else:
             return "No se a que direccion moverme"

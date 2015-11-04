@@ -44,13 +44,17 @@ class MainWindow:
         self.frame.btn_up.clicked.connect(partial(self.world.moveP1, direction = 'arriba'))
         self.frame.btn_down.clicked.connect(partial(self.world.moveP1, direction = 'abajo'))
         self.frame.btn_execSentence.clicked.connect(self.execSentence)
+        self.frame.btn_clearLog.clicked.connect(self.frame.txtEdt_log.clear)
     
     def execSentence(self):
         
-        sentence = self.frame.lnEdt_sentence.text().split()
+        sentence = self.frame.lnEdt_sentence.text()
+        if sentence == None: sentence = ""
+        self.frame.txtEdt_log.append("<b>>></b>" + sentence)
+        sentence = sentence.split()
         predictions = self.structure.layer.inputSentence(sentence, [], 1, learn = False)
         if predictions[0] == 'action-mover':
-            self.world.moveP1(predictions[1][7:])
+            self.frame.txtEdt_log.append(self.world.moveP1(predictions[1][7:]))
         self.structure.wordTM.reset()
         self.structure.actionTM.reset()
         self.structure.generalTM.reset()
