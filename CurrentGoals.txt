@@ -1,0 +1,14 @@
+* Escribir outputs signficativos en el log
+    - Especificar qué parte no entiende
+* Aumentar los casos de uso en la base de datos
+* Decidir e implementar como indicar multiples acciones
+* Pensar en mas acciones que requieran argumentos
+
+---- REVISAR PARA MAS ADELANTE -----
+
++ Hacer que algunas palabras se vuelvan claves (por ejemplo: "y" para la union)
+    - Debería predecir cosas que nunca ha visto, por ejemplo la unión mediante "y"
+    de dos sentencias nunca antes unidas.
+    
++ Buscar la manera de que sólo se predigan acciones, no lo que sigue de la oración
+
