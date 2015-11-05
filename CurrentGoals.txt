@@ -1,5 +1,4 @@
-* Escribir outputs signficativos en el log
-    - Especificar qué parte no entiende
+* Especificar en el log qué parte no entiende
 * Aumentar los casos de uso en la base de datos
 * Decidir e implementar como indicar multiples acciones
 * Pensar en mas acciones que requieran argumentos
