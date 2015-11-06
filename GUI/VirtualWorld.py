@@ -109,7 +109,13 @@ class VirtualWorld(QFrame):
 class WorldObject:
     
     def __init__(self, objType, x, y, imgWidth, imgHeight):
-        
+        """
+        Creates an object of the virtual world 
+        @param objType : The type of the object. See imgPaths.keys() for a list
+        of the available types.
+        @param x, y : Coordenates of the object in the virtual world
+        @param imgWidth, imgHeight: Width and Height of the object's icon
+        """
         self.x = x
         self.y = y
         self.img = imgPaths[objType]

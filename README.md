@@ -1,2 +1,2 @@
 # HTM-TEUL
-Tasks Using Language is a natural language interpreter for executing tasks. It uses NuPic and the HTM theory.
+Task Execution Using Language is a Natural Language interpreter for executing tasks in a virtual controlled environment. It uses NuPic and the HTM theory.
