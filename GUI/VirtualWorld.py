@@ -22,20 +22,21 @@ from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication,\
 from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QSize
 from PyQt5.QtGui import QPainter, QColor, QPixmap
 
-resourcesPath = 'Resources/'
-imgPaths = {
-    'ectatomma' : resourcesPath + 'Ectatomma.png',
-    'ectatomma-hunter' : resourcesPath + 'Ectatomma-Hunter.png',
-    'ectatomma-nurse' : resourcesPath + 'Ectatomma-Nurse.png',
-    'hat-hunter' : resourcesPath + 'Hat-Hunter.png',
-    'hat-nurse' : resourcesPath + 'Hat-Nurse.png'
+RESOURCES_PATH = 'Resources/'
+IMG_PATHS = {
+    'ectatomma' : RESOURCES_PATH + 'Ectatomma.png',
+    'ectatomma-hunter' : RESOURCES_PATH + 'Ectatomma-Hunter.png',
+    'ectatomma-nurse' : RESOURCES_PATH + 'Ectatomma-Nurse.png',
+    'hat-hunter' : RESOURCES_PATH + 'Hat-Hunter.png',
+    'hat-nurse' : RESOURCES_PATH + 'Hat-Nurse.png'
 }
 
 class VirtualWorld(QFrame):
     
-    worldGrid = []
-    numColumns = 5
-    numRows = 5
+    WORLD_GRID = []
+    NUM_COLUMNS = 5
+    NUM_ROWS = 5
+    OBJECTS = dict()
     #Speed = 300
 
     def __init__(self, parent):
@@ -51,74 +52,87 @@ class VirtualWorld(QFrame):
         self.setFocusPolicy(Qt.StrongFocus)
         self.setFrameStyle(QFrame.Box | QFrame.Plain)
         self.setLineWidth(1)
-        
-        self.p1 = WorldObject(
-            'ectatomma',
-            3,
-            3,
-            (self.width() // self.numColumns) - 10,
-            (self.height() // self.numRows) - 10
-        )
+        self.CELL_WIDTH = self.width() // self.NUM_COLUMNS
+        self.CELL_HEIGHT = self.height() // self.NUM_ROWS
 
         grid = QGridLayout()
         self.setLayout(grid)
         
-        for column in range(self.numColumns):
-            self.worldGrid.append([])
-            for row in range(self.numRows):
-                self.worldGrid[column].append(QLabel())
-                self.worldGrid[column][row].setStyleSheet(
+        for column in range(self.NUM_COLUMNS):
+            self.WORLD_GRID.append([])
+            for row in range(self.NUM_ROWS):
+                self.WORLD_GRID[column].append(QLabel())
+                self.WORLD_GRID[column][row].setStyleSheet(
                     "QLabel { background-color : green }"
                 )
-                grid.addWidget(self.worldGrid[column][row], column, row)
+                grid.addWidget(self.WORLD_GRID[column][row], column, row)
         
-        self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
+        self.addObj('P1', 'ectatomma', 3, 3)
+        
+    def addObj(self, objId, objType, x, y, imgWidth = None, imgHeight = None):
+        """ Adds an object to the Virtual World """
+        
+        if imgWidth == None: imgWidth = self.CELL_WIDTH - 10
+        if imgHeight == None: imgHeight = self.CELL_HEIGHT - 10
+        obj = WorldObject(objType, x, y, imgWidth, imgHeight)
+        self.OBJECTS[objId] = obj
+        self.WORLD_GRID[x][y].setPixmap(obj.pixmap)
                 
-    def moveP1(self, direction):
+    def moveObj(self, objId, direction):
+        """
+        Moves an object in the Virtual World
+        @param objId : id of the object. See OBJECTS.keys() for a list of the
+            available objects.
+        @param direction
+        """
+        
+        obj = self.OBJECTS[objId]
+        
         if direction == 'izquierda':
-            if self.p1.x > 0: 
-                self.worldGrid[self.p1.y][self.p1.x].setPixmap(QPixmap())
-                self.p1.x += -1 
-                self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
-            return "Me he movido a la izquierda\n"
+            if obj.x > 0: 
+                self.WORLD_GRID[obj.y][obj.x].setPixmap(QPixmap())
+                obj.x += -1 
+                self.WORLD_GRID[obj.y][obj.x].setPixmap(obj.pixmap)
             
         elif direction == 'derecha':
-            if self.p1.x < self.numColumns - 1:
-                self.worldGrid[self.p1.y][self.p1.x].setPixmap(QPixmap())
-                self.p1.x += 1 
-                self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
-            return "Me he movido a la derecha\n"
+            if obj.x < self.NUM_COLUMNS - 1:
+                self.WORLD_GRID[obj.y][obj.x].setPixmap(QPixmap())
+                obj.x += 1 
+                self.WORLD_GRID[obj.y][obj.x].setPixmap(obj.pixmap)
             
         elif direction == 'arriba':
-            if self.p1.y > 0: 
-                self.worldGrid[self.p1.y][self.p1.x].setPixmap(QPixmap())
-                self.p1.y += -1
-                self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
-            return "Me he movido hacia arriba\n"
+            if obj.y > 0: 
+                self.WORLD_GRID[obj.y][obj.x].setPixmap(QPixmap())
+                obj.y += -1
+                self.WORLD_GRID[obj.y][obj.x].setPixmap(obj.pixmap)
             
         elif direction == 'abajo':
-            if self.p1.y < self.numRows - 1: 
-                self.worldGrid[self.p1.y][self.p1.x].setPixmap(QPixmap())
-                self.p1.y += 1
-                self.worldGrid[self.p1.y][self.p1.x].setPixmap(self.p1.pixmap)
-            return "Me he movido hacia abajo\n"
+            if obj.y < self.NUM_ROWS - 1: 
+                self.WORLD_GRID[obj.y][obj.x].setPixmap(QPixmap())
+                obj.y += 1
+                self.WORLD_GRID[obj.y][obj.x].setPixmap(obj.pixmap)
         
         else:
             return "No se a que direccion moverme"
+            
+        return "{obj}: Me he movido hacia {direction}\n".format(
+                obj = objId,
+                direction = direction
+            )
             
 class WorldObject:
     
     def __init__(self, objType, x, y, imgWidth, imgHeight):
         """
         Creates an object of the virtual world 
-        @param objType : The type of the object. See imgPaths.keys() for a list
+        @param objType : The type of the object. See IMG_PATHS.keys() for a list
         of the available types.
         @param x, y : Coordenates of the object in the virtual world
         @param imgWidth, imgHeight: Width and Height of the object's icon
         """
         self.x = x
         self.y = y
-        self.img = imgPaths[objType]
+        self.img = IMG_PATHS[objType]
         self.pixmap = QPixmap(self.img).scaled(imgWidth, imgHeight, Qt.KeepAspectRatio)
         
     def resizePixmap(self, imgWidth, imgHeight):

@@ -39,10 +39,10 @@ class MainWindow:
     
     def initEvents(self):
     
-        self.frame.btn_left.clicked.connect(partial(self.world.moveP1, direction = 'izquierda'))
-        self.frame.btn_right.clicked.connect(partial(self.world.moveP1, direction = 'derecha'))
-        self.frame.btn_up.clicked.connect(partial(self.world.moveP1, direction = 'arriba'))
-        self.frame.btn_down.clicked.connect(partial(self.world.moveP1, direction = 'abajo'))
+        self.frame.btn_left.clicked.connect(partial(self.world.moveObj, objId = "P1", direction = 'izquierda'))
+        self.frame.btn_right.clicked.connect(partial(self.world.moveObj, objId = "P1",  direction = 'derecha'))
+        self.frame.btn_up.clicked.connect(partial(self.world.moveObj,  objId = "P1", direction = 'arriba'))
+        self.frame.btn_down.clicked.connect(partial(self.world.moveObj,  objId = "P1", direction = 'abajo'))
         self.frame.btn_execSentence.clicked.connect(self.execSentence)
         self.frame.btn_clearLog.clicked.connect(self.frame.txtEdt_log.clear)
     
@@ -54,7 +54,7 @@ class MainWindow:
         sentence = sentence.split()
         predictions = self.structure.layer.inputSentence(sentence, [], 1, learn = False)
         if predictions[0] == 'action-mover':
-            self.frame.txtEdt_log.append(self.world.moveP1(predictions[1][7:]))
+            self.frame.txtEdt_log.append(self.world.moveObj('P1', predictions[1][7:]))
         self.structure.wordTM.reset()
         self.structure.actionTM.reset()
         self.structure.generalTM.reset()
