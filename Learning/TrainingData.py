@@ -6,6 +6,11 @@
 #  Fecha última modificación: 2015-11-02
 #  Versión: 1.0 [estable]
 
+"""
+The training data is a list of tuples, where the first element of the tuple is
+a sentence and the second one is its corresponding event in the virtual world.
+"""
+
 trainingData = (
     (('mover', 'hacia', 'la', 'derecha'),                            ('action-mover', 'action-derecha')),
     (('mover', 'a', 'la', 'derecha'),                                ('action-mover', 'action-derecha')),

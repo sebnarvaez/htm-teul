@@ -14,14 +14,16 @@
    ActionCategory -> ActionsSP -> ActionsSeqTM
        SentencesTM + ActionsSeqTM -> generalTM
 """
-import numpy as np
+import numpy
 
+from LearningStructureFactory import *
 from TrainingData import trainingData
+
 from nupic.encoders.category import CategoryEncoder
-from nupic.algorithms.CLAClassifier import CLAClassifier as CLAClassifier
+from nupic.algorithms.CLAClassifier import CLAClassifier
 from nupic.encoders.scalar import ScalarEncoder
-from nupic.research.spatial_pooler import SpatialPooler as SpatialPooler
-from nupic.research.temporal_memory import TemporalMemory as TemporalMemory
+from nupic.research.spatial_pooler import SpatialPooler
+from nupic.research.temporal_memory import TemporalMemory
 
 class Layer():
     
@@ -50,7 +52,7 @@ class Layer():
         retVal = None
         
         for word in sentence:
-            output = np.zeros(self.wordSP.getColumnDimensions())
+            output = numpy.zeros(self.wordSP.getColumnDimensions())
             
             # Input through encoder
             if verbosity > 1 : print "Word Input = " + str(word)
@@ -59,10 +61,10 @@ class Layer():
             
             # Input through wordSPatial pooler
             self.wordSP.compute(encoding, learn, output)
-            if verbosity > 1 : print "SpatialPooler Output = " + str(np.where(output > 0)[0])
+            if verbosity > 1 : print "SpatialPooler Output = " + str(numpy.where(output > 0)[0])
             
             # Input through temporal memory
-            input = set(sorted(np.where(output > 0)[0].flat))
+            input = set(sorted(numpy.where(output > 0)[0].flat))
             self.wordTM.compute(input, learn)  
             #wordTMActiveCells.append(self.wordTM.activeCells)
             
@@ -74,7 +76,7 @@ class Layer():
                 predictedColumns = self.wordTM.mapCellsToColumns(self.wordTM.predictiveCells).keys()
                 print "WordTM Prediction = " + str(predictedColumns)
                 predictedValues = ""
-                connected = np.zeros(self.wordSP.getNumInputs(), dtype="int")
+                connected = numpy.zeros(self.wordSP.getNumInputs(), dtype="int")
                 for prediction in predictedColumns:
                     self.wordSP.getConnectedSynapses(prediction, connected)
                     predictedValues += str(self.wordEncoder.decode(connected)) + "\n"
@@ -83,7 +85,7 @@ class Layer():
                 activeCellsStr = ""
                 columns = self.wordTM.mapCellsToColumns(self.wordTM.activeCells)
                 for column in columns:
-                    connected = np.zeros(self.wordSP.getNumInputs(), dtype="int")
+                    connected = numpy.zeros(self.wordSP.getNumInputs(), dtype="int")
                     self.wordSP.getConnectedSynapses(column, connected)
                     activeCellsStr += str(self.wordEncoder.decode(connected)) + '\n'
                 print "Active cells = " + str(self.wordTM.activeCells)
@@ -105,7 +107,7 @@ class Layer():
         #print "Predicted values = ",
         #predictedColumns = actionTM.mapCellsToColumns(predictedCells).keys()
         #for prediction in predictedColumns:
-            #connected = np.zeros(actionSP.getNumInputs(), dtype="int")
+            #connected = numpy.zeros(actionSP.getNumInputs(), dtype="int")
             #actionSP.getConnectedSynapses(prediction, connected)
             #print actionEncoder.decode(connected)
         bestPredictions = []
@@ -136,7 +138,7 @@ class Layer():
         if verbosity > 1 : print "\n### Pasando a Action ###\n"
         
         for action in actionSeq:
-            output = np.zeros(self.actionSP._columnDimensions)
+            output = numpy.zeros(self.actionSP._columnDimensions)
             
             # Input through encoder
             if verbosity > 1 : print "Action Input = " + str(action)
@@ -145,10 +147,10 @@ class Layer():
             
             # Input through wordSPatial pooler
             self.actionSP.compute(encoding, learn, output)
-            if verbosity > 1 : print "SpatialPooler Output = " + str(np.where(output > 0)[0])
+            if verbosity > 1 : print "SpatialPooler Output = " + str(numpy.where(output > 0)[0])
             
             # Input through temporal memory
-            input = set(sorted(np.where(output > 0)[0].flat))
+            input = set(sorted(numpy.where(output > 0)[0].flat))
             self.actionTM.compute(input, learn)
             #actionTMActiveCells.append(self.actionTM.activeCells)
             
@@ -160,7 +162,7 @@ class Layer():
                 predictedColumns = self.actionTM.mapCellsToColumns(self.actionTM.predictiveCells).keys()
                 print "TemporalMemory Prediction = " + str(predictedColumns)
                 predictedValues = ""
-                connected = np.zeros(self.actionSP.getNumInputs(), dtype="int")
+                connected = numpy.zeros(self.actionSP.getNumInputs(), dtype="int")
                 for prediction in predictedColumns:
                     self.actionSP.getConnectedSynapses(prediction, connected)
                     predictedValues += str(self.actionEncoder.decode(connected)) + "\n"
@@ -169,7 +171,7 @@ class Layer():
             if verbosity > 2 :
                 activeCellsStr = ""
                 for cell in self.actionTM.activeCells:
-                    connected = np.zeros(self.actionSP.getNumInputs(), dtype="int")
+                    connected = numpy.zeros(self.actionSP.getNumInputs(), dtype="int")
                     self.actionSP.getConnectedSynapses((cell / self.actionTM.cellsPerColumn), connected)
                     activeCellsStr += str(self.actionEncoder.decode(connected)) + '\n'
                 print "Active cells = " + str(self.actionTM.activeCells)
@@ -306,12 +308,39 @@ class LearningStructure():
             verbosity = 0
         )
         
+        self.classicStructure = {
+            'wordInput'     :   'wordEnc',
+            'wordEnc'       :   'wordSP',
+            'wordSP'        :   'wordTM',
+            'wordTM'        :   'generalTM',
+            ###
+            'actionInput'   :   'actionEnc',
+            'actionEnc'     :   'actionSP',
+            'actionSP'      :   'actionTM',
+            'actionTM'      :   'generalTM',
+            ###
+            'generalTM'     :   'classifier',
+            'classifier'    :   None
+        }
+
+        self.modules = {
+            'classifier'    :   self.classifier,
+            'generalTM'     :   self.generalTM,
+            'wordTM'        :   self.wordTM,
+            'wordSP'        :   self.wordSP,
+            'wordEnc'       :   self.wordEncoder, 
+            'actionTM'      :   self.actionTM,
+            'actionSP'      :   self.actionSP,
+            'actionEnc'     :   self.actionEncoder,
+        }
+        
         self.wordSP.printParameters()
         print ""
         
-        self.layer = Layer(self.wordEncoder, self.actionEncoder, self.wordSP,
-            self.wordTM, self.actionSP, self.actionTM, self.generalSP,
-            self.generalTM, self.classifier)
+        #self.layer = Layer(self.wordEncoder, self.actionEncoder, self.wordSP,
+            #self.wordTM, self.actionSP, self.actionTM, self.generalSP,
+            #self.generalTM, self.classifier)
+        self.layer = LSF()
     
     def extractCategories(self, trainingData):
         for sentence, actionSeq in trainingData:
@@ -327,7 +356,9 @@ class LearningStructure():
         for iteration in range(numIterations):
             print "Iteration #{iter}".format(iter = iteration)
             for sentence, actionSeq in trainingData:
-                self.layer.inputSentence(sentence, actionSeq, 0)
+                #self.layer.inputSentence(sentence, actionSeq, 1)
+                self.layer.inputSentence(sentence, actionSeq, self.classicStructure, 
+                    self.modules, 3)
                 self.wordTM.reset()
                 self.actionTM.reset()
                 self.generalTM.reset()
