@@ -14,9 +14,8 @@ from Learning.LearningStructure import *
 if __name__ == '__main__':
     
     structure = LearningStructure()
-    structure.train(15)
+    structure.train(30, verbose = 0)
     
     app = QApplication([])
     window = MainWindow(structure)
     sys.exit(app.exec_())
-6

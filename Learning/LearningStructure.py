@@ -91,14 +91,17 @@ class Layer():
                 print "Active cells = " + str(self.wordTM.activeCells)
                 print "Active values = " + activeCellsStr
             # Input into classifier
+            patternNZ = self.generalTM.mapCellsToColumns(self.generalTM.activeCells).keys()
+            print(patternNZ)
             retVal = self.classifier.compute (
                 recordNum = recordNum,
                 #patternNZ = predictedColumns,
-                patternNZ = self.generalTM.mapCellsToColumns(self.generalTM.activeCells).keys(),
+                patternNZ = patternNZ,
                 classification = {'bucketIdx': bucketIdx, 'actValue': word},
                 learn = learn,
                 infer = True
             )
+            #print(retVal)
             recordNum += 1
         #Print predictions from the general TM
         #predictedCells1 = generalTM.mapCellsToColumns(generalTM.predictiveCells).keys()
@@ -319,12 +322,10 @@ class LearningStructure():
             'actionSP'      :   'actionTM',
             'actionTM'      :   'generalTM',
             ###
-            'generalTM'     :   'classifier',
-            'classifier'    :   None
+            'generalTM'     :   None
         }
 
         self.modules = {
-            'classifier'    :   self.classifier,
             'generalTM'     :   self.generalTM,
             'wordTM'        :   self.wordTM,
             'wordSP'        :   self.wordSP,
@@ -337,10 +338,8 @@ class LearningStructure():
         self.wordSP.printParameters()
         print ""
         
-        #self.layer = Layer(self.wordEncoder, self.actionEncoder, self.wordSP,
-            #self.wordTM, self.actionSP, self.actionTM, self.generalSP,
-            #self.generalTM, self.classifier)
-        self.layer = LSF()
+        #self.layer = Layer(self.wordEncoder, self.actionEncoder, self.wordSP, self.wordTM, self.actionSP, self.actionTM, self.generalSP, self.generalTM, self.classifier)
+        self.layer = LSF(self.classicStructure, self.modules, self.classifier)
     
     def extractCategories(self, trainingData):
         for sentence, actionSeq in trainingData:
@@ -351,14 +350,12 @@ class LearningStructure():
                 if action not in self.actions:
                     self.actions.append(action)
     
-    def train(self, numIterations):
+    def train(self, numIterations, verbose = 0):
         
         for iteration in range(numIterations):
             print "Iteration #{iter}".format(iter = iteration)
             for sentence, actionSeq in trainingData:
-                #self.layer.inputSentence(sentence, actionSeq, 1)
-                self.layer.inputSentence(sentence, actionSeq, self.classicStructure, 
-                    self.modules, 3)
+                self.layer.inputSentence(sentence, actionSeq, verbose)
                 self.wordTM.reset()
                 self.actionTM.reset()
                 self.generalTM.reset()
