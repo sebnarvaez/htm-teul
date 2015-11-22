@@ -42,23 +42,23 @@ trainingData = (
     (('por', 'favor', 'mover', 'abajo'),                             ('action-mover', 'action-abajo')),
     (('quiero', 'mover', 'hacia', 'abajo'),                          ('action-mover', 'action-abajo')),
     (('moverse', 'para', 'abajo'),                                   ('action-mover', 'action-abajo')),
-    (('¿', 'podrias', 'moverlo', 'hacia', 'abajo', '?'),             ('action-mover', 'action-abajo')),
+    (('¿', 'podrias', 'moverlo', 'hacia', 'abajo', '?'),             ('action-mover', 'action-abajo'))
     ###
-    (('hacia', 'la', 'derecha'),                                     ('action-nothing', 'action-nothing')),
-    (('a', 'la', 'derecha'),                                         ('action-nothing', 'action-nothing')),
-    (('para', 'la', 'derecha'),                                      ('action-nothing', 'action-nothing')),
-    (('por', 'favor', 'a', 'la', 'derecha'),                         ('action-nothing', 'action-nothing')),
-    (('quiero', 'hacia', 'la', 'derecha'),                           ('action-nothing', 'action-nothing')),
-    (('para', 'la', 'derecha'),                                      ('action-nothing', 'action-nothing')),
-    (('¿', 'podrias', 'hacia', 'la', 'derecha', '?'),                ('action-nothing', 'action-nothing')),
-    ###
-    (('mover', 'hacia'),                                             ('action-mover', 'action-nothing')),
-    (('mover', 'a'),                                                 ('action-mover', 'action-nothing')),
-    (('mover', 'para'),                                              ('action-mover', 'action-nothing')),
-    (('por', 'favor', 'mover'),                                      ('action-mover', 'action-nothing')),
-    (('quiero', 'mover', 'hacia'),                                   ('action-mover', 'action-nothing')),
-    (('moverse', 'para'),                                            ('action-mover', 'action-nothing')),
-    (('¿', 'podrias', 'moverlo', 'hacia', '?'),                      ('action-mover', 'action-nothing'))
+    #(('hacia', 'la', 'derecha'),                                     ('action-nothing', 'action-nothing')),
+    #(('a', 'la', 'derecha'),                                         ('action-nothing', 'action-nothing')),
+    #(('para', 'la', 'derecha'),                                      ('action-nothing', 'action-nothing')),
+    #(('por', 'favor', 'a', 'la', 'derecha'),                         ('action-nothing', 'action-nothing')),
+    #(('quiero', 'hacia', 'la', 'derecha'),                           ('action-nothing', 'action-nothing')),
+    #(('para', 'la', 'derecha'),                                      ('action-nothing', 'action-nothing')),
+    #(('¿', 'podrias', 'hacia', 'la', 'derecha', '?'),                ('action-nothing', 'action-nothing')),
+    ####
+    #(('mover', 'hacia'),                                             ('action-mover', 'action-nothing')),
+    #(('mover', 'a'),                                                 ('action-mover', 'action-nothing')),
+    #(('mover', 'para'),                                              ('action-mover', 'action-nothing')),
+    #(('por', 'favor', 'mover'),                                      ('action-mover', 'action-nothing')),
+    #(('quiero', 'mover', 'hacia'),                                   ('action-mover', 'action-nothing')),
+    #(('moverse', 'para'),                                            ('action-mover', 'action-nothing')),
+    #(('¿', 'podrias', 'moverlo', 'hacia', '?'),                      ('action-mover', 'action-nothing'))
 )
     
 #actionsData = (

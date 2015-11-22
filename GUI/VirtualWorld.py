@@ -7,13 +7,10 @@
 #  Versión: 0.1
 
 """
-ZetCode PyQt5 tutorial 
-
-This is a VentanaPrincipal game clone.
+This code is partly based on ZetCode PyQt5 tutorial 
 
 author: Jan Bodnar
 website: zetcode.com 
-last edited: January 2015
 """
 
 import sys, random
@@ -37,13 +34,12 @@ class VirtualWorld(QFrame):
     NUM_COLUMNS = 5
     NUM_ROWS = 5
     OBJECTS = dict()
-    #Speed = 300
 
     def __init__(self, parent):
+    
         super(VirtualWorld, self).__init__(parent)
         
         self.initVirtualWorld()
-        
         
     def initVirtualWorld(self):     
 
@@ -60,6 +56,7 @@ class VirtualWorld(QFrame):
         
         for column in range(self.NUM_COLUMNS):
             self.WORLD_GRID.append([])
+            
             for row in range(self.NUM_ROWS):
                 self.WORLD_GRID[column].append(QLabel())
                 self.WORLD_GRID[column][row].setStyleSheet(
@@ -72,8 +69,11 @@ class VirtualWorld(QFrame):
     def addObj(self, objId, objType, x, y, imgWidth = None, imgHeight = None):
         """ Adds an object to the Virtual World """
         
-        if imgWidth == None: imgWidth = self.CELL_WIDTH - 10
-        if imgHeight == None: imgHeight = self.CELL_HEIGHT - 10
+        if imgWidth == None: 
+            imgWidth = self.CELL_WIDTH - 10
+            
+        if imgHeight == None:
+            imgHeight = self.CELL_HEIGHT - 10
         obj = WorldObject(objType, x, y, imgWidth, imgHeight)
         self.OBJECTS[objId] = obj
         self.WORLD_GRID[x][y].setPixmap(obj.pixmap)
@@ -130,28 +130,30 @@ class WorldObject:
         @param x, y : Coordenates of the object in the virtual world
         @param imgWidth, imgHeight: Width and Height of the object's icon
         """
+        
         self.x = x
         self.y = y
         self.img = IMG_PATHS[objType]
         self.pixmap = QPixmap(self.img).scaled(imgWidth, imgHeight, Qt.KeepAspectRatio)
         
     def resizePixmap(self, imgWidth, imgHeight):
+    
         self.pixmap = self.pixmap.scaled(imgWidth, imgHeight, Qt.KeepAspectRatio)
 
 if __name__ == '__main__':
     
     app = QApplication([])
-    mundo = QMainWindow()
-    tboard = VirtualWorld(mundo)
-    mundo.setCentralWidget(tboard)
+    ventana = QMainWindow()
+    mundo = VirtualWorld(ventana)
+    ventana.setCentralWidget(mundo)
     
-    mundo.resize(500, 600)
-    mundo.setWindowTitle('Virtual World')
-    mundo.show()
+    ventana.resize(500, 600)
+    ventana.setWindowTitle('Virtual World')
+    ventana.show()
 
     screen = QDesktopWidget().screenGeometry()
-    size = mundo.geometry()
-    mundo.move((screen.width()-size.width())/2, 
+    size = ventana.geometry()
+    ventana.move((screen.width()-size.width())/2, 
         (screen.height()-size.height())/2)
     
     sys.exit(app.exec_())

@@ -13,8 +13,8 @@ from Learning.LearningStructure import *
 
 if __name__ == '__main__':
     
-    structure = LearningStructure()
-    structure.train(30, verbose = 0)
+    structure = ClassicStructure()
+    structure.train(8, verbose=0)
     
     app = QApplication([])
     window = MainWindow(structure)
