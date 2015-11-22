@@ -6,8 +6,6 @@
 #  Fecha última modificación: 2015-10-21
 #  Versión: 1.01
 
-#import sys
-#sys.path.append("..")
 from VirtualWorld import VirtualWorld
 from functools import partial
 from PyQt5 import uic

@@ -190,25 +190,5 @@ class Layer():
                     print("")
                 
                 recordNum += 1
-        
-        #for action in actionSeq:
-            
-            #structureOutput = self.applyStructure(action, 'actionInput', verbosity,
-                #recordNum, learn)
-            #patternNZ = self.toPatterNZ(structureOutput['lastModule'], 
-                #structureOutput['lastOutput'])
-            
-            #self.classifier.compute(
-                    #recordNum = recordNum,
-                    #patternNZ = patternNZ,
-                    #classification = {
-                        #'bucketIdx': structureOutput['lastBucketIdx'], 
-                        #'actValue': action
-                    #},
-                    #learn = learn,
-                    #infer = False
-                #)
-            
-            #recordNum += 1
                 
         return bestPredictions

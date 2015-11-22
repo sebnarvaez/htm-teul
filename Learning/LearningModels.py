@@ -1,35 +1,25 @@
 #!python2
 #-*- coding: utf-8 -*-
-#  LearningStructure.py
+#  LearningModels.py
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-09-30
 #  Fecha última modificación: 2015-10-27
 #  Versión: 1.01
 
-"""
- Encodings:
-   Word & Action-> Category
- Structure:
-   WordCategory -> WordsSP -> SentencesTM
-   ActionCategory -> ActionsSP -> ActionsSeqTM
-       SentencesTM + ActionsSeqTM -> generalTM
-"""
 from __future__ import print_function
 
 from Layer import Layer
 from TrainingData import trainingData
 
-from nupic.encoders.category import CategoryEncoder
 from nupic.algorithms.CLAClassifier import CLAClassifier
 from nupic.encoders.scalar import ScalarEncoder
 from nupic.research.spatial_pooler import SpatialPooler
 from nupic.research.temporal_memory import TemporalMemory
 
-class LearningStructure():
+class LearningModel():
     """
-    This class is intended as a template for Learning Structure classes.
-    It doesn't do anything by itself, but you can inherit from it for a
-    generic implementation of the train method.
+    This class is intended as a guide for Learning Structure classes.
+    It doesn't do anything by itself.
     """
     
     def __init__(self):
@@ -50,26 +40,25 @@ class LearningStructure():
     
         pass
     
-    def train(self, numIterations, verbose=0):
+    def train(self, trainingData, numIterations, verbose=0):
         
-        for iteration in range(numIterations):
-            print("Iteration "  + str(iteration))
-            
-            for sentence, actionSeq in trainingData:
-                inputData = [('wordInput', sentence), ('actionInput', actionSeq)]
-                self.layer.processInput(inputData, verbose)
-                
-                self.wordTM.reset()
-                self.actionTM.reset()
-                self.generalTM.reset()
+        pass
 
-class ClassicStructure(LearningStructure):
+class ClassicModel():
+    """
+     Encodings:
+       Word & Action-> Category
+     Structure:
+       WordCategory -> WordsSP -> SentencesTM
+       ActionCategory -> ActionsSP -> ActionsSeqTM
+           SentencesTM + ActionsSeqTM -> generalTM
+    """
 
-
-    def __init__(self):
+    def __init__(self, wordEncoder, actionEncoder):
     
-        self.words = []
-        self.actions = []
+        self.wordEncoder = wordEncoder
+        self.actionEncoder = actionEncoder
+        
         self.initModules()
         
         self.classicStructure = {
@@ -85,7 +74,6 @@ class ClassicStructure(LearningStructure):
             ###
             'generalTM' : None
         }
-
         self.modules = {
             'generalTM' : self.generalTM,
             'wordTM' : self.wordTM,
@@ -96,19 +84,10 @@ class ClassicStructure(LearningStructure):
             'actionEnc' : self.actionEncoder
         }
         
-        #self.layer = Layer(self.wordEncoder, self.actionEncoder, self.wordSP, self.wordTM, self.actionSP, self.actionTM, self.generalSP, self.generalTM, self.classifier)
-        #self.layer = LSF(self.classicStructure, self.modules, self.classifier)
         self.layer = Layer(self.classicStructure, self.modules, self.classifier)
 
     def initModules(self):
-    
-        self.extractCategories(trainingData)
-        self.encoder = CategoryEncoder(
-            w=5,
-            categoryList=(self.words + self.actions),
-            forced=True
-        )
-        self.wordEncoder = self.actionEncoder = self.encoder
+        
         #self.wordEncoder = CategoryEncoder(w = 5, categoryList = words, forced = True)
         #self.actionEncoder = CategoryEncoder(w = 5, categoryList = actions, forced = True)
         
@@ -174,19 +153,14 @@ class ClassicStructure(LearningStructure):
             activationThreshold=4
         )
         
-        generalInputDim = self.wordTM.numberOfCells() + self.actionTM.numberOfCells()
-        
-        generalEncoder = ScalarEncoder(
-            w=21,
-            minval=0,
-            maxval=self.wordTM.numberOfCells(),
-            radius=32,
-            clipInput=True
-        )
+        generalInputDimensions = max(
+                self.wordTM.numberOfCells(),
+                self.actionTM.numberOfCells()
+            )
         
         self.generalSP = SpatialPooler(
-            inputDimensions=generalEncoder.getWidth(),
-            columnDimensions=(len(trainingData) * 3),
+            inputDimensions=generalInputDimensions,
+            columnDimensions=(1000, ), #Cant aprox. del training set * 3
             potentialRadius=28,
             potentialPct=0.5,
             globalInhibition=True,
@@ -224,20 +198,21 @@ class ClassicStructure(LearningStructure):
             verbosity=0
         )
     
-    def extractCategories(self, trainingData):
-    
-        for sentence, actionSeq in trainingData:
-            for word in sentence:
-                if word not in self.words:
-                    self.words.append(word)
-                    
-            for action in actionSeq:
-                if action not in self.actions:
-                    self.actions.append(action)
-    
     def inputSentence(self, sentence, verbose=1, learn=False):
     
         inputData = [('wordInput', sentence)]
         
         return self.layer.processInput(inputData, verbose, learn)
 
+    def train(self, trainingData, numIterations, verbose=0):
+    
+        for iteration in range(numIterations):
+            print("Iteration "  + str(iteration))
+            
+            for sentence, actionSeq in trainingData:
+                inputData = [('wordInput', sentence), ('actionInput', actionSeq)]
+                self.layer.processInput(inputData, verbose)
+                
+                self.wordTM.reset()
+                self.actionTM.reset()
+                self.generalTM.reset()

@@ -9,12 +9,15 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 from GUI.MainWindow import MainWindow
-from Learning.LearningStructure import *
+from Learning import EncoderFactory
+from Learning.LearningModels import *
+from Learning.TrainingData import *
 
 if __name__ == '__main__':
     
-    structure = ClassicStructure()
-    structure.train(8, verbose=0)
+    wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(trainingData)
+    structure = ClassicModel(wordEncoder, actionEncoder)
+    structure.train(trainingData, 8, verbose=0)
     
     app = QApplication([])
     window = MainWindow(structure)
