@@ -4,7 +4,7 @@
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-11-22
 #  Fecha última modificación: 2015-11-22
-#  Versión: 0.1
+#  Versión: 1.0 [Stable]
 
 from nupic.encoders.category import CategoryEncoder
 

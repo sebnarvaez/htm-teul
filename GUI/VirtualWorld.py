@@ -4,7 +4,7 @@
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-10-22
 #  Fecha última modificación: 2015-10-22
-#  Versión: 0.1
+#  Versión: 1.1 [Stable]
 
 """
 This code is partly based on ZetCode PyQt5 tutorial 
@@ -81,8 +81,8 @@ class VirtualWorld(QFrame):
     def moveObj(self, objId, direction):
         """
         Moves an object in the Virtual World
-        @param objId : id of the object. See OBJECTS.keys() for a list of the
-            available objects.
+        @param objId : id of the object. See OBJECTS.keys() for a list
+            of the available objects.
         @param direction
         """
         
@@ -125,8 +125,8 @@ class WorldObject:
     def __init__(self, objType, x, y, imgWidth, imgHeight):
         """
         Creates an object of the virtual world 
-        @param objType : The type of the object. See IMG_PATHS.keys() for a list
-        of the available types.
+        @param objType : The type of the object. See IMG_PATHS.keys()
+            for a list of the available types.
         @param x, y : Coordenates of the object in the virtual world
         @param imgWidth, imgHeight: Width and Height of the object's icon
         """
@@ -134,7 +134,8 @@ class WorldObject:
         self.x = x
         self.y = y
         self.img = IMG_PATHS[objType]
-        self.pixmap = QPixmap(self.img).scaled(imgWidth, imgHeight, Qt.KeepAspectRatio)
+        self.pixmap = QPixmap(self.img)
+        self.resizePixmap(imgWidth, imgHeight)
         
     def resizePixmap(self, imgWidth, imgHeight):
     

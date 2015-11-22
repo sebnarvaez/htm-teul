@@ -3,8 +3,8 @@
 #  MainWindow.py
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-10-27
-#  Fecha última modificación: 2015-10-21
-#  Versión: 1.01
+#  Fecha última modificación: 2015-11-22
+#  Versión: 1.2 [Stable]
 
 from VirtualWorld import VirtualWorld
 from functools import partial
@@ -61,7 +61,9 @@ class MainWindow:
             learn=False)
         
         if predictions[0] == 'action-mover':
-            self.frame.txtEdt_log.append(self.world.moveObj('P1', predictions[1][7:]))
+            self.frame.txtEdt_log.append(
+                self.world.moveObj('P1', predictions[1][7:])
+            )
             
         self.structure.wordTM.reset()
         self.structure.actionTM.reset()

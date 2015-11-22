@@ -3,13 +3,12 @@
 #  LearningModels.py
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-09-30
-#  Fecha última modificación: 2015-10-27
-#  Versión: 1.01
+#  Fecha última modificación: 2015-11-22
+#  Versión: 1.2
 
 from __future__ import print_function
 
 from Layer import Layer
-from TrainingData import trainingData
 
 from nupic.algorithms.CLAClassifier import CLAClassifier
 from nupic.encoders.scalar import ScalarEncoder
@@ -24,8 +23,9 @@ class LearningModel():
     
     def __init__(self):
         """
-        Initialize the module objects, the modules and the structure dicts,
-        the layer and any other object you'll need for your learning structure
+        Initialize the module objects, the modules and the structure
+        dicts, the layer and any other object you'll need for your
+        learning structure
         """
         
         self.initModules()
@@ -87,9 +87,6 @@ class ClassicModel():
         self.layer = Layer(self.classicStructure, self.modules, self.classifier)
 
     def initModules(self):
-        
-        #self.wordEncoder = CategoryEncoder(w = 5, categoryList = words, forced = True)
-        #self.actionEncoder = CategoryEncoder(w = 5, categoryList = actions, forced = True)
         
         self.wordSP = SpatialPooler(
             inputDimensions=(self.wordEncoder.getWidth()),
@@ -160,7 +157,7 @@ class ClassicModel():
         
         self.generalSP = SpatialPooler(
             inputDimensions=generalInputDimensions,
-            columnDimensions=(1000, ), #Cant aprox. del training set * 3
+            columnDimensions=(1000,), # Aprox. size of the training set * 3
             potentialRadius=28,
             potentialPct=0.5,
             globalInhibition=True,

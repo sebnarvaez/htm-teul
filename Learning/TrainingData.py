@@ -4,7 +4,7 @@
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-11-02
 #  Fecha última modificación: 2015-11-02
-#  Versión: 1.0 [estable]
+#  Versión: 1.0 [Stable]
 
 """
 The training data is a list of tuples, where the first element of the tuple is
