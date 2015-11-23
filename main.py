@@ -12,12 +12,13 @@ from GUI.MainWindow import MainWindow
 from Learning import EncoderFactory
 from Learning.LearningModels import *
 from Learning.TrainingData import *
+from Learning.MovementTrainingSet import *
 
 if __name__ == '__main__':
     
-    wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(trainingData)
+    wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(movementData)
     structure = ClassicModel(wordEncoder, actionEncoder)
-    structure.train(trainingData, 8, verbose=0)
+    structure.train(movementData, 8, verbose=0)
     
     app = QApplication([])
     window = MainWindow(structure)

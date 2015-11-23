@@ -15,7 +15,6 @@ def unifiedCategoryEnc(trainingData, w=11):
     Goes through the training data, exctracts the categories and makes
     one Category Encoder for all of them.
     """
-    
     words = []
     actions = []
     

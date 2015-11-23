@@ -46,6 +46,7 @@ class MainWindow:
         self.frame.btn_down.clicked.connect(partial(self.world.moveObj,
             objId="P1", direction='abajo'))
         self.frame.btn_execSentence.clicked.connect(self.execSentence)
+        self.frame.lnEdt_sentence.returnPressed.connect(self.execSentence)
         self.frame.btn_clearLog.clicked.connect(self.frame.txtEdt_log.clear)
     
     def execSentence(self):
