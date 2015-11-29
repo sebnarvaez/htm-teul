@@ -46,22 +46,28 @@ class LearningModel():
 
 class ClassicModel():
     """
-     Encodings:
-       Word & Action-> Category
      Structure:
        WordCategory -> WordsSP -> SentencesTM
        ActionCategory -> ActionsSP -> ActionsSeqTM
            SentencesTM + ActionsSeqTM -> generalTM
     """
 
-    def __init__(self, wordEncoder, actionEncoder):
-    
+    def __init__(self, wordEncoder, actionEncoder, dataSet):
+        """
+        @param wordEncoder
+        @param actionEncoder
+        @param dataSet: A module containing the trainingData, all of
+            its categories and the inputIdx dict that maps each index
+            in categories to an input name.
+        """
+        
         self.wordEncoder = wordEncoder
         self.actionEncoder = actionEncoder
+        self.dataSet = dataSet
         
         self.initModules()
         
-        self.classicStructure = {
+        self.structure = {
             'wordInput' : 'wordEnc',
             'wordEnc' : 'wordSP',
             'wordSP' : 'wordTM',
@@ -84,13 +90,13 @@ class ClassicModel():
             'actionEnc' : self.actionEncoder
         }
         
-        self.layer = Layer(self.classicStructure, self.modules, self.classifier)
+        self.layer = Layer(self.structure, self.modules, self.classifier)
 
     def initModules(self):
         
         self.wordSP = SpatialPooler(
             inputDimensions=(self.wordEncoder.getWidth()),
-            columnDimensions=(self.wordEncoder.ncategories * 3),
+            columnDimensions=(len(self.dataSet.categories) * 3),
             potentialRadius=12,
             potentialPct=0.5,
             globalInhibition=True,
@@ -109,7 +115,7 @@ class ClassicModel():
         )
         
         self.wordTM = TemporalMemory(
-            columnDimensions=(self.wordEncoder.ncategories * 3,),
+            columnDimensions=(len(self.dataSet.categories) * 3,),
             initialPermanence=0.4,
             connectedPermanence=0.5,
             minThreshold=4,
@@ -121,7 +127,7 @@ class ClassicModel():
         
         self.actionSP = SpatialPooler(
             inputDimensions=self.actionEncoder.getWidth(),
-            columnDimensions=(self.actionEncoder.ncategories * 3),
+            columnDimensions=(len(self.dataSet.categories) * 3),
             potentialRadius=12,
             potentialPct=0.5,
             globalInhibition=True,
@@ -140,7 +146,7 @@ class ClassicModel():
         )
         
         self.actionTM = TemporalMemory(
-            columnDimensions=(self.actionEncoder.ncategories * 3,),
+            columnDimensions=(len(self.dataSet.categories) * 3,),
             initialPermanence=0.4,
             connectedPermanence=0.5,
             minThreshold=4,
@@ -157,22 +163,22 @@ class ClassicModel():
         
         self.generalSP = SpatialPooler(
             inputDimensions=generalInputDimensions,
-            columnDimensions=(1000,), # Aprox. size of the training set * 3
-            potentialRadius=28,
-            potentialPct=0.5,
-            globalInhibition=True,
-            localAreaDensity=-1.0,
-            numActiveColumnsPerInhArea=5.0,
-            stimulusThreshold=0,
-            synPermInactiveDec=0.1,
-            synPermActiveInc=0.1,
-            synPermConnected=0.1,
-            minPctOverlapDutyCycle=0.1,
-            minPctActiveDutyCycle=0.1,
-            dutyCyclePeriod=10, 
-            maxBoost=3,
-            seed=42,
-            spVerbosity=0
+            columnDimensions=(len(self.dataSet.trainingData) * 3,),
+            potentialRadius = 28,
+            potentialPct = 0.5,
+            globalInhibition = True,
+            localAreaDensity = -1.0,
+            numActiveColumnsPerInhArea = 5.0,
+            stimulusThreshold = 0,
+            synPermInactiveDec = 0.1,
+            synPermActiveInc = 0.1,
+            synPermConnected = 0.1,
+            minPctOverlapDutyCycle = 0.1,
+            minPctActiveDutyCycle = 0.1,
+            dutyCyclePeriod = 10, 
+            maxBoost = 3,
+            seed = 42,
+            spVerbosity = 0
         ) 
         
         self.generalTM = TemporalMemory(
@@ -201,12 +207,12 @@ class ClassicModel():
         
         return self.layer.processInput(inputData, verbose, learn)
 
-    def train(self, trainingData, numIterations, verbose=0):
+    def train(self, numIterations, verbose=0):
     
-        for iteration in range(numIterations):
+        for iteration in xrange(numIterations):
             print("Iteration "  + str(iteration))
             
-            for sentence, actionSeq in trainingData:
+            for sentence, actionSeq in self.dataSet.trainingData:
                 inputData = [('wordInput', sentence), ('actionInput', actionSeq)]
                 self.layer.processInput(inputData, verbose)
                 

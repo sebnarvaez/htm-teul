@@ -11,14 +11,16 @@ from PyQt5.QtWidgets import QApplication
 from GUI.MainWindow import MainWindow
 from Learning import EncoderFactory
 from Learning.LearningModels import *
-from Learning.TrainingData import *
-from Learning.MovementTrainingSet import *
+from Learning import MovementTrainingSet as MTS
 
 if __name__ == '__main__':
     
-    wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(movementData)
-    structure = ClassicModel(wordEncoder, actionEncoder)
-    structure.train(movementData, 8, verbose=0)
+    #print("Unified Encoder")
+    #wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(MTS.categories)
+    print("Randomized Letter Encoder")
+    wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(200, 10)
+    structure = ClassicModel(wordEncoder, actionEncoder, MTS)
+    structure.train(80, verbose=0)
     
     app = QApplication([])
     window = MainWindow(structure)

@@ -1,4 +1,4 @@
-Oracion,Accion
+wordInput,actionInput
 mover hacia {direccion},action-mover action-{argumento}
 mover a {direccion},action-mover action-{argumento}
 mover para {direccion},action-mover action-{argumento}

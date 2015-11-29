@@ -54,10 +54,10 @@ class VirtualWorld(QFrame):
         grid = QGridLayout()
         self.setLayout(grid)
         
-        for column in range(self.NUM_COLUMNS):
+        for column in xrange(self.NUM_COLUMNS):
             self.WORLD_GRID.append([])
             
-            for row in range(self.NUM_ROWS):
+            for row in xrange(self.NUM_ROWS):
                 self.WORLD_GRID[column].append(QLabel())
                 self.WORLD_GRID[column][row].setStyleSheet(
                     "QLabel { background-color : green }"

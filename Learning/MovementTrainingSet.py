@@ -2,7 +2,7 @@
 Automatically generated Training Data Set for the Movement actions
 """
 
-movementData = (
+trainingData = (
     (['mover', 'hacia', 'la', 'derecha'], ['action-mover', 'action-derecha']),
     (['mover', 'hacia', 'la', 'izquierda'], ['action-mover', 'action-izquierda']),
     (['mover', 'hacia', 'arriba'], ['action-mover', 'action-arriba']),
@@ -148,3 +148,5 @@ movementData = (
     (['muevete', 'para', 'el', 'norte', 'por', 'favor'], ['action-mover', 'action-arriba']),
     (['muevete', 'para', 'el', 'sur', 'por', 'favor'], ['action-mover', 'action-abajo'])
 )
+inputIdx = {'actionInput': 1, 'wordInput': 0}
+categories = [set(['el', 'este', 'por', 'al', 'hacia', 'mover', 'quiero', 'para', 'la', 'moverse', 'derecha', 'favor', 'arriba', 'sur', 'te', '?', 'podrias', 'muevete', 'norte', 'abajo', 'que', 'oeste', 'a', 'izquierda', '\xbf', 'muevas', 'moverlo']), set(['action-izquierda', 'action-mover', 'action-derecha', 'action-abajo', 'action-arriba'])]

@@ -1,0 +1,6 @@
+Unified category encoder - Training 80 iterations.
+    Action and Argumment:     39%
+    Only one of them:         61%
+    Neither:                  
+
+    
