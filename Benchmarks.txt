@@ -1,6 +1,14 @@
-Unified category encoder - Training 80 iterations.
-    Action and Argumment:     39%
-    Only one of them:         61%
-    Neither:                  
+Unified category encoder - Training 15 iterations.
+    Action and Argumment:      62.5%      
+    Only one of them:          29.2%    Todos fueron por mover a la derecha
+    Neither:                    8.3%    Todos fueron por "muevete hacia {} por favor"
 
-    
+Randomized letter encoder - Training 15 iterations.
+    Action and Argumment:       0.0%
+    Only one of them:           0.0%
+    Neither:                  100.0%    Siempre predice lo mismo (¿Muy parecidos?)
+
+Totally Random Encoder
+    Action and Argumment:       18.8%   Solo aprendió a moverse hacia abajo.
+    Only one of them:           18.8%
+    Neither:                    62.5%

@@ -107,3 +107,47 @@ class RandomizedLetterEncoder(Encoder):
         encodedData = self.encode(inputData)
         return numpy.where(encodedData > 0)[0]
         
+class TotallyRandomEncoder(Encoder):
+    """
+    Encoder for strings. It encodes each letter into binary and appends
+    a random chain of bits at the end.
+    """
+
+    def __init__(self, width, nActiveBits):
+        """
+        @param width: The size of the encoded list of bits output.
+        @param nActiveBits: The number of active bits. Their possition
+            is generated randomly the first time and then retrieved.
+        """
+        
+        if nActiveBits > width:
+            raise ValueError("width must be greater than nActiveBits")
+        self.width = width
+        self.nActiveBits = nActiveBits
+        self.alreadyEncoded = dict()
+
+    def getWidth(self):
+    
+        return self.width
+    
+    def encode(self, inputData, verbose=0):
+        """
+        @param inputData
+        @param verbose=0
+        """
+        
+        if inputData not in self.alreadyEncoded:
+            self.alreadyEncoded[inputData] = numpy.array(
+                [random.randrange(self.width) for _ in xrange(self.nActiveBits)],
+                dtype=numpy.int
+            )
+        
+        output = numpy.zeros(self.width, dtype=numpy.int)
+        output[self.alreadyEncoded[inputData]] = 1
+            
+        return output
+        
+    def getBucketIndices(self, inputData):
+    
+        encodedData = self.encode(inputData)
+        return numpy.where(encodedData > 0)[0]

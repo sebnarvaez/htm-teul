@@ -4,7 +4,7 @@
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-11-21
 #  Fecha última modificación: 2015-11-22
-#  Versión: 1.0 [Stable]
+#  Versión: 1.1
 
 from __future__ import print_function
 
