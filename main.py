@@ -19,20 +19,19 @@ if __name__ == '__main__':
     print("Unified Category Encoder")
     wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(MTS.categories)
     #print("Randomized Letter Encoder")
-    #wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(200, 10)
+    #wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(300, 10)
     #print("Totally Random Encoder")
     #wordEncoder = actionEncoder = EncoderFactory.TotallyRandomEncoder(50, 10)
     
-    structure = ClassicModel(wordEncoder, actionEncoder, MTS.categories,
-        MTS.inputIdx)
-    structure.train(MTS.trainingData, 15, verbose=0)
+    structure = ClassicModel(wordEncoder, actionEncoder, MTS)
+    structure.train(30, verbose=0)
     
-    #print("Saving the structure...")
-    ##with open('UCE_Structure.pck', 'wb') as structureFile:
-    ##with open('RLE_Structure.pck', 'wb') as structureFile:
+    print("Saving the structure...")
+    with open('UCE_Structure.pck', 'wb') as structureFile:
+    #with open('RLE_Structure.pck', 'wb') as structureFile:
     #with open('TRE_Structure.pck', 'wb') as structureFile:
-        #cPickle.dump(structure, structureFile, -1)
-    #print("Done!")
+        cPickle.dump(structure, structureFile, -1)
+    print("Done!")
     app = QApplication([])
     window = MainWindow(structure)
     app.exec_()

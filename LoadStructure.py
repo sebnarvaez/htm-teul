@@ -18,9 +18,9 @@ if __name__ == '__main__':
     structure = None
     
     print("Loading the structure...")
-    #with open('UCE_Structure.pck', 'rb') as structureFile:
+    with open('UCE_Structure.pck', 'rb') as structureFile:
     #with open('RLE_Structure.pck', 'rb') as structureFile:
-    with open('TRE_Structure.pck', 'rb') as structureFile:
+    #with open('TRE_Structure.pck', 'rb') as structureFile:
         structure = cPickle.load(structureFile)
     
     #structure.train(MTS.trainingData, 5, verbose=0)

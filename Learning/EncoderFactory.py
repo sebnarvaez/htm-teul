@@ -55,16 +55,18 @@ class RandomizedLetterEncoder(Encoder):
     a random chain of bits at the end.
     """
 
-    def __init__(self, width, minRandBits):
+    def __init__(self, width, nRandBits):
         """
         @param width: The size of the encoded list of bits output.
-        @param minRandBits: The minimum number of random bits that the
-            output will have after the binary representation of the
+        @param nRandBits: The number of random bits that the output
+            will have after the binary representation of the
             string. 0 for a pure string to binary conversion.
         """
+        if nRandBits > width:
+            raise ValueError("nRandBits cant be greater than width.")
         
         self.width = width
-        self.minRandBits = minRandBits
+        self.nRandBits = nRandBits
         self.alreadyEncoded = dict()
 
     def getWidth(self):
@@ -80,27 +82,25 @@ class RandomizedLetterEncoder(Encoder):
         bitsPerChar = 8
         strBinaryLen = len(inputData) * bitsPerChar
         
-        if (strBinaryLen + self.minRandBits) > self.width:
+        if (strBinaryLen + self.nRandBits) > self.width:
             raise ValueError("The string is too long to be encoded with the"\
-                "current width and minRandBits parameters.")
-        output = []
+                "current width and nRandBits parameters.")
+        strBinary = []
         
         # Encode each char of the string 
         for letter in inputData:
-            output.extend(intToBinary(ord(letter), bitsPerChar))
+            strBinary.extend(intToBinary(ord(letter), bitsPerChar))
         
-        if inputData in self.alreadyEncoded:
-            output.extend(self.alreadyEncoded[inputData])
-            return numpy.array(output, dtype='uint8')
+        if inputData not in self.alreadyEncoded:
+            self.alreadyEncoded[inputData] = [
+                random.randrange(strBinaryLen, self.width) \
+                    for _ in xrange(self.nRandBits)
+            ]
         
-        numRandomBits = self.width - strBinaryLen
-        randomBits = intToBinary(random.randint(0, 2 ** numRandomBits),
-            numRandomBits)
-            
-        self.alreadyEncoded[inputData] = randomBits
-            
-        output.extend(randomBits)
-        return numpy.array(output, dtype='uint8')
+        output = numpy.zeros((self.width,), dtype=numpy.uint8)
+        output[:strBinaryLen] = strBinary
+        output[self.alreadyEncoded[inputData]] = 1
+        return output
         
     def getBucketIndices(self, inputData):
     
@@ -139,10 +139,10 @@ class TotallyRandomEncoder(Encoder):
         if inputData not in self.alreadyEncoded:
             self.alreadyEncoded[inputData] = numpy.array(
                 [random.randrange(self.width) for _ in xrange(self.nActiveBits)],
-                dtype=numpy.int
+                dtype=numpy.uint8
             )
         
-        output = numpy.zeros(self.width, dtype=numpy.int)
+        output = numpy.zeros(self.width, dtype=numpy.uint8)
         output[self.alreadyEncoded[inputData]] = 1
             
         return output

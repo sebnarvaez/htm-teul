@@ -48,15 +48,16 @@ class Layer():
         @param learn=True: Whether to enable learning.
         
         @return A dictionary containing:
-            'lastModule': The name of the last module executed (the
+            'lastModType': The type of the last module executed (at the
                 highest level of the structure)
             'lastOutput': The output produced by the last module.
             'lastBucketIdx': The bucketIdx from the last encoder used.
         """
         moduleName = self.structure[inputName]
-        # lastOutput hold the last output that was generated.
+        # prevOutput holds the last output that was generated.
         # It's uptdated each iteration.
-        lastOutput = value 
+        prevOutput = value 
+        prevModName = ''
         bucketIdx = 0
         
         if verbosity > 1 :
@@ -69,19 +70,31 @@ class Layer():
                 print("Current module: " + moduleName)
             
             if moduleName[-3:] == 'Enc':
-                encodedValue = module.encode(lastOutput)
-                bucketIdx = module.getBucketIndices(lastOutput)[0]
+                encodedValue = module.encode(prevOutput)
+                bucketIdx = module.getBucketIndices(prevOutput)[0]
                 
-                lastOutput = encodedValue
+                prevOutput = encodedValue
+                prevModName = moduleName
             
             elif moduleName[-2:] == 'SP':
-                spOutput = numpy.zeros(module.getColumnDimensions())
-                module.compute(lastOutput, learn, spOutput)
+                if prevModName[-2:] == 'TM':
+                    spInput = numpy.zeros(module.getInputDimensions()[0],
+                        dtype=numpy.uint8)
+                    spInput[list(prevOutput)] = 1
+                    prevOutput = spInput
                 
-                lastOutput = sorted(numpy.where(spOutput > 0)[0].flat)
+                spOutput = numpy.zeros(module.getColumnDimensions(),
+                    dtype=numpy.uint8)
+                module.compute(prevOutput, learn, spOutput)
+                
+                prevOutput = spOutput
+                prevModName = moduleName
                 
             elif moduleName[-2:] == 'TM':
-                module.compute(set(lastOutput), learn)
+                if prevModName[-3:] == 'Enc' or prevModName[-2:] == 'SP':
+                    prevOutput = sorted(numpy.where(spOutput > 0)[0].flat)
+                
+                module.compute(set(prevOutput), learn)
                 
                 if verbosity > 1 :
                 
@@ -90,19 +103,20 @@ class Layer():
                     print(moduleName + " columns prediction = " +
                         str(predictedColumns))
 
-                lastOutput = module.activeCells
+                prevOutput = module.activeCells
+                prevModName = moduleName
             
             else:
                 raise ValueError("Invalid Module Name. See the function's "\
                     "docstring to see the correct usage.")
             
             if verbosity > 1 :
-                print(moduleName + " Output = " + str(lastOutput))
+                print(moduleName + " Output = " + str(prevOutput))
             
             if self.structure[moduleName] == None:
                 return {
-                    'lastModule' : moduleName,
-                    'lastOutput' : lastOutput,
+                    'lastModName' : prevModName,
+                    'lastOutput' : prevOutput,
                     'lastBucketIdx' : bucketIdx
                 }
                 
@@ -110,15 +124,15 @@ class Layer():
             
             
                 
-    def toPatterNZ(self, moduleName, moduleOutput):
+    def toPatterNZ(self, lastModName, lastModOutput):
         """ Correctly format the output of a module for the classifier """
         
-        if (moduleName[-3:] == 'Enc') or (moduleName[-2:] == 'SP'):
-            return numpy.where(moduleOutput > 0)[0]
+        if (lastModName[-3:] == 'Enc') or (lastModName[-2:] == 'SP'):
+            return numpy.where(lastModOutput > 0)[0]
         
-        elif moduleName[-2:] == 'TM':
-            module = self.modules[moduleName]
-            return module.mapCellsToColumns(moduleOutput).keys()
+        elif lastModName[-2:] == 'TM':
+            module = self.modules[lastModName]
+            return module.mapCellsToColumns(lastModOutput).keys()
         
         else:
             raise ValueError("Invalid Module Name. See the function's "\
@@ -147,7 +161,7 @@ class Layer():
             for value in inputModule[1]:
                 structureOutput = self.applyStructure(value, inputModule[0],
                     verbosity, recordNum, learn)
-                patternNZ = self.toPatterNZ(structureOutput['lastModule'], 
+                patternNZ = self.toPatterNZ(structureOutput['lastModName'], 
                     structureOutput['lastOutput'])
                 retVal = self.classifier.compute(
                         recordNum=recordNum,

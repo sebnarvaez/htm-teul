@@ -101,6 +101,6 @@ def writeDataUnit(columns, formatArgs, outputFile):
     
 if __name__ == '__main__':
     #addData('Dropbox/Tesis/htm-teul/Learning/Data/Movimiento.csv')
-    addData('Data/Movimiento.csv', 'wb')
+    addData('Data/Movimiento2.csv', 'wb')
     #for filePath in glob.glob('Data/*.csv'):
         #addData(filePath)

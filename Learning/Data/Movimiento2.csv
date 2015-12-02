@@ -1,0 +1,37 @@
+wordInput,actionInput
+mover hacia {direccion},action-mover action-{argumento}
+mover hacia {cardinal},action-mover action-{argumento}
+mover a {direccion},action-mover action-{argumento}
+mover a {cardinal},action-mover action-{argumento}
+mover para {direccion},action-mover action-{argumento}
+mover para {cardinal},action-mover action-{argumento}
+por favor mover hacia {direccion},action-mover action-{argumento}
+por favor mover hacia {cardinal},action-mover action-{argumento}
+por favor mover a {direccion},action-mover action-{argumento}
+por favor mover a {cardinal},action-mover action-{argumento}
+por favor mover para {direccion},action-mover action-{argumento}
+por favor mover para {cardinal},action-mover action-{argumento}
+quiero que te muevas hacia {direccion},action-mover action-{argumento}
+quiero que te muevas hacia {cardinal},action-mover action-{argumento}
+quiero que te muevas a {direccion},action-mover action-{argumento}
+quiero que te muevas a {cardinal},action-mover action-{argumento}
+quiero que te muevas para  {direccion},action-mover action-{argumento}
+quiero que te muevas para  {cardinal},action-mover action-{argumento}
+moverse hacia {direccion},action-mover action-{argumento}
+moverse hacia {cardinal},action-mover action-{argumento}
+moverse a {direccion},action-mover action-{argumento}
+moverse a {cardinal},action-mover action-{argumento}
+moverse para {direccion},action-mover action-{argumento}
+moverse para {cardinal},action-mover action-{argumento}
+¿ podrias moverlo hacia {direccion} ?,action-mover action-{argumento}
+¿ podrias moverlo hacia {cardinal} ?,action-mover action-{argumento}
+¿ podrias moverlo a {direccion} ?,action-mover action-{argumento}
+¿ podrias moverlo a {cardinal} ?,action-mover action-{argumento}
+¿ podrias moverlo para {direccion} ?,action-mover action-{argumento}
+¿ podrias moverlo para {cardinal} ?,action-mover action-{argumento}
+muevete hacia {direccion} por favor,action-mover action-{argumento}
+muevete hacia {cardinal} por favor,action-mover action-{argumento}
+muevete a {direccion} por favor,action-mover action-{argumento}
+muevete a {cardinal} por favor,action-mover action-{argumento}
+muevete para {direccion} por favor,action-mover action-{argumento}
+muevete para {cardinal} por favor,action-mover action-{argumento}

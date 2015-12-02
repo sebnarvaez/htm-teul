@@ -52,7 +52,7 @@ class ClassicModel():
            SentencesTM + ActionsSeqTM -> generalTM
     """
 
-    def __init__(self, wordEncoder, actionEncoder, categories, inputIdx):
+    def __init__(self, wordEncoder, actionEncoder, trainingSet):
         """
         @param wordEncoder
         @param actionEncoder
@@ -64,24 +64,27 @@ class ClassicModel():
         
         self.wordEncoder = wordEncoder
         self.actionEncoder = actionEncoder
+        self.trainingData = trainingSet.trainingData
         
-        self.initModules(categories, inputIdx)
+        self.initModules(trainingSet.categories, trainingSet.inputIdx)
         
         self.structure = {
             'wordInput' : 'wordEnc',
             'wordEnc' : 'wordSP',
             'wordSP' : 'wordTM',
-            'wordTM' : 'generalTM',
+            'wordTM' : 'generalSP',
             ###
             'actionInput' : 'actionEnc',
             'actionEnc' : 'actionSP',
             'actionSP' : 'actionTM',
-            'actionTM' : 'generalTM',
+            'actionTM' : 'generalSP',
             ###
+            'generalSP' : 'generalTM',
             'generalTM' : None
         }
         self.modules = {
             'generalTM' : self.generalTM,
+            'generalSP' : self.generalSP,
             'wordTM' : self.wordTM,
             'wordSP' : self.wordSP,
             'wordEnc' : self.wordEncoder, 
@@ -159,35 +162,33 @@ class ClassicModel():
             activationThreshold=4
         )
         
-        #generalInputDimensions = max(
-                #self.wordTM.numberOfCells(),
-                #self.actionTM.numberOfCells()
-            #)
+        generalInputDimensions = max(
+                self.wordTM.numberOfCells() + 1,
+                self.actionTM.numberOfCells() + 1
+            )
         
-        #self.generalSP = SpatialPooler(
-            #inputDimensions=generalInputDimensions,
-            #columnDimensions=(len(self.dataSet.trainingData) * 3,),
-            #potentialRadius = 28,
-            #potentialPct = 0.5,
-            #globalInhibition = True,
-            #localAreaDensity = -1.0,
-            #numActiveColumnsPerInhArea = 5.0,
-            #stimulusThreshold = 0,
-            #synPermInactiveDec = 0.1,
-            #synPermActiveInc = 0.1,
-            #synPermConnected = 0.1,
-            #minPctOverlapDutyCycle = 0.1,
-            #minPctActiveDutyCycle = 0.1,
-            #dutyCyclePeriod = 10, 
-            #maxBoost = 3,
-            #seed = 42,
-            #spVerbosity = 0
-        #) 
+        self.generalSP = SpatialPooler(
+            inputDimensions=generalInputDimensions,
+            columnDimensions=(len(self.trainingData) * 3,),
+            potentialRadius = 28,
+            potentialPct = 0.5,
+            globalInhibition = True,
+            localAreaDensity = -1.0,
+            numActiveColumnsPerInhArea = 5.0,
+            stimulusThreshold = 0,
+            synPermInactiveDec = 0.1,
+            synPermActiveInc = 0.1,
+            synPermConnected = 0.1,
+            minPctOverlapDutyCycle = 0.1,
+            minPctActiveDutyCycle = 0.1,
+            dutyCyclePeriod = 10, 
+            maxBoost = 3,
+            seed = 42,
+            spVerbosity = 0
+        ) 
         
         self.generalTM = TemporalMemory(
-            columnDimensions=(
-                max(self.wordTM.numberOfCells(), self.actionTM.numberOfCells()),
-            ),
+            columnDimensions=(len(self.trainingData) * 3,),
             initialPermanence=0.4,
             connectedPermanence=0.5,
             minThreshold=4,
@@ -210,12 +211,12 @@ class ClassicModel():
         
         return self.layer.processInput(inputData, verbose, learn)
 
-    def train(self, trainingData, numIterations, verbose=0):
+    def train(self, numIterations, verbose=0):
     
         for iteration in xrange(numIterations):
             print("Iteration "  + str(iteration))
             
-            for sentence, actionSeq in trainingData:
+            for sentence, actionSeq in self.trainingData:
                 inputData = [('wordInput', sentence), ('actionInput', actionSeq)]
                 self.layer.processInput(inputData, verbose)
                 
