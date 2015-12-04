@@ -16,10 +16,10 @@ from Learning import MovementTrainingSet as MTS
 
 if __name__ == '__main__':
     
-    print("Unified Category Encoder")
-    wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(MTS.categories)
-    #print("Randomized Letter Encoder")
-    #wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(300, 10)
+    #print("Unified Category Encoder")
+    #wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(MTS.categories)
+    print("Randomized Letter Encoder")
+    wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(300, 10)
     #print("Totally Random Encoder")
     #wordEncoder = actionEncoder = EncoderFactory.TotallyRandomEncoder(50, 10)
     
@@ -27,8 +27,8 @@ if __name__ == '__main__':
     structure.train(30, verbose=0)
     
     print("Saving the structure...")
-    with open('UCE_Structure.pck', 'wb') as structureFile:
-    #with open('RLE_Structure.pck', 'wb') as structureFile:
+    #with open('UCE_Structure.pck', 'wb') as structureFile:
+    with open('RLE_Structure.pck', 'wb') as structureFile:
     #with open('TRE_Structure.pck', 'wb') as structureFile:
         cPickle.dump(structure, structureFile, -1)
     print("Done!")

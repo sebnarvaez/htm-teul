@@ -31,22 +31,26 @@ def unifiedCategoryEnc(categories, w=11):
             forced=True
         )
         
-def intToBinary(num, wordLen):
+def charToBinary(character, wordLen=8, bitSeparation=0):
     """ 
     Returns: a list of integers containing the binary representation of
-    num.
+    character.
     """
-    if (wordLen <= 0) or (2 ** wordLen <= num):
-        raise ValueError("The wordLen must be big enough to store the binary "\
-            "representation of the num. Try (2 ** wordLen > num)")
+    
+    charBits = bin(ord(character))[2:]
+    
+    if (wordLen < len(charBits)):
+        raise ValueError("The wordLen is not big enough to store the binary "\
+            "representation of the character '{0}': {1}".format(character, charBits))
     else:
-        binaryNum = []
+        charBitsList = []
         
-        for bit in bin(num)[2:]:
-            binaryNum.append(int(bit))
+        for bit in charBits:
+            charBitsList.extend([0] * bitSeparation)
+            charBitsList.append(int(bit))
         # Add the missing zeros to complete the wordLen
-        word = [0]*(wordLen - len(binaryNum))
-        word.extend(binaryNum)
+        word = [0]*((wordLen * (bitSeparation + 1)) - len(charBitsList))
+        word.extend(charBitsList)
         return word
         
 class RandomizedLetterEncoder(Encoder):
@@ -55,18 +59,24 @@ class RandomizedLetterEncoder(Encoder):
     a random chain of bits at the end.
     """
 
-    def __init__(self, width, nRandBits):
+    def __init__(self, width, nRandBits, bitSeparation=0):
         """
         @param width: The size of the encoded list of bits output.
         @param nRandBits: The number of random bits that the output
             will have after the binary representation of the
             string. 0 for a pure string to binary conversion.
+        @param bitSeparation: The separation between bits when encoding
+            the string. This won't affect the random bits.
         """
+        
         if nRandBits > width:
-            raise ValueError("nRandBits cant be greater than width.")
+            raise ValueError("nRandBits can't be greater than width.")
+        if bitSeparation < 0:
+            raise ValueError("bitSeparation must be >= 0")
         
         self.width = width
         self.nRandBits = nRandBits
+        self.bitSeparation = bitSeparation
         self.alreadyEncoded = dict()
 
     def getWidth(self):
@@ -80,16 +90,16 @@ class RandomizedLetterEncoder(Encoder):
         """
         
         bitsPerChar = 8
-        strBinaryLen = len(inputData) * bitsPerChar
+        strBinaryLen = len(inputData) * bitsPerChar * (self.bitSeparation + 1)
         
         if (strBinaryLen + self.nRandBits) > self.width:
             raise ValueError("The string is too long to be encoded with the"\
-                "current width and nRandBits parameters.")
+                "current parameters.")
         strBinary = []
         
         # Encode each char of the string 
         for letter in inputData:
-            strBinary.extend(intToBinary(ord(letter), bitsPerChar))
+            strBinary.extend(charToBinary(letter, bitsPerChar, self.bitSeparation))
         
         if inputData not in self.alreadyEncoded:
             self.alreadyEncoded[inputData] = [

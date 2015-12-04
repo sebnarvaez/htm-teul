@@ -185,10 +185,10 @@ class Layer():
                         retVal['actualValues'][higherProbIndex]
                     )
                 
-                if verbosity > 0 :
+                if verbosity > 1 :
                     print('Best Predictions: ' + str(bestPredictions))
                 
-                if verbosity > 1 :
+                if verbosity > 2 :
                     print("  |  CLAClassifier best predictions for step1: ")
                     top = sorted(retVal[1].tolist(), reverse=True)[:3]
                     
@@ -210,5 +210,8 @@ class Layer():
                     print("")
                 
                 recordNum += 1
+            
+            if verbosity > 0 :
+                print('Best Predictions for next module: ' + str(bestPredictions))
                 
         return bestPredictions
