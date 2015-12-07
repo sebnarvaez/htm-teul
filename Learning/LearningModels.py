@@ -28,6 +28,7 @@ class LearningModel():
         learning structure
         """
         
+        self.iterationsTrained = 0
         self.initModules()
         self.structure = dict()
         self.modules = dict()
@@ -62,6 +63,7 @@ class ClassicModel():
             an input name.
         """
         
+        self.iterationsTrained = 0
         self.wordEncoder = wordEncoder
         self.actionEncoder = actionEncoder
         self.trainingData = trainingSet.trainingData
@@ -223,3 +225,5 @@ class ClassicModel():
                 self.wordTM.reset()
                 self.actionTM.reset()
                 self.generalTM.reset()
+            
+            self.iterationsTrained += 1
