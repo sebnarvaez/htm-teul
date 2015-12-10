@@ -4,7 +4,7 @@
 #  Autor: Larvasapiens <sebasnr95@gmail.com>
 #  Fecha creación: 2015-11-30
 #  Fecha última modificación: 2015-12-01
-#  Versión: 1.0 [Stable]
+#  Versión: 1.1 [Stable]
 
 import sys
 import cPickle
@@ -16,27 +16,27 @@ from Learning import MovementTrainingSet as MTS
 if __name__ == '__main__':
     
     encoder = None
-    structure = None
+    model = None
     
-    print("Loading the structure...")
+    print("Loading the model...")
     modelName = "Classic Model"
     encoderName = "Unified Category Encoder"
     #encoderName = "Randomized Letter Encoder"
     #encoderName = "Totally Random Encoder"
     
-    with open('UCE_Structure.pck', 'rb') as structureFile:
-    #with open('RLE_Structure.pck', 'rb') as structureFile:
-    #with open('TRE_Structure.pck', 'rb') as structureFile:
-        structure = cPickle.load(structureFile)
+    with open('Classic-UCE.pck', 'rb') as modelFile:
+    #with open('Classic-RLE.pck', 'rb') as modelFile:
+    #with open('Classic-TRE.pck', 'rb') as modelFile:
+        model = cPickle.load(modelFile)
         
     print("Done!")
-    #structure.train(MTS.trainingData, 5, verbose=0)
+    #model.train(MTS.trainingData, 5, verbose=0)
     
-    modelDescription = "{0}\n{1}\n{2}\n{3}".format(modelName, structure.__doc__,
-        encoderName, structure.wordEncoder.__doc__)
-    TestSuite.testModel(structure, MTS.trainingData, modelDescription)
+    #modelDescription = "{0}\n{1}\n{2}\n{3}".format(modelName, model.__doc__,
+    #    encoderName, model.wordEncoder.__doc__)
+    #TestSuite.testModel(model, MTS.trainingData, modelDescription)
     
     app = QApplication([])
-    window = MainWindow(structure)
+    window = MainWindow(model)
     app.exec_()
     #sys.exit(app.exec_())

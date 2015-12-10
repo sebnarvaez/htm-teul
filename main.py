@@ -26,21 +26,22 @@ if __name__ == '__main__':
     print(encoderName)
 
     modelName = "Classic Model"
-    structure = ClassicModel(wordEncoder, actionEncoder, MTS)
-    structure.train(50, verbose=0)
+    model = ClassicModel(wordEncoder, actionEncoder, MTS)
+    model.train(50, verbose=0)
 
-    modelDescription = "{0}\n{1}\n{2}\n{3}".format(modelName, structure.__doc__,
+    modelDescription = "{0}\n{1}\n{2}\n{3}".format(modelName, model.__doc__,
         encoderName, wordEncoder.__doc__)
-    TestSuite.testModel(structure, MTS.trainingData, modelDescription, fileName='RLE_Results')
+    TestSuite.testModel(model, MTS.trainingData, modelDescription, 
+        fileName='Classic-RLE_Results')
 
-    print("Saving the structure...")
-    #with open('UCE_Structure.pck', 'wb') as structureFile:
-    with open('RLE_Structure.pck', 'wb') as structureFile:
-    #with open('TRE_Structure.pck', 'wb') as structureFile:
-        cPickle.dump(structure, structureFile, -1)
-    print("Done!")
+    #print("Saving the model...")
+    #with open('Classic-UCE.pck', 'wb') as modelFile:
+    #with open('Classic-RLE.pck', 'wb') as modelFile:
+    #with open('Classic-TRE.pck', 'wb') as modelFile:
+        #cPickle.dump(model, modelFile, -1)
+    #print("Done!")
 
-    #app = QApplication([])
-    #window = MainWindow(structure)
-    #app.exec_()
+    app = QApplication([])
+    window = MainWindow(model)
+    app.exec_()
     #sys.exit(app.exec_())

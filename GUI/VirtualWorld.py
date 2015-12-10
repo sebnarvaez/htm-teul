@@ -30,7 +30,6 @@ IMG_PATHS = {
 
 class VirtualWorld(QFrame):
     
-    WORLD_GRID = []
     NUM_COLUMNS = 5
     NUM_ROWS = 5
     OBJECTS = dict()
@@ -42,8 +41,9 @@ class VirtualWorld(QFrame):
         self.initVirtualWorld()
         
     def initVirtualWorld(self):     
-
-        #self.timer = QBasicTimer()
+        
+        self.worldGrid = []
+        
         self.resize(500, 600)
         self.setFocusPolicy(Qt.StrongFocus)
         self.setFrameStyle(QFrame.Box | QFrame.Plain)
@@ -55,14 +55,14 @@ class VirtualWorld(QFrame):
         self.setLayout(grid)
         
         for column in xrange(self.NUM_COLUMNS):
-            self.WORLD_GRID.append([])
+            self.worldGrid.append([])
             
             for row in xrange(self.NUM_ROWS):
-                self.WORLD_GRID[column].append(QLabel())
-                self.WORLD_GRID[column][row].setStyleSheet(
+                self.worldGrid[column].append(QLabel())
+                self.worldGrid[column][row].setStyleSheet(
                     "QLabel { background-color : green }"
                 )
-                grid.addWidget(self.WORLD_GRID[column][row], column, row)
+                grid.addWidget(self.worldGrid[column][row], column, row)
         
         self.addObj('P1', 'ectatomma', 3, 3)
         
@@ -76,7 +76,7 @@ class VirtualWorld(QFrame):
             imgHeight = self.CELL_HEIGHT - 10
         obj = WorldObject(objType, x, y, imgWidth, imgHeight)
         self.OBJECTS[objId] = obj
-        self.WORLD_GRID[x][y].setPixmap(obj.pixmap)
+        self.worldGrid[x][y].setPixmap(obj.pixmap)
                 
     def moveObj(self, objId, direction):
         """
@@ -90,27 +90,27 @@ class VirtualWorld(QFrame):
         
         if direction == 'izquierda':
             if obj.x > 0: 
-                self.WORLD_GRID[obj.y][obj.x].setPixmap(QPixmap())
+                self.worldGrid[obj.y][obj.x].setPixmap(QPixmap())
                 obj.x += -1 
-                self.WORLD_GRID[obj.y][obj.x].setPixmap(obj.pixmap)
+                self.worldGrid[obj.y][obj.x].setPixmap(obj.pixmap)
             
         elif direction == 'derecha':
             if obj.x < self.NUM_COLUMNS - 1:
-                self.WORLD_GRID[obj.y][obj.x].setPixmap(QPixmap())
+                self.worldGrid[obj.y][obj.x].setPixmap(QPixmap())
                 obj.x += 1 
-                self.WORLD_GRID[obj.y][obj.x].setPixmap(obj.pixmap)
+                self.worldGrid[obj.y][obj.x].setPixmap(obj.pixmap)
             
         elif direction == 'arriba':
             if obj.y > 0: 
-                self.WORLD_GRID[obj.y][obj.x].setPixmap(QPixmap())
+                self.worldGrid[obj.y][obj.x].setPixmap(QPixmap())
                 obj.y += -1
-                self.WORLD_GRID[obj.y][obj.x].setPixmap(obj.pixmap)
+                self.worldGrid[obj.y][obj.x].setPixmap(obj.pixmap)
             
         elif direction == 'abajo':
             if obj.y < self.NUM_ROWS - 1: 
-                self.WORLD_GRID[obj.y][obj.x].setPixmap(QPixmap())
+                self.worldGrid[obj.y][obj.x].setPixmap(QPixmap())
                 obj.y += 1
-                self.WORLD_GRID[obj.y][obj.x].setPixmap(obj.pixmap)
+                self.worldGrid[obj.y][obj.x].setPixmap(obj.pixmap)
         
         else:
             return "No se a que direccion moverme"

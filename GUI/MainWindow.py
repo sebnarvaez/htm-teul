@@ -12,9 +12,9 @@ from PyQt5 import uic
 
 class MainWindow:
 
-    def __init__(self, structure):
+    def __init__(self, model):
         
-        self.structure = structure
+        self.model = model
         
         self.frame = uic.loadUi('GUI/MainWindow.ui')
         self.world = VirtualWorld(self.frame)
@@ -51,14 +51,14 @@ class MainWindow:
     
     def execSentence(self):
         
-        sentence = self.frame.lnEdt_sentence.text()
+        sentence = self.frame.lnEdt_sentence.text().lower()
         
         if sentence == None:
             sentence = ""
         
         self.frame.txtEdt_log.append("<b>>></b>" + sentence)
         sentence = sentence.split()
-        predictions = self.structure.inputSentence(sentence, verbose=1,
+        predictions = self.model.inputSentence(sentence, verbose=1,
             learn=False)
         
         if predictions[0] == 'action-mover':
@@ -66,7 +66,7 @@ class MainWindow:
                 self.world.moveObj('P1', predictions[1][7:])
             )
             
-        self.structure.wordTM.reset()
-        self.structure.actionTM.reset()
-        self.structure.generalTM.reset()
+        self.model.wordTM.reset()
+        self.model.actionTM.reset()
+        self.model.generalTM.reset()
 
