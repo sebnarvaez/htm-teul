@@ -48,8 +48,8 @@ class LearningModel():
 class ClassicModel():
     """
      Structure:
-       WordCategory -> WordsSP -> SentencesTM
-       ActionCategory -> ActionsSP -> ActionsSeqTM
+       WordEncoder -> WordsSP -> SentencesTM
+       ActionEncoder -> ActionsSP -> ActionsSeqTM
            SentencesTM + ActionsSeqTM -> generalTM
     """
 
@@ -57,10 +57,9 @@ class ClassicModel():
         """
         @param wordEncoder
         @param actionEncoder
-        @param dataSet: A list of sets, each of one containing all the
-            categories of an input.
-        @param inputIdx: A dict that maps each index in categories to
-            an input name.
+        @param dataSet: A module containing the trainingData, all of
+            its categories and the inputIdx dict that maps each index
+            in categories to an input name.
         """
         
         self.iterationsTrained = 0
@@ -224,6 +223,116 @@ class ClassicModel():
                 
                 self.wordTM.reset()
                 self.actionTM.reset()
+                self.generalTM.reset()
+            
+            self.iterationsTrained += 1
+
+class OneRegionModel():
+    """
+     Structure:
+       WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
+    """
+    
+    def __init__(self, wordEncoder, actionEncoder, trainingSet):
+        """
+        @param wordEncoder
+        @param actionEncoder
+        @param dataSet: A module containing the trainingData, all of
+            its categories and the inputIdx dict that maps each index
+            in categories to an input name.
+        """
+        
+        self.iterationsTrained = 0
+        self.wordEncoder = wordEncoder
+        self.actionEncoder = actionEncoder
+        self.trainingData = trainingSet.trainingData
+        
+        self.initModules(trainingSet.categories, trainingSet.inputIdx)
+        
+        self.structure = {
+            'wordInput' : 'wordEnc',
+            'wordEnc' : 'generalSP',
+            ###
+            'actionInput' : 'actionEnc',
+            'actionEnc' : 'generalSP',
+            ###
+            'generalSP' : 'generalTM',
+            'generalTM' : None
+        }
+        self.modules = {
+            'generalTM' : self.generalTM,
+            'generalSP' : self.generalSP,
+            'wordEnc' : self.wordEncoder, 
+            'actionEnc' : self.actionEncoder
+        }
+        
+        self.layer = Layer(self.structure, self.modules, self.classifier)
+
+    def initModules(self, categories, inputIdx):
+        
+        nWords = len(categories[inputIdx['wordInput']])
+        nActions = len(categories[inputIdx['actionInput']])
+        
+        inputDimensions = max(
+                self.wordEncoder.getWidth(),
+                self.actionEncoder.getWidth()
+            )
+            
+        columnDimensions = max((nWords + nActions), len(self.trainingData)) * 2
+        
+        self.generalSP = SpatialPooler(
+            inputDimensions=inputDimensions,
+            columnDimensions=(columnDimensions,),
+            potentialRadius = 28,
+            potentialPct = 0.5,
+            globalInhibition = True,
+            localAreaDensity = -1.0,
+            numActiveColumnsPerInhArea = 5.0,
+            stimulusThreshold = 0,
+            synPermInactiveDec = 0.1,
+            synPermActiveInc = 0.1,
+            synPermConnected = 0.1,
+            minPctOverlapDutyCycle = 0.1,
+            minPctActiveDutyCycle = 0.1,
+            dutyCyclePeriod = 10, 
+            maxBoost = 3,
+            seed = 42,
+            spVerbosity = 0
+        ) 
+        
+        self.generalTM = TemporalMemory(
+            columnDimensions=(columnDimensions,),
+            initialPermanence=0.4,
+            connectedPermanence=0.5,
+            minThreshold=4,
+            maxNewSynapseCount=4,
+            permanenceDecrement=0.05,
+            permanenceIncrement=0.05,
+            activationThreshold=4
+        )
+        
+        self.classifier = CLAClassifier(
+            steps=[1, 2, 3],
+            alpha=0.1,
+            actValueAlpha=0.3,
+            verbosity=0
+        )
+    
+    def inputSentence(self, sentence, verbose=1, learn=False):
+    
+        inputData = [('wordInput', sentence)]
+        
+        return self.layer.processInput(inputData, verbose, learn)
+
+    def train(self, numIterations, verbose=0):
+    
+        for iteration in xrange(numIterations):
+            print("Iteration "  + str(iteration))
+            
+            for sentence, actionSeq in self.trainingData:
+                inputData = [('wordInput', sentence), ('actionInput', actionSeq)]
+                self.layer.processInput(inputData, verbose)
+                
                 self.generalTM.reset()
             
             self.iterationsTrained += 1

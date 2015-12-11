@@ -17,31 +17,35 @@ from Learning import MovementTrainingSet as MTS
 
 if __name__ == '__main__':
 
-    #encoderName = "Unified Category Encoder\n"
-    #wordEncoder = actionEncoder = EncoderFactory.unifiedCategoryEnc(MTS.categories)
-    encoderName = "Randomized Letter Encoder\n"
-    wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(300, 10)
-    #encoderName = "Totally Random Encoder\n"
+    wordEncoder = actionEncoder = EncoderFactory.UnifiedCategoryEncoder(MTS.categories)
+    #wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(300, 10)
     #wordEncoder = actionEncoder = EncoderFactory.TotallyRandomEncoder(50, 10)
+    encoderName = wordEncoder.__class__.__name__
+
+    #model = ClassicModel(wordEncoder, actionEncoder, MTS)
+    model = OneRegionModel(wordEncoder, actionEncoder, MTS)
+    model.train(1, verbose=0)
+    modelName = model.__class__.__name__
+    
+    print(modelName)
     print(encoderName)
 
-    modelName = "Classic Model"
-    model = ClassicModel(wordEncoder, actionEncoder, MTS)
-    model.train(50, verbose=0)
-
-    modelDescription = "{0}\n{1}\n{2}\n{3}".format(modelName, model.__doc__,
-        encoderName, wordEncoder.__doc__)
+    modelDescription = "{0}\n{1}\n{2}\n{3}".format(modelName,
+        model.__doc__, encoderName, wordEncoder.__doc__)
+    # Strips the 'Model' fron the name
+    fileName = modelName[:-5] + '-'
+    # Appends only the Capital letters
+    fileName += ''.join(cap for cap in encoderName if cap.isupper())
+    
     TestSuite.testModel(model, MTS.trainingData, modelDescription, 
-        fileName='Classic-RLE_Results')
+        fileName=(fileName + '_Results'))
 
-    #print("Saving the model...")
-    #with open('Classic-UCE.pck', 'wb') as modelFile:
-    #with open('Classic-RLE.pck', 'wb') as modelFile:
-    #with open('Classic-TRE.pck', 'wb') as modelFile:
-        #cPickle.dump(model, modelFile, -1)
-    #print("Done!")
+    print("Saving the model...")
+    with open((fileName + '.pck'), 'wb') as modelFile:
+        cPickle.dump(model, modelFile, -1)
+    print("Done!")
 
-    app = QApplication([])
-    window = MainWindow(model)
-    app.exec_()
+    #app = QApplication([])
+    #window = MainWindow(model)
+    #app.exec_()
     #sys.exit(app.exec_())

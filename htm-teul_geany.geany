@@ -28,15 +28,15 @@ long_line_behaviour=1
 long_line_column=80
 
 [files]
-current_page=4
+current_page=3
 FILE_NAME_0=35;None;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FCurrentGoals.txt;0;4
 FILE_NAME_1=3187;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FLearning%2FMovementDataGen.py;0;4
-FILE_NAME_2=223;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2Fmain.py;0;4
-FILE_NAME_3=6658;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FLearning%2FLearningModels.py;0;4
+FILE_NAME_2=1097;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FLearning%2FLearningModels.py;0;4
+FILE_NAME_3=1083;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2Fmain.py;0;4
 FILE_NAME_4=401;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FTestSuite.py;0;4
 FILE_NAME_5=53;None;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FMusic%2FBeats%20Antique%2FChecked.txt;0;4
-FILE_NAME_6=1199;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FLoadModel.py;0;4
-FILE_NAME_7=0;None;0;EISO-8859-1;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FClassic-RLE_Results.txt;0;4
+FILE_NAME_6=771;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FLoadModel.py;0;4
+FILE_NAME_7=956;Python;0;EUTF-8;0;1;1;%2Fhome%2Flarva%2FDropbox%2FTesis%2Fhtm-teul%2FLearning%2FEncoderFactory.py;0;4
 
 [VTE]
 last_dir=/home/larva

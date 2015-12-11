@@ -16,20 +16,25 @@ from nupic.encoders.base import Encoder
 
 """ A collection of encoders for use in different Learning Models """
 
-def unifiedCategoryEnc(categories, w=11):
-    """
-    Goes through the training data, exctracts the categories and makes
-    one Category Encoder for all of them.
-    """
-    categoryList = []
-    for inputCats in categories:
-        categoryList.extend(list(inputCats))
-        
-    return CategoryEncoder(
-            w=w,
-            categoryList=categoryList,
-            forced=True
-        )
+class UnifiedCategoryEncoder(CategoryEncoder):
+
+    __doc__ = "docstring inherited from CategoryEncoder:\n" +\
+        CategoryEncoder.__doc__
+    
+    def __init__(self, categories, w=11, forced=True):
+        """
+        Goes through the training data, exctracts the categories and makes
+        one Category Encoder for all of them.
+        """
+        categoryList = []
+        for inputCategories in categories:
+            categoryList.extend(list(inputCategories))
+            
+        super(UnifiedCategoryEncoder, self).__init__(
+                w=w,
+                categoryList=categoryList,
+                forced=forced
+            )
         
 def charToBinary(character, wordLen=8, bitSeparation=0):
     """ 
@@ -58,7 +63,7 @@ class RandomizedLetterEncoder(Encoder):
     Encoder for strings. It encodes each letter into binary and appends
     a random chain of bits at the end.
     """
-
+    
     def __init__(self, width, nRandBits, bitSeparation=0):
         """
         @param width: The size of the encoded list of bits output.
@@ -122,7 +127,7 @@ class TotallyRandomEncoder(Encoder):
     Encoder for strings. It encodes each letter into binary and appends
     a random chain of bits at the end.
     """
-
+    
     def __init__(self, width, nActiveBits):
         """
         @param width: The size of the encoded list of bits output.

@@ -47,6 +47,5 @@ def testModel(learningModel, testData, description, fileName='log'):
         logFile.write('\tNumber of Success     : {0}\n'.format(nSuccess))
         logFile.write('\tNumber of Half Success: {0}\n'.format(nHalf))
         logFile.write('\tNumber of Failures    : {0}\n'.format(nFailures))
-        logFile.write(runDetails)
         
     print("Results written to {0}!".format(fileName))

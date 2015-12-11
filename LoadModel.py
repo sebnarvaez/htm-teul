@@ -15,14 +15,7 @@ from Learning import MovementTrainingSet as MTS
 
 if __name__ == '__main__':
     
-    encoder = None
-    model = None
-    
     print("Loading the model...")
-    modelName = "Classic Model"
-    encoderName = "Unified Category Encoder"
-    #encoderName = "Randomized Letter Encoder"
-    #encoderName = "Totally Random Encoder"
     
     with open('Classic-UCE.pck', 'rb') as modelFile:
     #with open('Classic-RLE.pck', 'rb') as modelFile:
@@ -32,9 +25,11 @@ if __name__ == '__main__':
     print("Done!")
     #model.train(MTS.trainingData, 5, verbose=0)
     
-    #modelDescription = "{0}\n{1}\n{2}\n{3}".format(modelName, model.__doc__,
-    #    encoderName, model.wordEncoder.__doc__)
-    #TestSuite.testModel(model, MTS.trainingData, modelDescription)
+    modelDescription = "{0}\n{1}\n{2}\n{3}".format(type(model).__name__,
+        model.__doc__, type(model.wordEncoder).__name__,
+        model.wordEncoder.__doc__)
+    
+    TestSuite.testModel(model, MTS.trainingData, modelDescription)
     
     app = QApplication([])
     window = MainWindow(model)
