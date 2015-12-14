@@ -21,24 +21,21 @@ if __name__ == '__main__':
     #wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(300, 10)
     #wordEncoder = actionEncoder = EncoderFactory.TotallyRandomEncoder(50, 10)
     encoderName = wordEncoder.__class__.__name__
-
+    
     #model = ClassicModel(wordEncoder, actionEncoder, MTS)
     model = OneRegionModel(wordEncoder, actionEncoder, MTS)
-    model.train(1, verbose=0)
+    model.train(50, verbose=0)
     modelName = model.__class__.__name__
     
     print(modelName)
     print(encoderName)
-
-    modelDescription = "{0}\n{1}\n{2}\n{3}".format(modelName,
-        model.__doc__, encoderName, wordEncoder.__doc__)
+    fileName = 'Results/'
     # Strips the 'Model' fron the name
-    fileName = modelName[:-5] + '-'
+    fileName += modelName[:-5] + '-'
     # Appends only the Capital letters
     fileName += ''.join(cap for cap in encoderName if cap.isupper())
     
-    TestSuite.testModel(model, MTS.trainingData, modelDescription, 
-        fileName=(fileName + '_Results'))
+    TestSuite.testModel(model, MTS.trainingData, fileName=(fileName + '_Results'))
 
     print("Saving the model...")
     with open((fileName + '.pck'), 'wb') as modelFile:

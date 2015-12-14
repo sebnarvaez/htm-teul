@@ -21,13 +21,9 @@ if __name__ == '__main__':
     #with open('Classic-RLE.pck', 'rb') as modelFile:
     #with open('Classic-TRE.pck', 'rb') as modelFile:
         model = cPickle.load(modelFile)
-        
+     
     print("Done!")
     #model.train(MTS.trainingData, 5, verbose=0)
-    
-    modelDescription = "{0}\n{1}\n{2}\n{3}".format(type(model).__name__,
-        model.__doc__, type(model.wordEncoder).__name__,
-        model.wordEncoder.__doc__)
     
     TestSuite.testModel(model, MTS.trainingData, modelDescription)
     
