@@ -17,17 +17,22 @@ def testModel(model, testData, fileName='log'):
     modelName = model.__class__.__name__
     encoderName = model.wordEncoder.__class__.__name__
     
-    description = "{0}\n{1}\n{2}\n{3}".format(modelName,
-        model.__doc__, encoderName, model.wordEncoder.__doc__)
+    description = "{0}\n{1}\n{2}\n{3}".format(
+		modelName,
+        model.__doc__,
+        encoderName,
+        model.wordEncoder.__doc__
+    )
+    description += "\n\nModel trained {0} iterations".format(
+		model.iterationsTrained
+	)
     
     print('Begining tests')
     
     with open(fileName, 'wb') as logFile:
         logFile.write('')
         logFile.write(description)
-        logFile.write('\n\n')
-        logFile.write('Model trained {0} iterations'.format(model.iterationsTrained))
-        logFile.write('\n'*8) # Leave space for the execution Results
+        logFile.write('.'*99) # Leave space for the execution Results
     
         for sentence, actionSeq in testData:
             logFile.write('\n\n-----------------------------\n\n')
