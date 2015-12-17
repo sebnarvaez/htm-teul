@@ -41,11 +41,31 @@ class LearningModel():
     
         pass
     
-    def train(self, trainingData, numIterations, verbose=0):
-        
-        pass
+    def train(self, numIterations, verbose=0):
+    
+        for iteration in xrange(numIterations):
+            print("Iteration "  + str(iteration))
+            
+            for sentence, actionSeq in self.trainingData:
+                inputData = [('wordInput', sentence), ('actionInput', actionSeq)]
+                self.layer.processInput(inputData, verbose)
+               
+                self.reset()
+            
+            self.iterationsTrained += 1
 
-class ClassicModel():
+        
+    def reset(self):
+		"""
+		Resets all the components of the structure to receive a new
+		sequence
+		"""
+		
+		for modName in self.modules:
+			if modName.endswith('TM'):
+				self.modules[modName].reset()
+
+class ClassicModel(LearningModel):
     """
      Structure:
        WordEncoder -> WordsSP -> SentencesTM
@@ -212,22 +232,8 @@ class ClassicModel():
         
         return self.layer.processInput(inputData, verbose, learn)
 
-    def train(self, numIterations, verbose=0):
-    
-        for iteration in xrange(numIterations):
-            print("Iteration "  + str(iteration))
-            
-            for sentence, actionSeq in self.trainingData:
-                inputData = [('wordInput', sentence), ('actionInput', actionSeq)]
-                self.layer.processInput(inputData, verbose)
-                
-                self.wordTM.reset()
-                self.actionTM.reset()
-                self.generalTM.reset()
-            
-            self.iterationsTrained += 1
 
-class OneRegionModel():
+class OneRegionModel(LearningModel):
     """
      Structure:
        WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
@@ -324,15 +330,3 @@ class OneRegionModel():
         
         return self.layer.processInput(inputData, verbose, learn)
 
-    def train(self, numIterations, verbose=0):
-    
-        for iteration in xrange(numIterations):
-            print("Iteration "  + str(iteration))
-            
-            for sentence, actionSeq in self.trainingData:
-                inputData = [('wordInput', sentence), ('actionInput', actionSeq)]
-                self.layer.processInput(inputData, verbose)
-                
-                self.generalTM.reset()
-            
-            self.iterationsTrained += 1

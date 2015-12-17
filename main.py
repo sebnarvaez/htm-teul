@@ -28,7 +28,7 @@ if __name__ == '__main__':
 	
     print(modelName)
     print(encoderName)
-    model.train(1, verbose=0)
+    model.train(50, verbose=0)
     
     fileName = 'Results/'
     # Strips the 'Model' fron the name

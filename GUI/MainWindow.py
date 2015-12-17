@@ -66,7 +66,5 @@ class MainWindow:
                 self.world.moveObj('P1', predictions[1][7:])
             )
             
-        self.model.wordTM.reset()
-        self.model.actionTM.reset()
-        self.model.generalTM.reset()
+        self.model.reset()
 
