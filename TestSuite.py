@@ -18,14 +18,14 @@ def testModel(model, testData, fileName='log'):
     encoderName = model.wordEncoder.__class__.__name__
     
     description = "{0}\n{1}\n{2}\n{3}".format(
-		modelName,
+        modelName,
         model.__doc__,
         encoderName,
         model.wordEncoder.__doc__
     )
     description += "\n\nModel trained {0} iterations".format(
-		model.iterationsTrained
-	)
+        model.iterationsTrained
+    )
     
     print('Begining tests')
     

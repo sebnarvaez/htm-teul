@@ -130,9 +130,8 @@ class Layer():
         if (lastModName[-3:] == 'Enc') or (lastModName[-2:] == 'SP'):
             return numpy.where(lastModOutput > 0)[0]
         
-        elif lastModName[-2:] == 'TM':
-            module = self.modules[lastModName]
-            return module.mapCellsToColumns(lastModOutput).keys()
+        elif (lastModName[-2:] == 'TM'):
+            return lastModOutput
         
         else:
             raise ValueError("Invalid Module Name. See the function's "\

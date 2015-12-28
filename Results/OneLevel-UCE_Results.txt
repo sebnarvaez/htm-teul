@@ -3,1024 +3,1030 @@ OneLevelModel
      Structure:
        WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
     
-RandomizedLetterEncoder
+UnifiedCategoryEncoder
+docstring inherited from CategoryEncoder:
+Encodes a list of discrete categories (described by strings), that aren't
+  related to each other, so we never emit a mixture of categories.
 
-    Encoder for strings. It encodes each letter into binary and appends
-    a random chain of bits at the end.
-    
+  The value of zero is reserved for "unknown category"
+
+  Internally we use a ScalarEncoder with a radius of 1, but since we only encode
+  integers, we never get mixture outputs.
+
+  The SDRCategoryEncoder uses a different method to encode categories
 
 Model trained 50 iterations
 
 Results:
 
-	Number of Success     : 0
-	Number of Half Success: 36
-	Number of Failures    : 108
+	Number of Success     : 109
+	Number of Half Success: 35
+	Number of Failures    : 0
 ...
 
 -----------------------------
 
 Input Sentence: mover hacia la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: mover hacia la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: mover hacia arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: mover hacia abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: mover hacia este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: mover hacia oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: mover hacia norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: mover hacia sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: mover a la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: mover a la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: mover a arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: mover a abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: mover a este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: favor action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: mover a oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: mover a norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: mover a sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: mover para la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: mover para la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: mover para arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: mover para abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: mover para este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: mover para oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: mover para norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: mover para sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: por favor mover hacia la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: por favor mover hacia la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: por favor mover hacia arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: por favor mover hacia abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: por favor mover hacia este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: por favor mover hacia oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: por favor mover hacia norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: por favor mover hacia sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: por favor mover a la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: por favor mover a la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: por favor mover a arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: por favor mover a abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: por favor mover a este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: favor action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: por favor mover a oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: por favor mover a norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: por favor mover a sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: por favor mover para la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: por favor mover para la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: por favor mover para arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: por favor mover para abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: por favor mover para este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: por favor mover para oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: por favor mover para norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: por favor mover para sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas hacia la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas hacia la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas hacia arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas hacia abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas hacia este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas hacia oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas hacia norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas hacia sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas a la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas a la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas a arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas a abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas a este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas a oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas a norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas a sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas para la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas para la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas para arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas para abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas para este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas para oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas para norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: quiero que te muevas para sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: moverse hacia la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: moverse hacia la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: moverse hacia arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: moverse hacia abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: moverse hacia este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-mover
 
 
 -----------------------------
 
 Input Sentence: moverse hacia oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: moverse hacia norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: moverse hacia sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: moverse a la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: moverse a la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: moverse a arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: moverse a abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: moverse a este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: moverse a oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: moverse a norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: moverse a sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: moverse para la derecha
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: moverse para la izquierda
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: moverse para arriba
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: moverse para abajo
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: moverse para este
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha action-derecha
 
 
 -----------------------------
 
 Input Sentence: moverse para oeste
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-izquierda
 
 
 -----------------------------
 
 Input Sentence: moverse para norte
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-arriba
 
 
 -----------------------------
 
 Input Sentence: moverse para sur
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-abajo
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo hacia la derecha ?
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo hacia la izquierda ?
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo hacia arriba ?
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-izquierda
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo hacia abajo ?
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo hacia este ?
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo hacia oeste ?
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo hacia norte ?
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo hacia sur ?
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a la derecha ?
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a la izquierda ?
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a arriba ?
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-arriba action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a abajo ?
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a este ?
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a oeste ?
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-izquierda action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a norte ?
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo para
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a sur ?
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para la derecha ?
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para la izquierda ?
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para arriba ?
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para abajo ?
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para este ?
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para oeste ?
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para norte ?
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para sur ?
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-abajo action-mover
 
 
 -----------------------------
 
 Input Sentence: muevete hacia la derecha por favor
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete hacia la izquierda por favor
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete hacia arriba por favor
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete hacia abajo por favor
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete hacia este por favor
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete hacia oeste por favor
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete hacia norte por favor
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete hacia sur por favor
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete a la derecha por favor
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete a la izquierda por favor
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete a arriba por favor
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete a abajo por favor
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete a este por favor
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete a oeste por favor
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete a norte por favor
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete a sur por favor
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete para la derecha por favor
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete para la izquierda por favor
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete para arriba por favor
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete para abajo por favor
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete para este por favor
 Expected Action: action-mover action-derecha
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete para oeste por favor
 Expected Action: action-mover action-izquierda
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete para norte por favor
 Expected Action: action-mover action-arriba
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la
 
 
 -----------------------------
 
 Input Sentence: muevete para sur por favor
 Expected Action: action-mover action-abajo
-Obtained Action: action-abajo action-abajo action-abajo
+Obtained Action: action-mover action-derecha la

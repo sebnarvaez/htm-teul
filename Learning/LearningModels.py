@@ -56,14 +56,14 @@ class LearningModel():
 
         
     def reset(self):
-		"""
-		Resets all the components of the structure to receive a new
-		sequence
-		"""
-		
-		for modName in self.modules:
-			if modName.endswith('TM'):
-				self.modules[modName].reset()
+        """
+        Resets all the components of the structure to receive a new
+        sequence
+        """
+        
+        for modName in self.modules:
+            if modName.endswith('TM'):
+                self.modules[modName].reset()
 
 class ClassicModel(LearningModel):
     """
@@ -233,7 +233,7 @@ class ClassicModel(LearningModel):
         return self.layer.processInput(inputData, verbose, learn)
 
 
-class OneRegionModel(LearningModel):
+class OneLevelModel(LearningModel):
     """
      Structure:
        WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM

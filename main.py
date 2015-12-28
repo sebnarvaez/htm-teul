@@ -17,15 +17,15 @@ from Learning import MovementTrainingSet as MTS
 
 if __name__ == '__main__':
 
-    #wordEncoder = actionEncoder = EncoderFactory.UnifiedCategoryEncoder(MTS.categories)
+    wordEncoder = actionEncoder = EncoderFactory.UnifiedCategoryEncoder(MTS.categories)
     #wordEncoder = actionEncoder = EncoderFactory.RandomizedLetterEncoder(300, 10)
-    wordEncoder = actionEncoder = EncoderFactory.TotallyRandomEncoder(50, 10)
+    #wordEncoder = actionEncoder = EncoderFactory.TotallyRandomEncoder(50, 10)
     encoderName = wordEncoder.__class__.__name__
     
-    #model = ClassicModel(wordEncoder, actionEncoder, MTS)
-    model = OneRegionModel(wordEncoder, actionEncoder, MTS)
+    model = ClassicModel(wordEncoder, actionEncoder, MTS)
+    #model = OneLevelModel(wordEncoder, actionEncoder, MTS)
     modelName = model.__class__.__name__
-	
+    
     print(modelName)
     print(encoderName)
     model.train(50, verbose=0)
