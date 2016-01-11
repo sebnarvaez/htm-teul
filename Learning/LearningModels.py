@@ -471,7 +471,7 @@ class OneLevelExpModel(LearningModel):
                 self.actionEncoder.getWidth()
             )
             
-        columnDimensions = max((nWords + nActions), len(self.trainingData)) * 2
+        columnDimensions = max((nWords + nActions), len(self.trainingData)) * 3
         
         self.generalSP = SpatialPooler(
             inputDimensions=inputDimensions,

@@ -37,7 +37,7 @@ if __name__ == '__main__':
     #fileName += modelName[:-5] + '-'
     # Appends only the Capital letters
     #fileName += ''.join(cap for cap in encoderName if cap.isupper())
-    fileName += 'OneRegionExp4'
+    fileName += 'OneRegionExp5'
     
     TestSuite.testModel(model, MTS.trainingData, fileName=(fileName + '_Results'))
 
