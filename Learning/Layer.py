@@ -38,7 +38,7 @@ class Layer():
             learn=True):
         """
         Applies the Layer structure to a value.
-
+        s
         @param value
         @param inputName: The name of the input module corresponding
             to the value.
@@ -71,7 +71,7 @@ class Layer():
             
             if moduleName[-3:] == 'Enc':
                 encodedValue = module.encode(prevOutput)
-                bucketIdx = module.getBucketIndices(prevOutput)[0]
+                bucketIdx = module.getBucketIndex(prevOutput)
                 
                 prevOutput = encodedValue
                 prevModName = moduleName
@@ -92,7 +92,7 @@ class Layer():
                 
             elif moduleName[-2:] == 'TM':
                 if prevModName[-3:] == 'Enc' or prevModName[-2:] == 'SP':
-                    prevOutput = sorted(numpy.where(spOutput > 0)[0].flat)
+                    prevOutput = numpy.where(prevOutput > 0)[0]
                 
                 module.compute(set(prevOutput), learn)
                 
@@ -102,7 +102,7 @@ class Layer():
                         module.predictiveCells).keys()
                     print(moduleName + " columns prediction = " +
                         str(predictedColumns))
-
+                
                 prevOutput = module.activeCells
                 prevModName = moduleName
             
@@ -111,7 +111,7 @@ class Layer():
                     "docstring to see the correct usage.")
             
             if verbosity > 1 :
-                print(moduleName + " Output = " + str(prevOutput))
+                print(moduleName + " Output = " + str(numpy.where(prevOutput > 0)[0]))
             
             if self.structure[moduleName] == None:
                 return {
@@ -121,9 +121,7 @@ class Layer():
                 }
                 
             moduleName = self.structure[moduleName]
-            
-            
-                
+    
     def toPatterNZ(self, lastModName, lastModOutput):
         """ Correctly format the output of a module for the classifier """
         
@@ -136,11 +134,11 @@ class Layer():
         else:
             raise ValueError("Invalid Module Name. See the function's "\
                 "docstring to see the correct usage.")
-
+    
     def processInput(self, inputData, verbosity=0, learn=True):
         """
         Applies the Layer structure to an input.
-
+        
         @param inputData: A list of tuples where the first element of
             each tuple is the name of the input module, and the second
             one is its corresponding sequence. Note that the order of
@@ -174,7 +172,7 @@ class Layer():
                     )
                 
                 bestPredictions = []
-            
+                
                 for step in retVal:
                     if step == 'actualValues':
                         continue

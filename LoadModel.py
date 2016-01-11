@@ -17,17 +17,26 @@ if __name__ == '__main__':
     
     print("Loading the model...")
     
-    with open('Classic-UCE.pck', 'rb') as modelFile:
-    #with open('Classic-RLE.pck', 'rb') as modelFile:
-    #with open('Classic-TRE.pck', 'rb') as modelFile:
+    filePath = 'Results/'
+    
+    #modelName = 'Classic'
+    modelName = 'OneLevel'
+    encoderName = '-UCE'
+    #encoderName = '-RLE'
+    #encoderName = '-TRE'
+    
+    fileName = filePath + modelName + encoderName
+    
+    with open(fileName + '.pck', 'rb') as modelFile:
         model = cPickle.load(modelFile)
-     
+    
     print("Done!")
     #model.train(MTS.trainingData, 5, verbose=0)
     
-    TestSuite.testModel(model, MTS.trainingData, modelDescription)
+    #TestSuite.testModel(model, MTS.trainingData,
+    #    fileName=(fileName + '_Results'))
     
-    app = QApplication([])
-    window = MainWindow(model)
-    app.exec_()
+    #app = QApplication([])
+    #window = MainWindow(model)
+    #app.exec_()
     #sys.exit(app.exec_())

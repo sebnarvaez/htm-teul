@@ -10,32 +10,13 @@ from __future__ import print_function
 
 import random
 import numpy
+import string
 
-from nupic.encoders.category import CategoryEncoder
 from nupic.encoders.base import Encoder
+from nupic.encoders.category import CategoryEncoder
 
 """ A collection of encoders for use in different Learning Models """
 
-class UnifiedCategoryEncoder(CategoryEncoder):
-
-    __doc__ = "docstring inherited from CategoryEncoder:\n" +\
-        CategoryEncoder.__doc__
-    
-    def __init__(self, categories, w=11, forced=True):
-        """
-        Goes through the training data, exctracts the categories and makes
-        one Category Encoder for all of them.
-        """
-        categoryList = []
-        for inputCategories in categories:
-            categoryList.extend(list(inputCategories))
-            
-        super(UnifiedCategoryEncoder, self).__init__(
-                w=w,
-                categoryList=categoryList,
-                forced=forced
-            )
-        
 def charToBinary(character, wordLen=8, bitSeparation=0):
     """ 
     Returns: a list of integers containing the binary representation of
@@ -57,31 +38,72 @@ def charToBinary(character, wordLen=8, bitSeparation=0):
         word = [0]*((wordLen * (bitSeparation + 1)) - len(charBitsList))
         word.extend(charBitsList)
         return word
+
+class UnifiedCategoryEncoder(CategoryEncoder):
+
+    __doc__ = "docstring inherited from CategoryEncoder:\n" +\
+        CategoryEncoder.__doc__
+    
+    def __init__(self, categories, w=11, forced=True):
+        """
+        Goes through the training data, exctracts the categories and makes
+        one Category Encoder for all of them.
+        """
+        categoryList = []
+        for inputCategories in categories:
+            categoryList.extend(list(inputCategories))
+            
+        super(UnifiedCategoryEncoder, self).__init__(
+                w=w,
+                categoryList=categoryList,
+                forced=forced
+            )
+            
+    def getBucketIndex(self, inputData):
+        return self.getBucketIndices(inputData)[0]
         
-class RandomizedLetterEncoder(Encoder):
+class CustomEncoder(Encoder):
+    """
+    Base class that provides some general stuff to use in custom
+    encoders. Note that it works only if the child encoder uses an
+    alreadyEncoded dict to keep track of the already encoded values.
+    """
+    
+    def getBucketIndices(self, inputData):
+    
+        encodedData = self.encode(inputData)
+        return numpy.where(encodedData > 0)[0]
+        
+    def getBucketIndex(self, inputData):
+    
+        if inputData not in self.alreadyEncoded:
+            self.encode(inputData)
+        
+        return self.alreadyEncoded[inputData][1]
+
+class RandomizedLetterEncoder(CustomEncoder):
     """
     Encoder for strings. It encodes each letter into binary and appends
     a random chain of bits at the end.
     """
     
-    def __init__(self, width, nRandBits, bitSeparation=0):
+    def __init__(self, width, nRandBits, actBitsPerLetter=1):
         """
         @param width: The size of the encoded list of bits output.
         @param nRandBits: The number of random bits that the output
             will have after the binary representation of the
             string. 0 for a pure string to binary conversion.
-        @param bitSeparation: The separation between bits when encoding
-            the string. This won't affect the random bits.
+        @param actBitsPerLetter: The number of active bits per letter.
         """
         
         if nRandBits > width:
             raise ValueError("nRandBits can't be greater than width.")
-        if bitSeparation < 0:
-            raise ValueError("bitSeparation must be >= 0")
+        if actBitsPerLetter < 1:
+            raise ValueError("There must be at least 1 active bit per letter")
         
         self.width = width
         self.nRandBits = nRandBits
-        self.bitSeparation = bitSeparation
+        self.actBitsPerLetter = actBitsPerLetter
         self.alreadyEncoded = dict()
 
     def getWidth(self):
@@ -94,8 +116,9 @@ class RandomizedLetterEncoder(Encoder):
         @param verbose=0
         """
         
-        bitsPerChar = 8
-        strBinaryLen = len(inputData) * bitsPerChar * (self.bitSeparation + 1)
+        catEnc = CategoryEncoder(self.actBitsPerLetter, list(string.ascii_lowercase),
+            forced=True)
+        strBinaryLen = len(inputData) * catEnc.getWidth()
         
         if (strBinaryLen + self.nRandBits) > self.width:
             raise ValueError("The string is too long to be encoded with the"\
@@ -104,25 +127,21 @@ class RandomizedLetterEncoder(Encoder):
         
         # Encode each char of the string 
         for letter in inputData:
-            strBinary.extend(charToBinary(letter, bitsPerChar, self.bitSeparation))
+            strBinary.extend(list(catEnc.encode(letter)))
         
         if inputData not in self.alreadyEncoded:
-            self.alreadyEncoded[inputData] = [
-                random.randrange(strBinaryLen, self.width) \
-                    for _ in xrange(self.nRandBits)
-            ]
+            self.alreadyEncoded[inputData] = (
+                [random.randrange(strBinaryLen, self.width) \
+                        for _ in xrange(self.nRandBits)],
+                (len(self.alreadyEncoded) + 1)
+            )
         
         output = numpy.zeros((self.width,), dtype=numpy.uint8)
         output[:strBinaryLen] = strBinary
-        output[self.alreadyEncoded[inputData]] = 1
+        output[self.alreadyEncoded[inputData][0]] = 1
         return output
-        
-    def getBucketIndices(self, inputData):
-    
-        encodedData = self.encode(inputData)
-        return numpy.where(encodedData > 0)[0]
-        
-class TotallyRandomEncoder(Encoder):
+
+class TotallyRandomEncoder(CustomEncoder):
     """
     Encoder for strings. It encodes each letter into binary and appends
     a random chain of bits at the end.
@@ -152,17 +171,15 @@ class TotallyRandomEncoder(Encoder):
         """
         
         if inputData not in self.alreadyEncoded:
-            self.alreadyEncoded[inputData] = numpy.array(
-                [random.randrange(self.width) for _ in xrange(self.nActiveBits)],
-                dtype=numpy.uint8
+            self.alreadyEncoded[inputData] = (
+                numpy.array(
+                    [random.randrange(self.width) for _ in xrange(self.nActiveBits)],
+                    dtype=numpy.uint8
+                ),
+                (len(self.alreadyEncoded) + 1)
             )
         
         output = numpy.zeros(self.width, dtype=numpy.uint8)
-        output[self.alreadyEncoded[inputData]] = 1
+        output[self.alreadyEncoded[inputData][0]] = 1
             
         return output
-        
-    def getBucketIndices(self, inputData):
-    
-        encodedData = self.encode(inputData)
-        return numpy.where(encodedData > 0)[0]
