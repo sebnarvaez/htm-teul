@@ -471,36 +471,43 @@ class OneLevelExpModel(LearningModel):
                 self.actionEncoder.getWidth()
             )
             
-        columnDimensions = max((nWords + nActions), len(self.trainingData)) * 3
+        columnDimensions = max((nWords + nActions), len(self.trainingData)) * 4
         
         self.generalSP = SpatialPooler(
             inputDimensions=inputDimensions,
             #UCE: (nWords + nActions) * 3, RLE: 
             columnDimensions=(columnDimensions,),
             #UCE: 11, RLE:1
-            potentialRadius=columnDimensions,
+            potentialRadius=inputDimensions,
             #UCE: 11, RLE:1
             potentialPct=0.5,
             globalInhibition=True,
             localAreaDensity=-1.0,
-            numActiveColumnsPerInhArea=5.0,
+            #4, 4.5 -> 86%
+            numActiveColumnsPerInhArea=4,
             stimulusThreshold=0,
             synPermInactiveDec=0.1,
             synPermActiveInc=0.1,
-            synPermConnected=0.1,
+            #0.15 -> 86%
+            synPermConnected=0.15,
             minPctOverlapDutyCycle=0.1,
             minPctActiveDutyCycle=0.1,
-            dutyCyclePeriod=10, 
+            #20
+            dutyCyclePeriod=20, 
+            #3
             maxBoost=3,
             seed=self.spSeed,
-            spVerbosity=0
+            spVerbosity=0,
+            wrapAround=True
         ) 
         
         self.generalTM = TemporalMemory(
             columnDimensions=(columnDimensions,),
-            #cellsPerColumn=50,
+            cellsPerColumn=80,
+            # 4
             activationThreshold=4,
-            initialPermanence=0.4,
+            # 0.3
+            initialPermanence=0.3,
             connectedPermanence=0.5,
             minThreshold=4,
             maxNewSynapseCount=4,

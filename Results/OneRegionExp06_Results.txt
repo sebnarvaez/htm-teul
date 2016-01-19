@@ -1,0 +1,197 @@
+OneLevelExpModel
+
+     Structure:
+       WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
+    
+* generalSP:
+inputDimensions: [341]
+columnDimensions: [150]
+potentialRadius: 150
+potentialPct: 0.5
+globalInhibition: True
+localAreaDensity: -1.0
+numActiveColumnsPerInhArea: 4
+stimulusThreshold: 0
+synPermInactiveDec: 0.1
+synPermActiveInc: 0.1
+synPermConnected: 0.15
+minPctOverlapDutyCycle: 0.1
+minPctActiveDutyCycle: 0.1
+dutyCyclePeriod: 10
+maxBoost: 3
+seed: 42
+spVerbosity: 0
+wrapAround: True
+
+* generalTM:
+columnDimensions: (150,)
+cellsPerColumn: 100
+activationThreshold: 4
+initialPermanence: 0.4
+connectedPermanence: 0.5
+minThreshold: 4
+maxNewSynapseCount: 4
+permanenceIncrement: 0.05
+permanenceDecrement: 0.05
+predictedSegmentDecrement: 0.0
+seed: 42
+
+UnifiedCategoryEncoder
+docstring inherited from CategoryEncoder:
+Encodes a list of discrete categories (described by strings), that aren't
+  related to each other, so we never emit a mixture of categories.
+
+  The value of zero is reserved for "unknown category"
+
+  Internally we use a ScalarEncoder with a radius of 1, but since we only encode
+  integers, we never get mixture outputs.
+
+  The SDRCategoryEncoder uses a different method to encode categories
+
+Model trained 50 iterations
+
+Results:
+
+	Number of Success     : 86.11%
+	Number of Half Success: 13.88%
+	Number of Failures    : 0.0%
+.
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia abajo ?
+Expected Action: action-mover action-abajo
+Obtained Action: action-mover action-izquierda action-mover
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia sur ?
+Expected Action: action-mover action-abajo
+Obtained Action: action-mover action-izquierda action-mover
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo a abajo ?
+Expected Action: action-mover action-abajo
+Obtained Action: action-mover action-izquierda action-mover
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo para abajo ?
+Expected Action: action-mover action-abajo
+Obtained Action: action-mover action-izquierda action-mover
+
+
+-----------------------------
+
+Input Sentence: muevete hacia la derecha por favor
+Expected Action: action-mover action-derecha
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete hacia la izquierda por favor
+Expected Action: action-mover action-izquierda
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete hacia este por favor
+Expected Action: action-mover action-derecha
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete hacia oeste por favor
+Expected Action: action-mover action-izquierda
+Obtained Action: action-mover action-abajo arriba
+
+
+-----------------------------
+
+Input Sentence: muevete a la derecha por favor
+Expected Action: action-mover action-derecha
+Obtained Action: action-mover action-abajo arriba
+
+
+-----------------------------
+
+Input Sentence: muevete a la izquierda por favor
+Expected Action: action-mover action-izquierda
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete a arriba por favor
+Expected Action: action-mover action-arriba
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete a este por favor
+Expected Action: action-mover action-derecha
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete a oeste por favor
+Expected Action: action-mover action-izquierda
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete a norte por favor
+Expected Action: action-mover action-arriba
+Obtained Action: action-mover action-abajo arriba
+
+
+-----------------------------
+
+Input Sentence: muevete para la derecha por favor
+Expected Action: action-mover action-derecha
+Obtained Action: action-mover action-abajo arriba
+
+
+-----------------------------
+
+Input Sentence: muevete para la izquierda por favor
+Expected Action: action-mover action-izquierda
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete para arriba por favor
+Expected Action: action-mover action-arriba
+Obtained Action: action-mover hacia arriba
+
+
+-----------------------------
+
+Input Sentence: muevete para abajo por favor
+Expected Action: action-mover action-abajo
+Obtained Action: action-mover action-arriba abajo
+
+
+-----------------------------
+
+Input Sentence: muevete para este por favor
+Expected Action: action-mover action-derecha
+Obtained Action: action-mover action-abajo la
+
+
+-----------------------------
+
+Input Sentence: muevete para oeste por favor
+Expected Action: action-mover action-izquierda
+Obtained Action: action-mover action-abajo arriba

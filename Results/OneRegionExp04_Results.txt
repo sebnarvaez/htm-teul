@@ -1,0 +1,71 @@
+OneLevelExpModel
+
+     Structure:
+       WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
+    
+* generalSP:
+inputDimensions: [341]
+columnDimensions: [60]
+potentialRadius: 60
+potentialPct: 0.5
+globalInhibition: True
+localAreaDensity: -1.0
+numActiveColumnsPerInhArea: 4
+stimulusThreshold: 0
+synPermInactiveDec: 0.1
+synPermActiveInc: 0.1
+synPermConnected: 0.15
+minPctOverlapDutyCycle: 0.1
+minPctActiveDutyCycle: 0.1
+dutyCyclePeriod: 10
+maxBoost: 3
+seed: -1
+spVerbosity: 0
+wrapAround: True
+
+* generalTM:
+columnDimensions: (60,)
+cellsPerColumn: 32
+activationThreshold: 4
+initialPermanence: 0.4
+connectedPermanence: 0.5
+minThreshold: 4
+maxNewSynapseCount: 4
+permanenceIncrement: 0.05
+permanenceDecrement: 0.05
+predictedSegmentDecrement: 0.0
+seed: 42
+
+UnifiedCategoryEncoder
+docstring inherited from CategoryEncoder:
+Encodes a list of discrete categories (described by strings), that aren't
+  related to each other, so we never emit a mixture of categories.
+
+  The value of zero is reserved for "unknown category"
+
+  Internally we use a ScalarEncoder with a radius of 1, but since we only encode
+  integers, we never get mixture outputs.
+
+  The SDRCategoryEncoder uses a different method to encode categories
+
+Model trained 100 iterations
+
+Results:
+
+	Number of Success     : 95.83%
+	Number of Half Success: 4.16%
+	Number of Failures    : 0.0%
+..
+
+-----------------------------
+
+Input Sentence: por favor mover a sur
+Expected Action: action-mover action-abajo
+Obtained Action: action-mover action-mover action-arriba
+
+
+-----------------------------
+
+Input Sentence: por favor mover para arriba
+Expected Action: action-mover action-arriba
+Obtained Action: action-mover action-abajo action-arriba

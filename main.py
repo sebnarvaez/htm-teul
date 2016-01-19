@@ -8,7 +8,7 @@
 
 import sys
 import cPickle
-import TestSuite
+from Utils import TestSuite
 from PyQt5.QtWidgets import QApplication
 from GUI.MainWindow import MainWindow
 from Learning.EncoderFactory import *
@@ -30,14 +30,14 @@ if __name__ == '__main__':
     
     print(modelName)
     print(encoderName)
-    model.train(50, verbosity=0)
+    model.train(2, verbosity=0)
     
     fileName = 'Results/'
     # Strips the 'Model' fron the name
     #fileName += modelName[:-5] + '-'
     # Appends only the Capital letters
     #fileName += ''.join(cap for cap in encoderName if cap.isupper())
-    fileName += 'OneRegionExp5'
+    fileName += 'OneRegionExp20'
     
     TestSuite.testModel(model, MTS.trainingData, fileName=(fileName + '_Results'))
 

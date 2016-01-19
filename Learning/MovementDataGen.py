@@ -18,19 +18,17 @@ INDENT = "    "
 outputFilePath = 'MovementTrainingSet.py'
 categories = None
 
-def addData(inputFilePath, mode='wb'):
+def addData(inputFilePaths, mode='wb'):
     """
-    @param inputFilePath: The path of the file where the data will be
-        formatted and stored from.
+    @param inputFilePaths: A list of paths of the files where the data
+        will be formatted and stored from.
     @param mode='wb': The mode in which the file will be opened.
         Recommended arguments:
             'wb': Overwrites the data. 
             'ab': Appends the data at the end of the file.
     """
-
-    print("Leyendo " + inputFilePath)
-    with open(inputFilePath, 'rb') as inputFile,\
-            open(outputFilePath, mode) as outputFile:
+    
+    with open(outputFilePath, mode) as outputFile:
     
         outputFile.write('"""\n')
         outputFile.write('Automatically generated Training Data Set for the '\
@@ -39,46 +37,68 @@ def addData(inputFilePath, mode='wb'):
         outputFile.write('\n')
         outputFile.write('trainingData = (\n')
         
-        csvReader = csv.reader(inputFile)
-        # categories will hold the different data from each column
-        global categories
-        headers = csvReader.next()
-        
-        categories = [set() for _ in xrange(len(headers))]
-        inputIdx = {}
-        
-        for index, inputName in enumerate(headers):
-            inputIdx[inputName] = index
-        
-        for row in csvReader:
-            
-            formatArgs = {
-                'direccion' : 'la derecha',
-                'cardinal' : 'este',
-                'argumento' : 'derecha'
-            }
-            writeDataUnit(row, formatArgs, outputFile)
-            
-            formatArgs = {
-                'direccion' : 'la izquierda',
-                'cardinal' : 'oeste',
-                'argumento' : 'izquierda'
-            }
-            writeDataUnit(row, formatArgs, outputFile)
-            
-            formatArgs = {
-                'direccion' : 'arriba',
-                'cardinal' : 'norte',
-                'argumento' : 'arriba'
-            }
-            writeDataUnit(row, formatArgs, outputFile)
-            
-            formatArgs = {
-                'direccion' : 'abajo',
-                'cardinal' : 'sur',
-                'argumento' : 'abajo'
-            }
-            writeDataUnit(row, formatArgs, outputFile)
+        for inputFilePath in inputFilePaths:
+            with open(inputFilePath, 'rb') as inputFile:
+                csvReader = csv.reader(inputFile)
+                # categories will hold the different data from each column
+                global categories
+                headers = csvReader.next()
+                
+                categories = [set() for _ in xrange(len(headers))]
+                inputIdx = {}
+                
+                for index, inputName in enumerate(headers):
+                    inputIdx[inputName] = index
+                
+                for row in csvReader:
+                    
+                    formatArgs = {
+                        'direccion' : 'la derecha',
+                        'argumento' : 'derecha'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+                    
+                    formatArgs = {
+                        'direccion' : 'el este',
+                        'argumento' : 'derecha'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+                    
+                    formatArgs = {
+                        'direccion' : 'la izquierda',
+                        'argumento' : 'izquierda'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+                    
+                    formatArgs = {
+                        'direccion' : 'el oeste',
+                        'argumento' : 'izquierda'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+                    
+                    formatArgs = {
+                        'direccion' : 'arriba',
+                        'argumento' : 'arriba'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+                    
+                    formatArgs = {
+                        'direccion' : 'el norte',
+                        'argumento' : 'arriba'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+                    
+                    formatArgs = {
+                        'direccion' : 'abajo',
+                        'argumento' : 'abajo'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+                    
+                    formatArgs = {
+                        'direccion' : 'el sur',
+                        'argumento' : 'abajo'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
         
         outputFile.seek(-2, 2)
         outputFile.write('\n)\n')
@@ -101,6 +121,13 @@ def writeDataUnit(columns, formatArgs, outputFile):
     
 if __name__ == '__main__':
     #addData('Dropbox/Tesis/htm-teul/Learning/Data/Movimiento.csv')
-    addData('Data/Movimiento2.csv', 'wb')
+    addData(
+        [
+            'Data/MovimientoPerfectoReordenado.csv',
+            'Data/MovimientoImperfectoReordenado2.csv'
+        ],
+        'wb'
+    )
+    print("Data was written to {0}.".format(outputFilePath))
     #for filePath in glob.glob('Data/*.csv'):
         #addData(filePath)
