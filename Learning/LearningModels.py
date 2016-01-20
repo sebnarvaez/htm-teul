@@ -9,6 +9,7 @@
 from __future__ import print_function
 
 import numpy
+import time
 
 from nupic.algorithms.CLAClassifier import CLAClassifier
 from nupic.encoders.scalar import ScalarEncoder
@@ -45,10 +46,21 @@ class LearningModel(object):
     
         pass
     
-    def train(self, numIterations, verbosity=0):
-    
+    def train(self, numIterations, maxTime=-1, verbosity=0):
+        """
+        @param numIterations
+        @param maxTime: Training stops if maxTime (in minutes) is
+            exceeded. Time is checked at the end of each iteration, so
+            it won't interrupt any. -1 is no time restrictions.
+        @param verbosity: How much verbose about the process. 0 doesn't
+            print anything.
+        """
+        
+        startTime = time.time()
+        
         for iteration in xrange(numIterations):
-            print("Iteration "  + str(iteration))
+            if verbosity > 0:
+                print("Iteration " + str(iteration))
             
             for sentence, actionSeq in self.trainingData:
                 inputData = [
@@ -56,10 +68,15 @@ class LearningModel(object):
                     ('actionInput', actionSeq)
                 ]
                 self.layer.processInput(inputData, verbosity)
-               
                 self.reset()
             
             self.iterationsTrained += 1
+            
+            if (maxTime > 0):
+                elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
+                
+                if (elapsedTime > maxTime):
+                    break
     
     def reset(self):
         """
@@ -198,7 +215,8 @@ class ClassicModel(LearningModel):
             'actionEnc' : self.actionEncoder
         }
         
-        self.layer = Layer(self.structure, self.modules, self.classifier)
+        self.layer = Layer(self.structure, self.modules,
+            self.classifier)
 
     def initModules(self, categories, inputIdx):
         
@@ -371,7 +389,8 @@ class OneLevelModel(LearningModel):
                 self.actionEncoder.getWidth()
             )
             
-        columnDimensions = max((nWords + nActions), len(self.trainingData)) * 2
+        columnDimensions = 2 * max((nWords + nActions),
+                len(self.trainingData))
         
         self.generalSP = SpatialPooler(
             inputDimensions=inputDimensions,
@@ -467,11 +486,12 @@ class OneLevelExpModel(LearningModel):
         nActions = len(categories[inputIdx['actionInput']])
         
         inputDimensions = max(
-                self.wordEncoder.getWidth(),
-                self.actionEncoder.getWidth()
-            )
+            self.wordEncoder.getWidth(),
+            self.actionEncoder.getWidth()
+        )
             
-        columnDimensions = max((nWords + nActions), len(self.trainingData)) * 4
+        columnDimensions = 4 * max((nWords + nActions),
+                len(self.trainingData))
         
         self.generalSP = SpatialPooler(
             inputDimensions=inputDimensions,
