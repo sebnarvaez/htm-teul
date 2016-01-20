@@ -21,7 +21,7 @@ class Parameter:
     VALID_DATATYPES = ('int', 'float', 'bool')
     
     def __init__(self, name, dataType, value=None, minVal=0,
-            maxVal=sys.maxint, maxChange=sys.maxint):
+            maxVal=sys.maxint, maxChange=sys.maxint, mutationProb=1.0):
         """
         Check VALID_DATATYPES and VALID_CONT_DATATYPES for info on what
         kind of Parameters work with this module. value
@@ -41,6 +41,10 @@ class Parameter:
             Parameter's value for more than maxChange. Mutations that
             exceeds maxVal will be trimmed to maxVal. If no maxChange
             is specified, mutations can be arbitrarily large.
+        @param mutationProb=1.0: The probability of actually mutate the
+            parameter if it is choosen for mutation. This will allow 
+            you to have extra control on what parameters should be more
+            stable. It's useful for discrete dataTypes like bool.
         """
         
         # Validations:
@@ -67,6 +71,7 @@ class Parameter:
         self.minVal = minVal
         self.maxVal = maxVal
         self.maxChange = maxChange
+        self.mutationProb = mutationProb
 
 class ParametersFinder:
     """
@@ -97,23 +102,24 @@ class ParametersFinder:
         for _ in xrange(numMutations):
             param = random.choice(newIndividual)
             
-            newValue = {
-                'int': param.value + random.randint(-param.maxChange,
-                        param.maxChange),
-                'float': param.value + random.triangular(-param.maxChange,
-                        param.maxChange),
-                'bool': not param.value
-            }[param.dataType]
-            
-            if param.dataType in Parameter.VALID_CONT_DATATYPES:
+            if random.random() < param.mutationProb:
+                newValue = {
+                    'int': param.value + random.randint(-param.maxChange,
+                            param.maxChange),
+                    'float': param.value + random.triangular(-param.maxChange,
+                            param.maxChange),
+                    'bool': not param.value
+                }[param.dataType]
                 
-                if newValue > param.maxVal:
-                    newValue = param.maxVal
+                if param.dataType in Parameter.VALID_CONT_DATATYPES:
                     
-                elif newValue < param.minVal:
-                    newValue = param.minVal
-            
-            param.value = newValue
+                    if newValue > param.maxVal:
+                        newValue = param.maxVal
+                        
+                    elif newValue < param.minVal:
+                        newValue = param.minVal
+                
+                param.value = newValue
         
         if verbosity > 1:
             print("New Individual created")
@@ -168,7 +174,6 @@ class ParametersFinder:
         @returns A dictionary with the parameter names as keys and the
             best suited values found.
         """
-        #print("Params definition: {0}".format(paramsDefinition))
         
         iterationCount = 0
         # This is a tuple containing (bestIndividuals, bestScores)
