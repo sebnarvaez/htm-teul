@@ -14,16 +14,56 @@ from Learning.EncoderFactory import *
 from Learning.LearningModels import *
 from Learning import MovementTrainingSet as MTS
 
+def organizeParamsByModule(params):
+    
+    paramsByModule = {}
+    
+    for model___param in params:
+        moduleName, paramName = model___param.split('___')
+        
+        if moduleName not in paramsByModule:
+            paramsByModule[moduleName] = {}
+        
+        #print("model_paramName: {}".format(modelParams[model___param]))
+        paramsByModule[moduleName][paramName] = params[model___param]
+    
+    return paramsByModule
+
 def getModelScore(model, trainIterations, trainMaxTime, **modelParams):
     
+    paramsByModule = {}
+    
+    #print("Evaluating {}".format(modelParams))
+    
+    for model___param in modelParams:
+        moduleName, paramName = model___param.split('___')
+        
+        if moduleName not in paramsByModule:
+            paramsByModule[moduleName] = {}
+        
+        #print("model_paramName: {}".format(modelParams[model___param]))
+        paramsByModule[moduleName][paramName] = modelParams[model___param]
+    
+    for moduleName in paramsByModule:
+        model.modules[moduleName] = model.modules[moduleName].__class__(
+                **paramsByModule[moduleName])
+    
+    print('\n-----------------------------\n')
+    
+    print(model.spParametersStr())
+    print(model.tmParametersStr())
+    
+    print('Training...')
     
     model.train(trainIterations, maxTime=trainMaxTime, verbosity=0)
     results = TestSuite.testModel(model, MTS.trainingData, saveResults=False)
     
-    return results[successPercent]
+    print("Success: {}%".format(results['successPercent']))
+    
+    return results['successPercent']
 
 if __name__ == '__main__':
-
+    
     wordEncoder = actionEncoder = UnifiedCategoryEncoder(MTS.categories)
     #wordEncoder = actionEncoder = RandomizedLetterEncoder(600, 10)
     #wordEncoder = actionEncoder = TotallyRandomEncoder(50, 10)
@@ -35,21 +75,21 @@ if __name__ == '__main__':
     
     paramList = []
     nonMutableParams = {}
+    # getModelScore args:
+    nonMutableParams['model'] = model
+    nonMutableParams['trainIterations'] = 20
+    nonMutableParams['trainMaxTime'] = 30
     
-    nWords = len(MTS.categories[inputIdx['wordInput']])
-    nActions = len(MTS.categories[inputIdx['actionInput']])
+    nWords = len(MTS.categories[MTS.inputIdx['wordInput']])
+    nActions = len(MTS.categories[MTS.inputIdx['actionInput']])
     
     inputDimensions = max(
-        self.wordEncoder.getWidth(),
-        self.actionEncoder.getWidth()
+        wordEncoder.getWidth(),
+        actionEncoder.getWidth()
     )
     
     columnDimensions = 4 * max((nWords + nActions),
-            len(self.trainingData))
-    
-    nonMutableParams['model'] = model
-    nonMutableParams['trainIterations'] = 50
-    nonMutableParams['trainMaxTime'] = 30
+            len(MTS.trainingData))
     
     # Extract all the SPs and TMs parameters
     for moduleName in model.modules:
@@ -60,6 +100,204 @@ if __name__ == '__main__':
             nonMutableParams[moduleName + '___localAreaDensity'] = -1.0
             nonMutableParams[moduleName + '___seed'] = model.spSeed
             nonMutableParams[moduleName + '___spVerbosity'] = 0
+            
+            Parameter(
+name='generalTM___cellsPerColumn',
+            dataType='int',
+            value=80,
+            minVal=1,
+            maxVal=500,
+            maxChange=5,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalTM___activationThreshold',
+            dataType='int',
+            value=4,
+            minVal=1,
+            maxVal=499,
+            maxChange=5,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalTM___initialPermanence',
+            dataType='float',
+            value=0.22382208699,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalTM___connectedPermanence',
+            dataType='float',
+            value=0.575611110106,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalTM___minThreshold',
+            dataType='int',
+            value=4,
+            minVal=1,
+            maxVal=100,
+            maxChange=4,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalTM___maxNewSynapseCount',
+            dataType='int',
+            value=4,
+            minVal=1,
+            maxVal=20,
+            maxChange=2,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalTM___permanenceIncrement',
+            dataType='float',
+            value=0.117671359444,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalTM___permanenceDecrement',
+            dataType='float',
+            value=0.143945674364,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalTM___predictedSegmentDecrement',
+            dataType='float',
+            value=0.0,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.05,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___potentialRadius',
+            dataType='int',
+            value=297,
+            minVal=1,
+            maxVal=297,
+            maxChange=29,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___potentialPct',
+            dataType='float',
+            value=0.5,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___globalInhibition',
+            dataType='bool',
+            value=True,
+            minVal=0,
+            maxVal=9223372036854775807,
+            maxChange=9223372036854775807,
+            mutationProb=0.5),
+            
+            Parameter(
+name='generalSP___numActiveColumnsPerInhArea',
+            dataType='float',
+            value=4.0,
+            minVal=0.0,
+            maxVal=297,
+            maxChange=1.0,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___stimulusThreshold',
+            dataType='int',
+            value=0,
+            minVal=0,
+            maxVal=10,
+            maxChange=1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___synPermInactiveDec',
+            dataType='float',
+            value=0.121754178434,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___synPermActiveInc',
+            dataType='float',
+            value=0.1,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___synPermConnected',
+            dataType='float',
+            value=0.15,
+            minVal=0.0,
+            maxVal=0.9,
+            maxChange=0.1,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___minPctOverlapDutyCycle',
+            dataType='float',
+            value=0.1,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.05,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___minPctActiveDutyCycle',
+            dataType='float',
+            value=0.1,
+            minVal=0.0,
+            maxVal=1.0,
+            maxChange=0.05,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___dutyCyclePeriod',
+            dataType='int',
+            value=16,
+            minVal=1,
+            maxVal=200,
+            maxChange=5,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___maxBoost',
+            dataType='float',
+            value=3.0,
+            minVal=1.0,
+            maxVal=50.0,
+            maxChange=2.0,
+            mutationProb=1.0),
+            
+            Parameter(
+name='generalSP___wrapAround',
+            dataType='bool',
+            value=True,
+            minVal=0,
+            maxVal=9223372036854775807,
+            maxChange=9223372036854775807,
+            mutationProb=0.5)
             
             paramList.append(Parameter(
                     moduleName + '___potentialRadius',
@@ -73,8 +311,8 @@ if __name__ == '__main__':
                     moduleName + '___potentialPct',
                     'float', 
                     value=0.5,
-                    minVal=0,
-                    maxVal=1,
+                    minVal=0.0,
+                    maxVal=1.0,
                     maxChange=0.1
                 ))
             paramList.append(Parameter(
@@ -103,16 +341,16 @@ if __name__ == '__main__':
                     moduleName + '___synPermInactiveDec',
                     'float', 
                     value=0.1,
-                    minVal=0,
-                    maxVal=1,
+                    minVal=0.0,
+                    maxVal=1.0,
                     maxChange=0.1
                 ))
             paramList.append(Parameter(
                     moduleName + '___synPermActiveInc',
                     'float', 
                     value=0.1,
-                    minVal=0,
-                    maxVal=1,
+                    minVal=0.0,
+                    maxVal=1.0,
                     maxChange=0.1
                 ))
             paramList.append(Parameter(
@@ -142,7 +380,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                     moduleName + '___dutyCyclePeriod',
                     'int', 
-                    value=20,
+                    value=16,
                     minVal=1,
                     maxVal=200,
                     maxChange=5
@@ -193,7 +431,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                     moduleName + '___connectedPermanence',
                     'float', 
-                    value=0.5,
+                    value=0.575611110106,
                     minVal=0.0,
                     maxVal=1.0,
                     maxChange=0.1
@@ -225,7 +463,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                     moduleName + '___permanenceDecrement',
                     'float', 
-                    value=0.05,
+                    value=0.143945674364,
                     minVal=0.0,
                     maxVal=1.0,
                     maxChange=0.1
@@ -238,23 +476,26 @@ if __name__ == '__main__':
                     maxVal=1.0,
                     maxChange=0.05
                 ))
-        
-        elif moduleName.endswith('classifier'):
-            nonMutableParams[moduleName + '___steps'] = 
-            
-    paramsFinder = ParametersFinder(5)
+    
+    paramsFinder = ParametersFinder(
+        getModelScore, 
+        paramList,
+        nonOptimParams=nonMutableParams
+    )
     bestParameters = paramsFinder.findParams(
-            evalFunc,
-            (
-                Parameter('a', 'int', minVal=0, maxVal=50, maxChange=5),
-                Parameter('b', 'int', minVal=0, maxVal=50, maxChange=5)
-            ),
-            variety=2,
-            maxTime=-1,
-            maxIterations=-1,
-            minScore=50
-        )
-
+        populationSize=4,
+        maxMutations=4,
+        variety=3,
+        maxIterations=-1,
+        maxTime=60 * 8, #hours
+        #maxTime=-1,
+        minScore=98,
+        parallelization=True,
+        nCores=2,
+        savingFrequency=2,
+        verbosity=1
+    )
+    
     #print("Saving the model...")
     #with open((fileName + '.pck'), 'wb') as modelFile:
         #cPickle.dump(model, modelFile, -1)

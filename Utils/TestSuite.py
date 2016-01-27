@@ -63,23 +63,23 @@ def testModel(model, testData, saveResults=True, fileName='log'):
                 logFile.write('Expected Action: {0}\n'.format(" ".join(actionSeq)))
                 logFile.write('Obtained Action: {0}\n'.format(" ".join(predictions)))
         
-        # Write the Results before the details of the run
-        successPercent = float((nSuccess * 10000) / len(testData)) / 100
-        halfPercent = float((nHalf * 10000) / len(testData)) / 100
-        failPercent = float((nFails * 10000) / len(testData)) / 100
+    # Write the Results before the details of the run
+    successPercent = float((nSuccess * 10000) / len(testData)) / 100
+    halfPercent = float((nHalf * 10000) / len(testData)) / 100
+    failPercent = float((nFails * 10000) / len(testData)) / 100
+    
+    if saveResults:
+        logFile.seek(len(description))
+        logFile.write('\n\n')
+        logFile.write('Results:\n\n')
+        logFile.write('\tNumber of Success     : {0}%\n'.format(
+                successPercent))
+        logFile.write('\tNumber of Half Success: {0}%\n'.format(
+                halfPercent))
+        logFile.write('\tNumber of Failures    : {0}%\n'.format(
+                failPercent))
         
-        if saveResults:
-            logFile.seek(len(description))
-            logFile.write('\n\n')
-            logFile.write('Results:\n\n')
-            logFile.write('\tNumber of Success     : {0}%\n'.format(
-                    successPercent))
-            logFile.write('\tNumber of Half Success: {0}%\n'.format(
-                    halfPercent))
-            logFile.write('\tNumber of Failures    : {0}%\n'.format(
-                    failPercent))
-            
-            print("Results written to {0}!".format(fileName))
+        print("Results written to {0}!".format(fileName))
     
     return {
         'successPercent': successPercent,

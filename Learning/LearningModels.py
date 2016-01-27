@@ -75,7 +75,7 @@ class LearningModel(object):
             if (maxTime > 0):
                 elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
                 
-                if (elapsedTime > maxTime):
+                if (elapsedMinutes > maxTime):
                     break
     
     def reset(self):
@@ -513,7 +513,7 @@ class OneLevelExpModel(LearningModel):
             minPctOverlapDutyCycle=0.1,
             minPctActiveDutyCycle=0.1,
             #20
-            dutyCyclePeriod=20, 
+            dutyCyclePeriod=16, 
             #3
             maxBoost=3,
             seed=self.spSeed,
@@ -528,13 +528,13 @@ class OneLevelExpModel(LearningModel):
             activationThreshold=4,
             # 0.3
             initialPermanence=0.3,
-            connectedPermanence=0.5,
+            connectedPermanence=0.575611110106,
             minThreshold=4,
             maxNewSynapseCount=4,
             permanenceIncrement=0.05,
-            permanenceDecrement=0.05,
-            #predictedSegmentDecrement=0.0,
-            #seed=self.tmSeed
+            permanenceDecrement=0.143945674364,
+            predictedSegmentDecrement=0.0,
+            seed=self.tmSeed
         )
         
         self.classifier = CLAClassifier(
