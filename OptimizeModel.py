@@ -77,7 +77,7 @@ if __name__ == '__main__':
     nonMutableParams = {}
     # getModelScore args:
     nonMutableParams['model'] = model
-    nonMutableParams['trainIterations'] = 20
+    nonMutableParams['trainIterations'] = 30
     nonMutableParams['trainMaxTime'] = 30
     
     nWords = len(MTS.categories[MTS.inputIdx['wordInput']])
@@ -112,10 +112,10 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                     moduleName + '___potentialPct',
                     'float', 
-                    value=0.5,
+                    value=0.384783101942,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.1
+                    maxChange=0.3
                 ))
             paramList.append(Parameter(
                     moduleName + '___globalInhibition',
@@ -129,7 +129,7 @@ if __name__ == '__main__':
                     value=4.0,
                     minVal=0.0,
                     maxVal=inputDimensions,
-                    maxChange=1.0
+                    maxChange=2.0
                 ))
             paramList.append(Parameter(
                     moduleName + '___stimulusThreshold',
@@ -137,7 +137,7 @@ if __name__ == '__main__':
                     value=0,
                     minVal=0,
                     maxVal=10,
-                    maxChange=1
+                    maxChange=5
                 ))
             paramList.append(Parameter(
                     moduleName + '___synPermInactiveDec',
@@ -145,7 +145,7 @@ if __name__ == '__main__':
                     value=0.121754178434,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.1
+                    maxChange=0.3
                 ))
             paramList.append(Parameter(
                     moduleName + '___synPermActiveInc',
@@ -153,7 +153,7 @@ if __name__ == '__main__':
                     value=0.1,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.1
+                    maxChange=0.3
                 ))
             paramList.append(Parameter(
                     moduleName + '___synPermConnected',
@@ -161,7 +161,7 @@ if __name__ == '__main__':
                     value=0.15,
                     minVal=0.0,
                     maxVal=0.9,
-                    maxChange=0.1
+                    maxChange=0.3
                 ))
             paramList.append(Parameter(
                     moduleName + '___minPctOverlapDutyCycle',
@@ -169,7 +169,7 @@ if __name__ == '__main__':
                     value=0.1,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.05
+                    maxChange=0.2
                 ))
             paramList.append(Parameter(
                     moduleName + '___minPctActiveDutyCycle',
@@ -177,7 +177,7 @@ if __name__ == '__main__':
                     value=0.1,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.05
+                    maxChange=0.2
                 ))
             paramList.append(Parameter(
                     moduleName + '___dutyCyclePeriod',
@@ -185,20 +185,20 @@ if __name__ == '__main__':
                     value=16,
                     minVal=1,
                     maxVal=200,
-                    maxChange=5
+                    maxChange=10
                 ))
             paramList.append(Parameter(
                     moduleName + '___maxBoost',
                     'float', 
-                    value=3.0,
+                    value=1.0,
                     minVal=1.0,
                     maxVal=50.0,
-                    maxChange=2.0
+                    maxChange=4.0
                 ))
             paramList.append(Parameter(
                     moduleName + '___wrapAround',
                     'bool', 
-                    value=True,
+                    value=False,
                     mutationProb=0.5
                 ))
         
@@ -213,12 +213,12 @@ if __name__ == '__main__':
                     value=80,
                     minVal=1,
                     maxVal=500,
-                    maxChange=5
+                    maxChange=15
                 ))
             paramList.append(Parameter(
                     moduleName + '___activationThreshold',
                     'int', 
-                    value=4,
+                    value=1,
                     minVal=1,
                     maxVal=499,
                     maxChange=5
@@ -229,7 +229,7 @@ if __name__ == '__main__':
                     value=0.22382208699,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.1
+                    maxChange=0.3
                 ))
             paramList.append(Parameter(
                     moduleName + '___connectedPermanence',
@@ -237,7 +237,7 @@ if __name__ == '__main__':
                     value=0.575611110106,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.1
+                    maxChange=0.3
                 ))
             paramList.append(Parameter(
                     moduleName + '___minThreshold',
@@ -245,15 +245,15 @@ if __name__ == '__main__':
                     value=4,
                     minVal=1,
                     maxVal=100,
-                    maxChange=4
+                    maxChange=5
                 ))
             paramList.append(Parameter(
                     moduleName + '___maxNewSynapseCount',
                     'int', 
-                    value=4,
+                    value=7,
                     minVal=1,
                     maxVal=20,
-                    maxChange=2
+                    maxChange=3
                 ))
             paramList.append(Parameter(
                     moduleName + '___permanenceIncrement',
@@ -261,15 +261,15 @@ if __name__ == '__main__':
                     value=0.117671359444,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.1
+                    maxChange=0.3
                 ))
             paramList.append(Parameter(
                     moduleName + '___permanenceDecrement',
                     'float', 
-                    value=0.143945674364,
+                    value=0.0,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.1
+                    maxChange=0.3
                 ))
             paramList.append(Parameter(
                     moduleName + '___predictedSegmentDecrement',
@@ -277,7 +277,7 @@ if __name__ == '__main__':
                     value=0.0,
                     minVal=0.0,
                     maxVal=1.0,
-                    maxChange=0.05
+                    maxChange=0.2
                 ))
     
     paramsFinder = ParametersFinder(
@@ -290,11 +290,11 @@ if __name__ == '__main__':
         maxMutations=4,
         variety=3,
         maxIterations=-1,
-        maxTime=60 * 8, #hours
+        maxTime=60 * 18, #hours
         #maxTime=-1,
         minScore=98,
         parallelization=True,
-        nCores=2,
+        nCores=4,
         savingFrequency=2,
         verbosity=1
     )

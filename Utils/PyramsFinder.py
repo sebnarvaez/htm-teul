@@ -109,8 +109,9 @@ class Parameter:
     
     def __repr__(self):
         
-        return "Parameter(name='{}', dataType='{}', value={}, minVal={}, "\
-            "maxVal={}, maxChange={}, mutationProb={})".format(self.name,
+        return "\nParameter(\n    name='{}',\n    dataType='{}',\n    value={},"\
+            "\n    minVal={},\n    maxVal={},\n    maxChange={},\n    "\
+            "mutationProb={}\n)".format(self.name,
                 self.dataType, self.value, self.minVal, self.maxVal,
                 self.maxChange, self.mutationProb)
 
@@ -201,7 +202,7 @@ class ParametersFinder:
         included. 
         """
         
-        self.population = copy.deepcopy(baseIndividuals)
+        self.population = []
         
         for i in xrange(populationSize):
             self.population.append(self._createIndividual(
@@ -209,6 +210,8 @@ class ParametersFinder:
                     maxMutations,
                     verbosity
                 ))
+        
+        self.population.extend(baseIndividuals)
     
     def _getIndivParamsDict(self, individual, nonOptimParams):
         indivParams = {}
