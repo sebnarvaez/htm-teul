@@ -27,7 +27,13 @@ def _applyParams(params):
     evalFunc = params[0]
     methodParams = params[1]
     #print(indivParams)
-    return evalFunc(**methodParams)
+    score = 0
+    try:
+        score = evalFunc(**methodParams)
+    except:
+        print("An error ocurred when evaluating function with parameters:"\
+            "\n{}".format(methodParams))
+    return score
 
 def _applyParamsToInstanceMethod(params):
     """
@@ -41,7 +47,13 @@ def _applyParamsToInstanceMethod(params):
     methodName = params[1]
     methodParams = params[2]
     #print(indivParams)
-    return getattr(instance, methodName)(**methodParams)
+    score = 0
+    try:
+        score = getattr(instance, methodName)(**methodParams)
+    except:
+        print("An error ocurred when evaluating function with parameters:"\
+            "\n{}".format(methodParams))
+    return score
 
 class Parameter:
     """
