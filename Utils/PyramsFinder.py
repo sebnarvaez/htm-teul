@@ -495,8 +495,8 @@ class ParametersFinder:
                         'nonOptimParams = {}\n'.format(self.nonOptimParams)
                     )
                     savingFile.write("Best Scores: {}".format(
-                            [individual.score for individual in population[:3]
-                        )
+                            [individual.score for individual in population[:3]]
+                        ))
                     for individual in population[:3]:
                     savingFile.write('bestFindings:\n')
                     for individual in population[:3]:
