@@ -60,13 +60,13 @@ class Layer():
         prevModName = ''
         bucketIdx = 0
         
-        if verbosity > 1 :
+        if verbosity > 2 :
             print("Value: " + str(value))
         
         while True:
             
             module = self.modules[moduleName]
-            if verbosity > 1 :
+            if verbosity > 2 :
                 print("Current module: " + moduleName)
             
             if moduleName[-3:] == 'Enc':
@@ -96,7 +96,7 @@ class Layer():
                 
                 module.compute(set(prevOutput), learn)
                 
-                if verbosity > 1 :
+                if verbosity > 2 :
                 
                     predictedColumns = module.mapCellsToColumns(
                         module.predictiveCells).keys()
@@ -110,7 +110,7 @@ class Layer():
                 raise ValueError("Invalid Module Name. See the function's "\
                     "docstring to see the correct usage.")
             
-            if verbosity > 1 :
+            if verbosity > 2 :
                 print(moduleName + " Output = " + str(numpy.where(prevOutput > 0)[0]))
             
             if self.structure[moduleName] == None:
@@ -151,7 +151,7 @@ class Layer():
         retVal = None
         
         for inputModule in inputData:
-            if verbosity > 0 : 
+            if verbosity > 1 : 
                 print("===== " + inputModule[0] + ": " + str(inputModule[1]) +
                     " =====")
         
@@ -182,10 +182,10 @@ class Layer():
                         retVal['actualValues'][higherProbIndex]
                     )
                 
-                if verbosity > 1 :
+                if verbosity > 2 :
                     print('Best Predictions: ' + str(bestPredictions))
                 
-                if verbosity > 2 :
+                if verbosity > 3 :
                     print("  |  CLAClassifier best predictions for step1: ")
                     top = sorted(retVal[1].tolist(), reverse=True)[:3]
                     
@@ -208,7 +208,7 @@ class Layer():
                 
                 recordNum += 1
             
-            if verbosity > 0 :
+            if verbosity > 1 :
                 print('Best Predictions for next module: ' + str(bestPredictions))
                 
         return bestPredictions

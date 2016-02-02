@@ -67,7 +67,7 @@ Parameter(
 Parameter(
     name='generalTM___permanenceDecrement',
     dataType='float',
-    value=0.52118115778,
+    value=0.732209460692,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.3,
@@ -130,7 +130,7 @@ Parameter(
 Parameter(
     name='generalSP___synPermInactiveDec',
     dataType='float',
-    value=0.121754178434,
+    value=0.0,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.3,
@@ -157,7 +157,7 @@ Parameter(
 Parameter(
     name='generalSP___minPctOverlapDutyCycle',
     dataType='float',
-    value=0.137190887797,
+    value=0.302678328031,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.2,
@@ -166,7 +166,206 @@ Parameter(
 Parameter(
     name='generalSP___minPctActiveDutyCycle',
     dataType='float',
+    value=0.0,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.2,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___dutyCyclePeriod',
+    dataType='int',
+    value=15,
+    minVal=1,
+    maxVal=200,
+    maxChange=10,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___maxBoost',
+    dataType='float',
+    value=1.0,
+    minVal=1.0,
+    maxVal=50.0,
+    maxChange=4.0,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___wrapAround',
+    dataType='bool',
+    value=True,
+    minVal=0,
+    maxVal=9223372036854775807,
+    maxChange=9223372036854775807,
+    mutationProb=0.5
+)]
+[
+Parameter(
+    name='generalTM___cellsPerColumn',
+    dataType='int',
+    value=64,
+    minVal=1,
+    maxVal=500,
+    maxChange=15,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalTM___activationThreshold',
+    dataType='int',
+    value=1,
+    minVal=1,
+    maxVal=499,
+    maxChange=5,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalTM___initialPermanence',
+    dataType='float',
+    value=0.0158254844864,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalTM___connectedPermanence',
+    dataType='float',
+    value=0.732081745878,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalTM___minThreshold',
+    dataType='int',
+    value=4,
+    minVal=1,
+    maxVal=100,
+    maxChange=5,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalTM___maxNewSynapseCount',
+    dataType='int',
+    value=4,
+    minVal=1,
+    maxVal=20,
+    maxChange=3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalTM___permanenceIncrement',
+    dataType='float',
+    value=0.117671359444,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalTM___permanenceDecrement',
+    dataType='float',
+    value=0.7683216313,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalTM___predictedSegmentDecrement',
+    dataType='float',
+    value=0.0,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.2,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___potentialRadius',
+    dataType='int',
+    value=297,
+    minVal=1,
+    maxVal=297,
+    maxChange=29,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___potentialPct',
+    dataType='float',
+    value=0.726248028695,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___globalInhibition',
+    dataType='bool',
+    value=True,
+    minVal=0,
+    maxVal=9223372036854775807,
+    maxChange=9223372036854775807,
+    mutationProb=0.5
+), 
+Parameter(
+    name='generalSP___numActiveColumnsPerInhArea',
+    dataType='float',
+    value=4.0,
+    minVal=0.0,
+    maxVal=297,
+    maxChange=2.0,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___stimulusThreshold',
+    dataType='int',
+    value=0,
+    minVal=0,
+    maxVal=10,
+    maxChange=5,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___synPermInactiveDec',
+    dataType='float',
+    value=0.0,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___synPermActiveInc',
+    dataType='float',
     value=0.1,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___synPermConnected',
+    dataType='float',
+    value=0.107148493503,
+    minVal=0.0,
+    maxVal=0.9,
+    maxChange=0.3,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___minPctOverlapDutyCycle',
+    dataType='float',
+    value=0.302678328031,
+    minVal=0.0,
+    maxVal=1.0,
+    maxChange=0.2,
+    mutationProb=1.0
+), 
+Parameter(
+    name='generalSP___minPctActiveDutyCycle',
+    dataType='float',
+    value=0.0,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.2,
@@ -230,7 +429,7 @@ Parameter(
 Parameter(
     name='generalTM___connectedPermanence',
     dataType='float',
-    value=0.674714438958,
+    value=0.455622390828,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.3,
@@ -257,7 +456,7 @@ Parameter(
 Parameter(
     name='generalTM___permanenceIncrement',
     dataType='float',
-    value=0.117671359444,
+    value=0.0,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.3,
@@ -266,7 +465,7 @@ Parameter(
 Parameter(
     name='generalTM___permanenceDecrement',
     dataType='float',
-    value=0.52118115778,
+    value=0.937073129432,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.3,
@@ -329,7 +528,7 @@ Parameter(
 Parameter(
     name='generalSP___synPermInactiveDec',
     dataType='float',
-    value=0.121754178434,
+    value=0.0,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.3,
@@ -356,7 +555,7 @@ Parameter(
 Parameter(
     name='generalSP___minPctOverlapDutyCycle',
     dataType='float',
-    value=0.0292024318453,
+    value=0.302678328031,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.2,
@@ -364,115 +563,6 @@ Parameter(
 ), 
 Parameter(
     name='generalSP___minPctActiveDutyCycle',
-    dataType='float',
-    value=0.1,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.2,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___dutyCyclePeriod',
-    dataType='int',
-    value=15,
-    minVal=1,
-    maxVal=200,
-    maxChange=10,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___maxBoost',
-    dataType='float',
-    value=1.0,
-    minVal=1.0,
-    maxVal=50.0,
-    maxChange=4.0,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___wrapAround',
-    dataType='bool',
-    value=False,
-    minVal=0,
-    maxVal=9223372036854775807,
-    maxChange=9223372036854775807,
-    mutationProb=0.5
-)]
-[
-Parameter(
-    name='generalTM___cellsPerColumn',
-    dataType='int',
-    value=64,
-    minVal=1,
-    maxVal=500,
-    maxChange=15,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalTM___activationThreshold',
-    dataType='int',
-    value=1,
-    minVal=1,
-    maxVal=499,
-    maxChange=5,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalTM___initialPermanence',
-    dataType='float',
-    value=0.22382208699,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalTM___connectedPermanence',
-    dataType='float',
-    value=0.475909313482,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalTM___minThreshold',
-    dataType='int',
-    value=4,
-    minVal=1,
-    maxVal=100,
-    maxChange=5,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalTM___maxNewSynapseCount',
-    dataType='int',
-    value=4,
-    minVal=1,
-    maxVal=20,
-    maxChange=3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalTM___permanenceIncrement',
-    dataType='float',
-    value=0.117671359444,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalTM___permanenceDecrement',
-    dataType='float',
-    value=0.52118115778,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalTM___predictedSegmentDecrement',
     dataType='float',
     value=0.0,
     minVal=0.0,
@@ -481,99 +571,9 @@ Parameter(
     mutationProb=1.0
 ), 
 Parameter(
-    name='generalSP___potentialRadius',
-    dataType='int',
-    value=297,
-    minVal=1,
-    maxVal=297,
-    maxChange=29,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___potentialPct',
-    dataType='float',
-    value=0.726248028695,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___globalInhibition',
-    dataType='bool',
-    value=True,
-    minVal=0,
-    maxVal=9223372036854775807,
-    maxChange=9223372036854775807,
-    mutationProb=0.5
-), 
-Parameter(
-    name='generalSP___numActiveColumnsPerInhArea',
-    dataType='float',
-    value=4.0,
-    minVal=0.0,
-    maxVal=297,
-    maxChange=2.0,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___stimulusThreshold',
-    dataType='int',
-    value=0,
-    minVal=0,
-    maxVal=10,
-    maxChange=5,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___synPermInactiveDec',
-    dataType='float',
-    value=0.121754178434,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___synPermActiveInc',
-    dataType='float',
-    value=0.1,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___synPermConnected',
-    dataType='float',
-    value=0.107148493503,
-    minVal=0.0,
-    maxVal=0.9,
-    maxChange=0.3,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___minPctOverlapDutyCycle',
-    dataType='float',
-    value=0.137190887797,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.2,
-    mutationProb=1.0
-), 
-Parameter(
-    name='generalSP___minPctActiveDutyCycle',
-    dataType='float',
-    value=0.1,
-    minVal=0.0,
-    maxVal=1.0,
-    maxChange=0.2,
-    mutationProb=1.0
-), 
-Parameter(
     name='generalSP___dutyCyclePeriod',
     dataType='int',
-    value=15,
+    value=25,
     minVal=1,
     maxVal=200,
     maxChange=10,
@@ -591,7 +591,7 @@ Parameter(
 Parameter(
     name='generalSP___wrapAround',
     dataType='bool',
-    value=False,
+    value=True,
     minVal=0,
     maxVal=9223372036854775807,
     maxChange=9223372036854775807,

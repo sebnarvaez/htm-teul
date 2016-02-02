@@ -6,7 +6,9 @@
 #  Fecha última modificación: 2015-12-03
 #  Versión: 0.1
 
-def testModel(model, testData, saveResults=True, fileName='log'):
+import time
+
+def testModel(model, testData, maxTime=-1, saveResults=True, fileName='log'):
     """ Creates a report about the success of a trained model """
     
     fileName += '.txt'
@@ -34,12 +36,14 @@ def testModel(model, testData, saveResults=True, fileName='log'):
         logFile.write('')
         logFile.write(description)
         logFile.write('.'*107) # Leave space for the execution Results
-        
+    
+    if maxTime > 0:
+        startTime = time.time()
+
     print('Begining tests')
     
     for sentence, actionSeq in testData:
-        predictions = model.inputSentence(sentence, verbosity=0, 
-            learn=False)
+        predictions = model.inputSentence(sentence, verbosity=0, learn=False)
         
         if predictions[:2] == actionSeq:
             nSuccess += 1
@@ -50,18 +54,37 @@ def testModel(model, testData, saveResults=True, fileName='log'):
             
             if saveResults:
                 logFile.write('\n\n-----------------------------\n\n')
-                logFile.write('Input Sentence: {0}\n'.format(" ".join(sentence)))
-                logFile.write('Expected Action: {0}\n'.format(" ".join(actionSeq)))
-                logFile.write('Obtained Action: {0}\n'.format(" ".join(predictions)))
-            
+                logFile.write(
+                    'Input Sentence: {0}\n'.format(" ".join(sentence))
+                )
+                logFile.write(
+                    'Expected Action: {0}\n'.format(" ".join(actionSeq))
+                )
+                logFile.write(
+                    'Obtained Action: {0}\n'.format(" ".join(predictions))
+                )
+        
         else:
             nFails += 1
             
             if saveResults:
                 logFile.write('\n\n-----------------------------\n\n')
-                logFile.write('Input Sentence: {0}\n'.format(" ".join(sentence)))
-                logFile.write('Expected Action: {0}\n'.format(" ".join(actionSeq)))
-                logFile.write('Obtained Action: {0}\n'.format(" ".join(predictions)))
+                logFile.write(
+                    'Input Sentence: {0}\n'.format(" ".join(sentence))
+                )
+                logFile.write(
+                    'Expected Action: {0}\n'.format(" ".join(actionSeq))
+                )
+                logFile.write(
+                    'Obtained Action: {0}\n'.format(" ".join(predictions))
+                )
+        
+        if maxTime > 0:
+            elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
+            
+            if (elapsedMinutes > maxTime):
+                print("maxTime reached, tests stoped.")
+                break
         
     # Write the Results before the details of the run
     successPercent = float((nSuccess * 10000) / len(testData)) / 100

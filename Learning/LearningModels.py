@@ -29,12 +29,12 @@ class LearningModel(object):
         dicts, the layer and any other object you'll need for your
         learning structure.
         
-        self.iterationsTrained = 0
         self.initModules()
         self.structure = dict()
         self.modules = dict()
         """
         
+        self.iterationsTrained = 0
         self.spSeed = 42
         self.tmSeed = 42
         
@@ -50,17 +50,17 @@ class LearningModel(object):
         """
         @param numIterations
         @param maxTime: Training stops if maxTime (in minutes) is
-            exceeded. Time is checked at the end of each iteration, so
-            it won't interrupt any. -1 is no time restrictions.
+            exceeded. Note that this may interrupt an ongoing train 
+            ireration. -1 is no time restrictions.
         @param verbosity: How much verbose about the process. 0 doesn't
             print anything.
         """
         
         startTime = time.time()
+        maxTimeReached = False
         
         for iteration in xrange(numIterations):
-            if verbosity > 0:
-                print("Iteration " + str(iteration))
+            print("Iteration " + str(iteration))
             
             for sentence, actionSeq in self.trainingData:
                 inputData = [
@@ -69,14 +69,20 @@ class LearningModel(object):
                 ]
                 self.layer.processInput(inputData, verbosity)
                 self.reset()
+                
+                if (maxTime > 0):
+                    elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
+                    
+                    if (elapsedMinutes > maxTime):
+                        maxTimeReached = True
+                        print("maxTime reached, training stoped at iteration "\
+                            "{}!".format(self.iterationsTrained))
+                        break
+            
+            if maxTimeReached:
+                break
             
             self.iterationsTrained += 1
-            
-            if (maxTime > 0):
-                elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
-                
-                if (elapsedMinutes > maxTime):
-                    break
     
     def reset(self):
         """
@@ -93,43 +99,44 @@ class LearningModel(object):
         
         for modName in self.modules:
             if modName.endswith('SP'):
-                params += "* {0}:\n".format(modName)
-                params += "inputDimensions: {0}\n".format(
+                params += "{0}Args = {{\n".format(modName)
+                params += "\t'inputDimensions': {0},\n".format(
                     self.modules[modName]._inputDimensions)
-                params += "columnDimensions: {0}\n".format(
+                params += "\t'columnDimensions': {0},\n".format(
                     self.modules[modName]._columnDimensions)
-                params += "potentialRadius: {0}\n".format(
+                params += "\t'potentialRadius': {0},\n".format(
                     self.modules[modName]._potentialRadius)
-                params += "potentialPct: {0}\n".format(
+                params += "\t'potentialPct': {0},\n".format(
                     self.modules[modName]._potentialPct)
-                params += "globalInhibition: {0}\n".format(
+                params += "\t'globalInhibition': {0},\n".format(
                     self.modules[modName]._globalInhibition)
-                params += "localAreaDensity: {0}\n".format(
+                params += "\t'localAreaDensity': {0},\n".format(
                     self.modules[modName]._localAreaDensity)
-                params += "numActiveColumnsPerInhArea: {0}\n".format(
+                params += "\t'numActiveColumnsPerInhArea': {0},\n".format(
                     self.modules[modName]._numActiveColumnsPerInhArea)
-                params += "stimulusThreshold: {0}\n".format(
+                params += "\t'stimulusThreshold': {0},\n".format(
                     self.modules[modName]._stimulusThreshold)
-                params += "synPermInactiveDec: {0}\n".format(
+                params += "\t'synPermInactiveDec': {0},\n".format(
                     self.modules[modName]._synPermInactiveDec)
-                params += "synPermActiveInc: {0}\n".format(
+                params += "\t'synPermActiveInc': {0},\n".format(
                     self.modules[modName]._synPermActiveInc)
-                params += "synPermConnected: {0}\n".format(
+                params += "\t'synPermConnected': {0},\n".format(
                     self.modules[modName]._synPermConnected)
-                params += "minPctOverlapDutyCycle: {0}\n".format(
+                params += "\t'minPctOverlapDutyCycle': {0},\n".format(
                     self.modules[modName]._minPctOverlapDutyCycles)
-                params += "minPctActiveDutyCycle: {0}\n".format(
+                params += "\t'minPctActiveDutyCycle': {0},\n".format(
                     self.modules[modName]._minPctActiveDutyCycles)
-                params += "dutyCyclePeriod: {0}\n".format(
+                params += "\t'dutyCyclePeriod': {0},\n".format(
                     self.modules[modName]._dutyCyclePeriod)
-                params += "maxBoost: {0}\n".format(
+                params += "\t'maxBoost': {0},\n".format(
                     self.modules[modName]._maxBoost)
-                params += "seed: {0}\n".format(
+                params += "\t'seed': {0},\n".format(
                     self.spSeed)
-                params += "spVerbosity: {0}\n".format(
+                params += "\t'spVerbosity': {0},\n".format(
                     self.modules[modName]._spVerbosity)
-                params += "wrapAround: {0}\n".format(
+                params += "\t'wrapAround': {0}\n".format(
                     self.modules[modName]._wrapAround)
+                params += "}"
                 
         return params
     
@@ -138,28 +145,29 @@ class LearningModel(object):
         
         for modName in self.modules:
             if modName.endswith('TM'):
-                params += "* {0}:\n".format(modName)
-                params += "columnDimensions: {0}\n".format(
+                params += "{0}Args = {{\n".format(modName)
+                params += "\t'columnDimensions': {0},\n".format(
                     self.modules[modName].columnDimensions)
-                params += "cellsPerColumn: {0}\n".format(
+                params += "\t'cellsPerColumn': {0},\n".format(
                     self.modules[modName].cellsPerColumn)
-                params += "activationThreshold: {0}\n".format(
+                params += "\t'activationThreshold': {0},\n".format(
                     self.modules[modName].activationThreshold)
-                params += "initialPermanence: {0}\n".format(
+                params += "\t'initialPermanence': {0},\n".format(
                     self.modules[modName].initialPermanence)
-                params += "connectedPermanence: {0}\n".format(
+                params += "\t'connectedPermanence': {0},\n".format(
                     self.modules[modName].connectedPermanence)
-                params += "minThreshold: {0}\n".format(
+                params += "\t'minThreshold': {0},\n".format(
                     self.modules[modName].minThreshold)
-                params += "maxNewSynapseCount: {0}\n".format(
+                params += "\t'maxNewSynapseCount': {0},\n".format(
                     self.modules[modName].maxNewSynapseCount)
-                params += "permanenceIncrement: {0}\n".format(
+                params += "\t'permanenceIncrement': {0},\n".format(
                     self.modules[modName].permanenceIncrement)
-                params += "permanenceDecrement: {0}\n".format(
+                params += "\t'permanenceDecrement': {0},\n".format(
                     self.modules[modName].permanenceDecrement)
-                params += "predictedSegmentDecrement: {0}\n".format(
+                params += "\t'predictedSegmentDecrement': {0},\n".format(
                     self.modules[modName].predictedSegmentDecrement)
-                params += "seed: {0}\n".format(self.tmSeed)
+                params += "\t'seed': {0}\n".format(self.tmSeed)
+                params += "}"
         
         return params
         
@@ -183,7 +191,6 @@ class ClassicModel(LearningModel):
         
         super(ClassicModel, self).__init__()
         
-        self.iterationsTrained = 0
         self.wordEncoder = wordEncoder
         self.actionEncoder = actionEncoder
         self.trainingData = trainingSet.trainingData
@@ -351,9 +358,8 @@ class OneLevelModel(LearningModel):
             its categories and the inputIdx dict that maps each index
             in categories to an input name.
         """
-        super(ClassicModel, self).__init__()
+        super(OneLevelModel, self).__init__()
         
-        self.iterationsTrained = 0
         self.wordEncoder = wordEncoder
         self.actionEncoder = actionEncoder
         self.trainingData = trainingSet.trainingData
@@ -454,7 +460,6 @@ class OneLevelExpModel(LearningModel):
         
         super(OneLevelExpModel, self).__init__()
         
-        self.iterationsTrained = 0
         self.wordEncoder = wordEncoder
         self.actionEncoder = actionEncoder
         self.trainingData = trainingSet.trainingData
@@ -498,44 +503,127 @@ class OneLevelExpModel(LearningModel):
             #UCE: (nWords + nActions) * 3, RLE: 
             columnDimensions=(columnDimensions,),
             #UCE: 11, RLE:1
-            potentialRadius=inputDimensions,
+            potentialRadius=297,
             #UCE: 11, RLE:1
-            potentialPct=0.5,
+            potentialPct=0.726248028695,
             globalInhibition=True,
             localAreaDensity=-1.0,
             #4, 4.5 -> 86%
-            numActiveColumnsPerInhArea=4,
+            numActiveColumnsPerInhArea=4.0,
             stimulusThreshold=0,
-            synPermInactiveDec=0.1,
+            synPermInactiveDec=0.121754178434,
             synPermActiveInc=0.1,
             #0.15 -> 86%
-            synPermConnected=0.15,
-            minPctOverlapDutyCycle=0.1,
+            synPermConnected=0.107148493503,
+            minPctOverlapDutyCycle=0.137190887797,
             minPctActiveDutyCycle=0.1,
             #20
-            dutyCyclePeriod=16, 
+            dutyCyclePeriod=15, 
             #3
-            maxBoost=3,
+            maxBoost=1.0,
             seed=self.spSeed,
             spVerbosity=0,
-            wrapAround=True
+            wrapAround=False
         ) 
         
         self.generalTM = TemporalMemory(
             columnDimensions=(columnDimensions,),
-            cellsPerColumn=80,
+            cellsPerColumn=64,
             # 4
-            activationThreshold=4,
+            activationThreshold=1,
             # 0.3
-            initialPermanence=0.3,
-            connectedPermanence=0.575611110106,
+            initialPermanence=0.22382208699,
+            connectedPermanence=0.674714438958,
             minThreshold=4,
             maxNewSynapseCount=4,
-            permanenceIncrement=0.05,
-            permanenceDecrement=0.143945674364,
+            permanenceIncrement=0.117671359444,
+            permanenceDecrement=0.52118115778,
             predictedSegmentDecrement=0.0,
             seed=self.tmSeed
         )
+        
+        #self.generalSP = SpatialPooler(
+            #inputDimensions=inputDimensions,
+            ##UCE: (nWords + nActions) * 3, RLE: 
+            #columnDimensions=(columnDimensions,),
+            ##UCE: 11, RLE:1
+            #potentialRadius=inputDimensions,
+            ##UCE: 11, RLE:1
+            #potentialPct=0.5,
+            #globalInhibition=True,
+            #localAreaDensity=-1.0,
+            ##4, 4.5 -> 86%
+            #numActiveColumnsPerInhArea=4,
+            #stimulusThreshold=0,
+            #synPermInactiveDec=0.1,
+            #synPermActiveInc=0.1,
+            ##0.15 -> 86%
+            #synPermConnected=0.15,
+            #minPctOverlapDutyCycle=0.1,
+            #minPctActiveDutyCycle=0.1,
+            ##20
+            #dutyCyclePeriod=16, 
+            ##3
+            #maxBoost=3,
+            #seed=self.spSeed,
+            #spVerbosity=0,
+            #wrapAround=True
+        #) 
+        
+        #self.generalTM = TemporalMemory(
+            #columnDimensions=(columnDimensions,),
+            #cellsPerColumn=80,
+            ## 4
+            #activationThreshold=4,
+            ## 0.3
+            #initialPermanence=0.3,
+            #connectedPermanence=0.575611110106,
+            #minThreshold=4,
+            #maxNewSynapseCount=4,
+            #permanenceIncrement=0.05,
+            #permanenceDecrement=0.143945674364,
+            #predictedSegmentDecrement=0.0,
+            #seed=self.tmSeed
+        #)
+        
+        #generalSPArgs = {
+            #'inputDimensions': [297],
+            #'columnDimensions': [1440],
+            #'potentialRadius': 33,
+            #'potentialPct': 0.878502103883,
+            #'globalInhibition': False,
+            #'localAreaDensity': -1.0,
+            #'numActiveColumnsPerInhArea': 282,
+            #'stimulusThreshold': 3,
+            #'synPermInactiveDec': 0.628325572745,
+            #'synPermActiveInc': 0.252328979379,
+            #'synPermConnected': 0.674231628955,
+            #'minPctOverlapDutyCycle': 0.727506713123,
+            #'minPctActiveDutyCycle': 0.61502196691,
+            #'dutyCyclePeriod': 85,
+            #'maxBoost': 22.7589495827,
+            #'seed': 42,
+            #'spVerbosity': 0,
+            #'wrapAround': False
+        #}
+        #generalTMArgs = {
+            #'columnDimensions': (1440,),
+            #'cellsPerColumn': 296,
+            #'activationThreshold': 3,
+            #'initialPermanence': 0.973159425903,
+            #'connectedPermanence': 0.0356029114278,
+            #'minThreshold': 35,
+            #'maxNewSynapseCount': 20,
+            #'permanenceIncrement': 0.768559889207,
+            #'permanenceDecrement': 0.932179170176,
+            #'predictedSegmentDecrement': 0.358265258558,
+            #'seed': 42
+        #}
+
+        
+        #self.generalSP = SpatialPooler(**generalSPArgs)
+        
+        #self.generalTM = TemporalMemory(**generalTMArgs)
         
         self.classifier = CLAClassifier(
             steps=[1, 2, 3],
@@ -651,7 +739,8 @@ class JoinedInputsModel(LearningModel):
     def train(self, numIterations, verbosity=0, learn=True):
         
         for iteration in xrange(numIterations):
-            print("Iteration "  + str(iteration))
+            if verbosity > 0:
+                print("Iteration "  + str(iteration))
             
             recordNum = 0
             
@@ -673,7 +762,7 @@ class JoinedInputsModel(LearningModel):
         inputName = inputData[0]
         actualValue = inputData[1]
         
-        if verbosity > 0:
+        if verbosity > 1:
             print("===== " + inputName + ": " + str(actualValue) + " =====")
         
         if inputName == 'wordInput':
@@ -695,7 +784,7 @@ class JoinedInputsModel(LearningModel):
         
         bucketIndex = self.buckets[actualValue]
         
-        if verbosity > 0:
+        if verbosity > 1:
             print("Encoded Value: {0}\n"\
                 "Bucket Index: {1}\n".format(encodedValue, bucketIndex))
         
@@ -756,7 +845,7 @@ class JoinedInputsModel(LearningModel):
         inputData = ('wordInput', sentence)
         bestPredictions = self.processInput(inputData, 0, verbosity, learn)
         
-        if verbosity > 0:
+        if verbosity > 1:
             print('Best Predictions: ' + str(bestPredictions))
         
         return bestPredictions

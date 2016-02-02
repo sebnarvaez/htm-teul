@@ -30,14 +30,14 @@ if __name__ == '__main__':
     
     print(modelName)
     print(encoderName)
-    model.train(10, verbosity=0)
+    model.train(50, maxTime=-1, verbosity=1)
     
     fileName = 'Results/'
     # Strips the 'Model' fron the name
     #fileName += modelName[:-5] + '-'
     # Appends only the Capital letters
     #fileName += ''.join(cap for cap in encoderName if cap.isupper())
-    fileName += 'OneRegionExp21'
+    fileName += 'OneRegionExp32'
     
     TestSuite.testModel(model, MTS.trainingData, fileName=(fileName + '_Results'))
 

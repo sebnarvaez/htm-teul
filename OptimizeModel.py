@@ -7,6 +7,7 @@
 #  Versión: 1.2
 
 import sys
+import copy
 import cPickle
 from Utils import TestSuite
 from Utils.PyramsFinder import *
@@ -29,7 +30,8 @@ def organizeParamsByModule(params):
     
     return paramsByModule
 
-def getModelScore(model, trainIterations, trainMaxTime, **modelParams):
+def getModelScore(model, trainIterations, trainMaxTime, testsMaxTime,
+        **modelParams):
     
     paramsByModule = {}
     
@@ -44,19 +46,23 @@ def getModelScore(model, trainIterations, trainMaxTime, **modelParams):
         #print("model_paramName: {}".format(modelParams[model___param]))
         paramsByModule[moduleName][paramName] = modelParams[model___param]
     
+    tempModel = copy.deepcopy(model)
+    tempModel.iterationsTrained = 0
+    
     for moduleName in paramsByModule:
-        model.modules[moduleName] = model.modules[moduleName].__class__(
+        tempModel.modules[moduleName] = tempModel.modules[moduleName].__class__(
                 **paramsByModule[moduleName])
     
     print('\n-----------------------------\n')
     
-    print(model.spParametersStr())
-    print(model.tmParametersStr())
+    print(tempModel.spParametersStr())
+    print(tempModel.tmParametersStr())
     
     print('Training...')
     
-    model.train(trainIterations, maxTime=trainMaxTime, verbosity=0)
-    results = TestSuite.testModel(model, MTS.trainingData, saveResults=False)
+    tempModel.train(trainIterations, maxTime=trainMaxTime, verbosity=0)
+    results = TestSuite.testModel(tempModel, MTS.trainingData, 
+        maxTime=testsMaxTime, saveResults=False)
     
     print("Success: {}%".format(results['successPercent']))
     
@@ -76,9 +82,6 @@ if __name__ == '__main__':
     paramList = []
     nonMutableParams = {}
     # getModelScore args:
-    nonMutableParams['model'] = model
-    nonMutableParams['trainIterations'] = 30
-    nonMutableParams['trainMaxTime'] = 30
     
     nWords = len(MTS.categories[MTS.inputIdx['wordInput']])
     nActions = len(MTS.categories[MTS.inputIdx['actionInput']])
@@ -88,7 +91,7 @@ if __name__ == '__main__':
         actionEncoder.getWidth()
     )
     
-    columnDimensions = 4 * max((nWords + nActions),
+    columnDimensions = 5 * max((nWords + nActions),
             len(MTS.trainingData))
     
     # Extract all the SPs and TMs parameters
@@ -102,105 +105,122 @@ if __name__ == '__main__':
             nonMutableParams[moduleName + '___spVerbosity'] = 0
             
             paramList.append(Parameter(
-                    moduleName + '___potentialRadius',
-                    'int', 
-                    value=inputDimensions,
-                    minVal=1,
-                    maxVal=inputDimensions,
-                    maxChange=inputDimensions/10
-                ))
+                name='generalSP___potentialRadius',
+                dataType='int',
+                value=297,
+                minVal=1,
+                maxVal=297,
+                maxChange=29,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___potentialPct',
-                    'float', 
-                    value=0.384783101942,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.3
-                ))
+                name='generalSP___potentialPct',
+                dataType='float',
+                value=0.726248028695,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___globalInhibition',
-                    'bool',
-                    value=True,
-                    mutationProb=0.5
-                ))
+                name='generalSP___globalInhibition',
+                dataType='bool',
+                value=True,
+                minVal=0,
+                maxVal=9223372036854775807,
+                maxChange=9223372036854775807,
+                mutationProb=0.5
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___numActiveColumnsPerInhArea',
-                    'float', 
-                    value=4.0,
-                    minVal=0.0,
-                    maxVal=inputDimensions,
-                    maxChange=2.0
-                ))
+                name='generalSP___numActiveColumnsPerInhArea',
+                dataType='float',
+                value=4.0,
+                minVal=0.0,
+                maxVal=297,
+                maxChange=2.0,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___stimulusThreshold',
-                    'int', 
-                    value=0,
-                    minVal=0,
-                    maxVal=10,
-                    maxChange=5
-                ))
+                name='generalSP___stimulusThreshold',
+                dataType='int',
+                value=0,
+                minVal=0,
+                maxVal=10,
+                maxChange=5,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___synPermInactiveDec',
-                    'float', 
-                    value=0.121754178434,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.3
-                ))
+                name='generalSP___synPermInactiveDec',
+                dataType='float',
+                value=0.121754178434,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___synPermActiveInc',
-                    'float', 
-                    value=0.1,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.3
-                ))
+                name='generalSP___synPermActiveInc',
+                dataType='float',
+                value=0.1,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___synPermConnected',
-                    'float', 
-                    value=0.15,
-                    minVal=0.0,
-                    maxVal=0.9,
-                    maxChange=0.3
-                ))
+                name='generalSP___synPermConnected',
+                dataType='float',
+                value=0.107148493503,
+                minVal=0.0,
+                maxVal=0.9,
+                maxChange=0.3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___minPctOverlapDutyCycle',
-                    'float', 
-                    value=0.1,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.2
-                ))
+                name='generalSP___minPctOverlapDutyCycle',
+                dataType='float',
+                value=0.137190887797,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.2,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___minPctActiveDutyCycle',
-                    'float', 
-                    value=0.1,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.2
-                ))
+                name='generalSP___minPctActiveDutyCycle',
+                dataType='float',
+                value=0.1,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.2,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___dutyCyclePeriod',
-                    'int', 
-                    value=16,
-                    minVal=1,
-                    maxVal=200,
-                    maxChange=10
-                ))
+                name='generalSP___dutyCyclePeriod',
+                dataType='int',
+                value=15,
+                minVal=1,
+                maxVal=200,
+                maxChange=10,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___maxBoost',
-                    'float', 
-                    value=1.0,
-                    minVal=1.0,
-                    maxVal=50.0,
-                    maxChange=4.0
-                ))
+                name='generalSP___maxBoost',
+                dataType='float',
+                value=1.0,
+                minVal=1.0,
+                maxVal=50.0,
+                maxChange=4.0,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___wrapAround',
-                    'bool', 
-                    value=False,
-                    mutationProb=0.5
-                ))
+                name='generalSP___wrapAround',
+                dataType='bool',
+                value=False,
+                minVal=0,
+                maxVal=9223372036854775807,
+                maxChange=9223372036854775807,
+                mutationProb=0.5
+            ))
         
         elif moduleName.endswith('TM'):
             nonMutableParams[moduleName + '___columnDimensions'] = (columnDimensions,)
@@ -208,77 +228,96 @@ if __name__ == '__main__':
             
             
             paramList.append(Parameter(
-                    moduleName + '___cellsPerColumn',
-                    'int', 
-                    value=80,
-                    minVal=1,
-                    maxVal=500,
-                    maxChange=15
-                ))
+                name='generalTM___cellsPerColumn',
+                dataType='int',
+                value=64,
+                minVal=1,
+                maxVal=500,
+                maxChange=15,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___activationThreshold',
-                    'int', 
-                    value=1,
-                    minVal=1,
-                    maxVal=499,
-                    maxChange=5
-                ))
+                name='generalTM___activationThreshold',
+                dataType='int',
+                value=1,
+                minVal=1,
+                maxVal=499,
+                maxChange=5,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___initialPermanence',
-                    'float', 
-                    value=0.22382208699,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.3
-                ))
+                name='generalTM___initialPermanence',
+                dataType='float',
+                value=0.22382208699,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___connectedPermanence',
-                    'float', 
-                    value=0.575611110106,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.3
-                ))
+                name='generalTM___connectedPermanence',
+                dataType='float',
+                value=0.674714438958,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___minThreshold',
-                    'int', 
-                    value=4,
-                    minVal=1,
-                    maxVal=100,
-                    maxChange=5
-                ))
+                name='generalTM___minThreshold',
+                dataType='int',
+                value=4,
+                minVal=1,
+                maxVal=100,
+                maxChange=5,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___maxNewSynapseCount',
-                    'int', 
-                    value=7,
-                    minVal=1,
-                    maxVal=20,
-                    maxChange=3
-                ))
+                name='generalTM___maxNewSynapseCount',
+                dataType='int',
+                value=4,
+                minVal=1,
+                maxVal=20,
+                maxChange=3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___permanenceIncrement',
-                    'float', 
-                    value=0.117671359444,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.3
-                ))
+                name='generalTM___permanenceIncrement',
+                dataType='float',
+                value=0.117671359444,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___permanenceDecrement',
-                    'float', 
-                    value=0.0,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.3
-                ))
+                name='generalTM___permanenceDecrement',
+                dataType='float',
+                value=0.52118115778,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.3,
+                mutationProb=1.0
+            )) 
             paramList.append(Parameter(
-                    moduleName + '___predictedSegmentDecrement',
-                    'float', 
-                    value=0.0,
-                    minVal=0.0,
-                    maxVal=1.0,
-                    maxChange=0.2
-                ))
+                name='generalTM___predictedSegmentDecrement',
+                dataType='float',
+                value=0.0,
+                minVal=0.0,
+                maxVal=1.0,
+                maxChange=0.2,
+                mutationProb=1.0
+            )) 
+            
+    #nonMutableParams['model'] = model
+    #nonMutableParams['trainIterations'] = 2
+    #nonMutableParams['trainMaxTime'] = 1
+    #nonMutableParams['testsMaxTime'] = 1
+    
+    nonMutableParams['model'] = model
+    nonMutableParams['trainIterations'] = 50
+    nonMutableParams['trainMaxTime'] = 30
+    nonMutableParams['testsMaxTime'] = 15
     
     paramsFinder = ParametersFinder(
         getModelScore, 
@@ -289,14 +328,16 @@ if __name__ == '__main__':
         populationSize=4,
         maxMutations=4,
         variety=3,
+        elitism=1,
+        selectionTechnique='RouletteWheel',
+        randomizeFirstGen=True,
         maxIterations=-1,
-        maxTime=60 * 18, #hours
+        maxTime=20 * 60, #hours
         #maxTime=-1,
-        minScore=98,
-        parallelization=True,
-        nCores=4,
+        minScore=95,
+        nParallelEvals=4,
         savingFrequency=2,
-        verbosity=1
+        verbosity=2
     )
     
     #print("Saving the model...")

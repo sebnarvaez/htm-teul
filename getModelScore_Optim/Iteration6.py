@@ -166,7 +166,7 @@ Parameter(
 Parameter(
     name='generalSP___minPctActiveDutyCycle',
     dataType='float',
-    value=0.1,
+    value=0.0,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.2,
@@ -356,7 +356,7 @@ Parameter(
 Parameter(
     name='generalSP___minPctOverlapDutyCycle',
     dataType='float',
-    value=0.0292024318453,
+    value=0.137190887797,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.2,
@@ -392,7 +392,7 @@ Parameter(
 Parameter(
     name='generalSP___wrapAround',
     dataType='bool',
-    value=False,
+    value=True,
     minVal=0,
     maxVal=9223372036854775807,
     maxChange=9223372036854775807,
@@ -429,7 +429,7 @@ Parameter(
 Parameter(
     name='generalTM___connectedPermanence',
     dataType='float',
-    value=0.475909313482,
+    value=0.674714438958,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.3,
@@ -474,7 +474,7 @@ Parameter(
 Parameter(
     name='generalTM___predictedSegmentDecrement',
     dataType='float',
-    value=0.0,
+    value=0.086589921855,
     minVal=0.0,
     maxVal=1.0,
     maxChange=0.2,
@@ -483,7 +483,7 @@ Parameter(
 Parameter(
     name='generalSP___potentialRadius',
     dataType='int',
-    value=297,
+    value=270,
     minVal=1,
     maxVal=297,
     maxChange=29,

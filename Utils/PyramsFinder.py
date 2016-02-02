@@ -8,12 +8,14 @@
 
 from __future__ import print_function
 from multiprocessing import Pool
-import itertools
-import sys
-import random
 import copy
-import time
+import itertools
 import os
+import operator
+import random
+import sys
+import time
+import traceback
 
 # Functions defined at the module level because of conflicts with the
 # python's multiprocessing module.
@@ -31,8 +33,9 @@ def _applyParams(params):
     try:
         score = evalFunc(**methodParams)
     except:
-        print("An error ocurred when evaluating function with parameters:"\
-            "\n{}".format(methodParams))
+        print("\nAN ERROR OCURRED when evaluating function, the score for "\
+            "these parameters will be set to zero:\n{}\n".format(methodParams))
+        traceback.print_exc()
     return score
 
 def _applyParamsToInstanceMethod(params):
@@ -51,13 +54,14 @@ def _applyParamsToInstanceMethod(params):
     try:
         score = getattr(instance, methodName)(**methodParams)
     except:
-        print("An error ocurred when evaluating function with parameters:"\
-            "\n{}".format(methodParams))
+        print("\nAN ERROR OCURRED when evaluating function, the score for "\
+            "these parameters will be set to zero:\n{}\n".format(methodParams))
+        traceback.print_exc()
     return score
 
 class Parameter:
     """
-    Defines a Parameter to use in the ParamsFinder module.
+    Defines a Parameter to use in the PyramsFinder module.
     """
     
     VALID_CONT_DATATYPES = ('int', 'float')
@@ -74,8 +78,9 @@ class Parameter:
             optimize.
         @param dataType: Should be in VALID_DATATYPES. minVal, maxVal
             and maxChange will only take effect for VALID_CONT_DATATYPES.
-        @param value: The value the parameter will start with. It will
-            be set randomly if not defined.
+        @param value: Set it if you have an idea of what could be a 
+            good value for this parameter. It will be set randomly if
+            not defined.
         @param minVal=0: The minimum possible value that the parameter
             can take. Only works with numbers.
         @param maxVal=sys.maxint: The maximum possible value that the
@@ -83,7 +88,8 @@ class Parameter:
         @param maxChange=None: A mutation will not alter the
             Parameter's value for more than maxChange. Mutations that
             exceeds maxVal will be trimmed to maxVal. If no maxChange
-            is specified, mutations can be arbitrarily large.
+            is specified, mutations can be arbitrarily large. Tiny 
+            values can lead to a very slow convergence.
         @param mutationProb=1.0: The probability of actually mutate the
             parameter if it is choosen for mutation. This will allow 
             you to have extra control on what parameters should be more
@@ -96,20 +102,22 @@ class Parameter:
                 value = random.randint(minVal, maxVal)
                 
             elif dataType == 'float':
-                random.uniform(minVal, maxVal)
+                value = random.uniform(minVal, maxVal)
                 
             elif dataType == 'bool':
-                random.choice((True, False))
+                value = random.choice((True, False))
         
-        if maxVal <= minVal:
-            raise ValueError("maxVal must be greater than minVal")
+        if value in Parameter.VALID_CONT_DATATYPES:
         
-        if (value < minVal) or (value > maxVal):    
-            raise ValueError("value must range from minVal to maxVal")
-        
-        if abs(maxChange) > (abs(maxVal) - abs(minVal)):
-            raise ValueError("maxChange must not exceed the difference between"\
-                "minVal and maxVal")
+            if maxVal <= minVal:
+                raise ValueError("maxVal must be greater than minVal")
+            
+            if (value < minVal) or (value > maxVal):
+                raise ValueError("value must range from minVal to maxVal")
+            
+            if abs(maxChange) > (abs(maxVal) - abs(minVal)):
+                raise ValueError("maxChange should not exceed the difference "\
+                    "between minVal and maxVal")
         
         self.name = name
         self.dataType = dataType
@@ -127,10 +135,34 @@ class Parameter:
                 self.dataType, self.value, self.minVal, self.maxVal,
                 self.maxChange, self.mutationProb)
 
+class Individual:
+    
+    def __init__(self, parameters, score=0, aptitude=0.0):
+        """
+        A simple class to hold the properties of an Individual.
+        
+        @param parameters
+        @param score=0
+        @param aptitude=0.0
+        """
+        self.parameters = parameters
+        self.score = score
+        self.aptitude = aptitude
+    
+    def getParamsDict(self, nonOptimParams):
+        indivParams = {}
+        
+        for param in self.parameters:
+            indivParams[param.name] = param.value
+        
+        indivParams.update(nonOptimParams)
+        
+        return indivParams
+
 class ParametersFinder:
     """
-    Implements an evolutionary algorithm (greedy for this version) to
-    find good parameters for python functions.
+    Implements an evolutionary algorithm to find good parameters for
+    python functions.
     """
     
     def __init__(self, evalFunc, paramsDefinition, nonOptimParams={},
@@ -148,7 +180,8 @@ class ParametersFinder:
         @param isInstanceMethod=False: Set to True if evalFunc is a
             method of a class. This is used to perform a workaround for
             the multiprocessing's inability to work with instance
-            methods.
+            methods. BEWARE of methods that change the object's
+            attributes, as it can lead to unexpected results.
         """
         
         self.evalFunc = evalFunc
@@ -156,87 +189,200 @@ class ParametersFinder:
         self.nonOptimParams = nonOptimParams
         self.isInstanceMethod = isInstanceMethod
     
-    def _createIndividual(self, baseIndividual, maxMutations, verbosity=0):
-        """
-        Creates a new individual by making at max maxMutations to the
-        baseIndividual. An individual is a list of Parameters.
-        
-        @param baseIndividual
-        @param maxMutations
-        """
-        
-        newIndividual = copy.deepcopy(baseIndividual)
-        # As baseIndividuals are always included, there should be at
-        # least 1 mutation per individual.
-        numMutations = random.randint(1, maxMutations)
-        
-        for _ in xrange(numMutations):
-            param = random.choice(newIndividual)
-            
-            if random.random() < param.mutationProb:
-            
-                if verbosity > 2:
-                    print("--- New Individual ---")
-                    print("Choosen for mutation: {}".format(param.name))
-                
-                if param.dataType == 'int':
-                    newValue = param.value + (random.choice((-1, 1)) * 
-                        random.randint(1, param.maxChange))
-                        
-                elif param.dataType == 'float':
-                    newValue = param.value + random.uniform(-param.maxChange,
-                        param.maxChange)
-                        
-                elif param.dataType == 'bool':
-                    newValue = not param.value
-                
-                if param.dataType in Parameter.VALID_CONT_DATATYPES:
-                    
-                    if newValue > param.maxVal:
-                        newValue = param.maxVal
-                        
-                    elif newValue < param.minVal:
-                        newValue = param.minVal
-                
-                if verbosity > 2:
-                    print("Before: {}, After: {}".format(param.value, newValue))
-                
-                param.value = newValue
-        
-        return newIndividual
-    
-    def _initPopulation(self, populationSize, baseIndividuals, maxMutations,
+    def _createPopulation(self, populationSize, parents, elite, maxMutations,
             verbosity=0):
         """
-        Creates a new population of populationSize individuals by making
-        mutations to the baseIndividuals. Each base individual will have
-        roughly the same amount of children. baseIndividuals are also
-        included. 
+        @param populationSize
+        @param parents: A list of Individual objects.
+        @param elite: The best individuals that will remain in the new
+            population.
+        @param maxMutations: The maximum number of mutations that will
+            be done to each parent when creating one of its children.
+        @param verbosity=1
         """
         
-        self.population = []
+        population = []
         
         for i in xrange(populationSize):
-            self.population.append(self._createIndividual(
-                    baseIndividuals[i % len(baseIndividuals)],
+            population.append(self._createIndividual(
+                    parents[i % len(parents)],
                     maxMutations,
                     verbosity
                 ))
         
-        self.population.extend(baseIndividuals)
-    
-    def _getIndivParamsDict(self, individual, nonOptimParams):
-        indivParams = {}
+        population.extend(elite)
         
-        for param in individual:
-            indivParams[param.name] = param.value
-            indivParams.update(nonOptimParams)
-        
-        return indivParams
+        return population
     
-    def findParams(self, populationSize, maxMutations=2, variety=2,
-            maxIterations=200, maxTime=-1, minScore=-1, parallelization=False,
-            nCores=4, savingFrequency=-1, verbosity=0):
+    def _createIndividual(self, baseIndividual, maxMutations, verbosity=0):
+        """
+        Creates a new individual from baseIndividual and applies at max
+        maxMutations. An individual is a list of Parameters.
+        
+        @param baseIndividual
+        @param maxMutations
+        @param verbosity=0
+        """
+        
+        newIndividual = copy.deepcopy(baseIndividual)
+        # There's at least 1 mutation per individual.
+        numMutations = random.randint(1, maxMutations)
+        
+        for _ in xrange(numMutations):
+            choosenParam = random.choice(newIndividual.parameters)
+            self._mutateParam(choosenParam, verbosity)
+        
+        return newIndividual
+    
+    def _mutateParam(self, param, verbosity=0):
+        """ 
+        Mutates a given parameter
+        
+        @param param
+        @param verbosity=0
+        """
+        
+        if random.random() < param.mutationProb:
+            
+            if verbosity > 2:
+                print("--- New Individual ---")
+                print("Choosen for mutation: {}".format(param.name))
+            
+            if param.dataType == 'int':
+                newValue = param.value + (random.choice((-1, 1)) * 
+                    random.randint(1, param.maxChange))
+                    
+            elif param.dataType == 'float':
+                newValue = param.value + random.uniform(-param.maxChange,
+                    param.maxChange)
+                    
+            elif param.dataType == 'bool':
+                newValue = not param.value
+            
+            if param.dataType in Parameter.VALID_CONT_DATATYPES:
+                
+                if newValue > param.maxVal:
+                    newValue = param.maxVal
+                    
+                elif newValue < param.minVal:
+                    newValue = param.minVal
+            
+            if verbosity > 2:
+                print("Before: {}, After: {}".format(param.value, newValue))
+            
+            param.value = newValue
+    
+    def _evaluatePopulation(self, population, topScore, nParallelEvals,
+            verbosity=0):
+        """
+        Evaluates the population, giving the score and aptitude to each
+        individual.
+        
+        @param population
+        @param topScore: This will be used as a reference to normalize
+            the scores.
+        @param nParallelEvals: Number of concurrent evaluations. See
+            ParametersFinder.findParams docstring for more info.
+        @param verbosity=0
+        """
+        
+        if nParallelEvals > 1:
+            pool = Pool(nParallelEvals)
+            
+            paramsList = [
+                individual.getParamsDict(self.nonOptimParams)
+                for individual in population
+            ]
+            
+            #print(population)
+            if self.isInstanceMethod:
+                instance = self.evalFunc.im_self
+                methodName = self.evalFunc.im_func.func_name
+                scores = pool.map(
+                    _applyParamsToInstanceMethod,
+                    itertools.izip(
+                        itertools.repeat(instance),
+                        itertools.repeat(methodName),
+                        paramsList
+                    )
+                )
+            
+            else:
+                scores = pool.map(
+                    _applyParams, 
+                    itertools.izip(
+                        itertools.repeat(self.evalFunc),
+                        paramsList
+                    )
+                )
+            
+            pool.close()
+        
+        else:
+            scores = []
+            
+            for individual in population:
+                indivParams = individual.getParamsDict(self.nonOptimParams)
+                scores.append(_applyParams((self.evalFunc, indivParams)))
+        
+        if verbosity > 0:
+            print("Scores obtained: {}".format(scores))
+        
+        for indvIndex, score in enumerate(scores):
+            population[indvIndex].score = score
+            population[indvIndex].aptitude = float(score) / topScore
+            
+            if verbosity > 2:
+                print("Individual evaluated with score {}".format(score))
+                for param in population[indvIndex].parameters:
+                    print("{} = {}".format(param.name, param.value))
+    
+    def _selectParents(self, population, variety, technique, verbosity=0):
+        """
+        @param population: The current population.
+        @param variety: How many parents to select.
+        @param technique: The selection technique used. Read more in
+            the ParametersFinder.findParams docstring.
+        @param verbosity
+        """
+        
+        selectedParents = []
+        
+        for _ in xrange(variety):
+            
+            if technique == 'RouletteWheel':
+                selectedParents.append(self._selectByRoulette(population, 
+                        verbosity))
+            
+            elif technique == 'StochasticUniversalSampling':
+                pass
+            
+            elif technique == 'Tournament':
+                pass
+        
+        return selectedParents
+    
+    def _selectByRoulette(self, population, verbosity=0):
+        """
+        @param population
+        @param verbosity=0
+        """
+    
+        totalAptitude = sum([individual.aptitude for individual in population])
+        luckyNumber = random.uniform(0, 1) * totalAptitude
+                
+        for individual in population:
+            luckyNumber -= individual.aptitude
+            
+            if luckyNumber <= 0:
+                return individual
+        
+        return population[-1]
+    
+    def findParams(self, populationSize, maxMutations=2, variety=2, 
+            elitism=1, selectionTechnique='RouletteWheel',
+            randomizeFirstGen=False, maxIterations=200, maxTime=-1, minScore=-1,
+            nParallelEvals=1, savingFrequency=-1, verbosity=0):
         """
         The algorithm will iterate until maxIterations, maxTime or
         minScore is reached.
@@ -247,6 +393,22 @@ class ParametersFinder:
             allowed to be done to an individual.
         @param variety=2: The number of individuals that will be taken
             as base for the next generation.
+        @param elitism=1: The number of 'elite' individuals (i.e. those
+            with the best score so far) that will be included in the
+            population for the next generation. If 0 the new population
+            will consist of freshly generated individuals only.
+        @param selectionTechnique='RouletteWheel': Can be one of the
+            following:
+            
+            'RouletteWheel'
+            'StochasticUniversalSampling'--> NOT YET IMPLEMENTED
+            'Tournament' --> NOT YET IMPLEMENTED
+        @param randomizeFirstGen=False: Whether to create totally 
+            random individuals as parents for the first generation
+            until variety is reached, or stay with the paramsDefinition
+            as the only parent. This can provide diversity but may lead
+            the search far away from the default values provided in
+            paramsDefinition (if any default values were provided).
         @param maxIterations=200: The maximum number of Iterations the
             function will make. Values <= 0 mean no maxIterations.
         @param maxTime=-1: The maximum time (in minutes) that the
@@ -258,10 +420,11 @@ class ParametersFinder:
             reach a very high score, so it is recommended to always set
             at least one of the other two options (maxIterations and
             maxTime).
-        @param parallelization=False: Whether to use parallelization.
-            This uses the python's multiprocessing module.
-        @params nCores=4: How many cores to use if parallelization is
-            On.
+        @params nParallelEvals=1: With this you can evaluate multiple
+            individuals from the population at the same time. If > 1,
+            the python's multiprocessing module is used. This is useful
+            when evalFunc is heavy load. A recommended value would be
+            the number of cores of your CPU.
         @param savingFrequency=-1: How often (in generations) the best
             parameters found so far will be saved to a file. Files will
             be saved on {function's-name}_Optim/Iteration_{}.py
@@ -273,82 +436,44 @@ class ParametersFinder:
         """
         
         iterationCount = 0
-        # This is a tuple containing (bestIndividuals, bestScores)
-        bestFindings = ([self.paramsDefinition], [0])
+        elite = [Individual(self.paramsDefinition)]
         startTime = time.time()
         
-        if parallelization:
-            pool = Pool(nCores)
+        parents = [Individual(self.paramsDefinition)]
+        
+        if randomizeFirstGen:
+            
+            for _ in xrange(variety - 1):
+                newParams = []
+                for param in self.paramsDefinition:
+                     newParams.append(Parameter(
+                            name=param.name,
+                            dataType=param.dataType,
+                            value=None,
+                            minVal=param.minVal,
+                            maxVal=param.maxVal,
+                            maxChange=param.maxChange,
+                            mutationProb=param.mutationProb
+                        ))
+                parents.append(Individual(newParams))
         
         while(True):
             
-            self._initPopulation(populationSize, bestFindings[0], maxMutations,
+            population = self._createPopulation(populationSize, parents, elite,
+                maxMutations, verbosity)
+            
+            self._evaluatePopulation(population, minScore, nParallelEvals,
                 verbosity)
+            # Population is sorted from best to worst score.
+            population.sort(
+                key=operator.attrgetter('score'),
+                reverse=True
+            )
             
-            if parallelization:
-                paramsList = [
-                    self._getIndivParamsDict(individual, self.nonOptimParams)
-                    for individual in self.population
-                ]
-                
-                #print(self.population)
-                if self.isInstanceMethod:
-                    instance = self.evalFunc.im_self
-                    methodName = self.evalFunc.im_func.func_name
-                    scores = pool.map(
-                        _applyParamsToInstanceMethod,
-                        itertools.izip(
-                            itertools.repeat(instance),
-                            itertools.repeat(methodName),
-                            paramsList
-                        )
-                    )
-                
-                else:
-                    scores = pool.map(
-                        _applyParams, 
-                        itertools.izip(
-                            itertools.repeat(self.evalFunc),
-                            paramsList
-                        )
-                    )
+            elite = population[:elitism]
             
-            else:
-                scores = []
-                
-                for individual in self.population:
-                    indivParams = self._getIndivParamsDict(
-                        individual,
-                        self.nonOptimParams
-                    )
-                    scores.append(_applyParams((self.evalFunc, indivParams)))
-            
-            if verbosity > 1:
-                print("Scores obtained: {}".format(scores))
-            
-            for scoreIdx, score in enumerate(scores):
-                
-                if verbosity > 1:
-                    print("Individual evaluated with score {}".format(score))
-                    for param in self.population[scoreIdx]:
-                        print("{} = {}".format(param.name, param.value))
-                
-                if len(bestFindings[0]) < variety:
-                    bestFindings[0].append(self.population[scoreIdx])
-                    bestFindings[1].append(score)
-                
-                else:
-                
-                    for idx, storedScore in enumerate(bestFindings[1]):
-                    
-                        if (score > storedScore) or\
-                                (
-                                    (score == storedScore) and \
-                                    (random.choice((True, False)))
-                                ):
-                            bestFindings[0][idx] = self.population[scoreIdx]
-                            bestFindings[1][idx] = score
-                            break
+            parents = self._selectParents(population, variety, 
+                selectionTechnique, verbosity)
             
             iterationCount +=1
             elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
@@ -369,29 +494,34 @@ class ParametersFinder:
                     savingFile.write(
                         'nonOptimParams = {}\n'.format(self.nonOptimParams)
                     )
-                    savingFile.write(
-                        'bestFindings = {}'.format(bestFindings)
-                    )
-            
-            bestScore = max(bestFindings[1])
+                    savingFile.write("Best Scores: {}".format(
+                            [individual.score for individual in population[:3]
+                        )
+                    for individual in population[:3]:
+                    savingFile.write('bestFindings:\n')
+                    for individual in population[:3]:
+                        savingFile.write('{}\n'.format(individual.parameters))
             
             if verbosity > 0:
                 print("--------------------------------------")
-                print("Best Findings:")
-                for i in xrange(len(bestFindings[0])):
-                    print("Individual with score {}".format(bestFindings[1][i]))
-                    for param in bestFindings[0][i]:
+                print("Best Individual with score {}:".format(
+                        population[0].score))
+                for param in population[0].parameters:
+                    print("  {} = {}".format(param.name, param.value))
+                print("--------------------------------------")
+                print("Selected Individuals:")
+                for parent in parents:
+                    print("Individual with score {}:\n".format(parent.score))
+                    
+                    for param in parent.parameters:
                         print("  {} = {}".format(param.name, param.value))
                 print("--------------------------------------")
             
             if ((maxIterations != -1) and (iterationCount >= maxIterations)) or\
                     ((maxTime != -1) and (elapsedMinutes >= maxTime)) or\
-                    ((minScore != -1) and (bestScore >= minScore)):
+                    ((minScore != -1) and (population[0].score >= minScore)):
+                print("iterationCount: {}".format(iterationCount))
+                print("elapsedMinutes: {}".format(elapsedMinutes))
                 break
-            
-        bestScoreIdx = max(xrange(len(bestFindings[1])), 
-                key=bestFindings[1].__getitem__)
         
-        bestIndividual = bestFindings[0][bestScoreIdx]
-        
-        return self._getIndivParamsDict(bestIndividual, self.nonOptimParams)
+        return population[0].getParamsDict(self.nonOptimParams)
