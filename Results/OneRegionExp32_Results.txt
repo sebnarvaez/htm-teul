@@ -11,17 +11,17 @@ generalSPArgs = {
 	'globalInhibition': True,
 	'localAreaDensity': -1.0,
 	'numActiveColumnsPerInhArea': 4,
-	'stimulusThreshold': 2,
-	'synPermInactiveDec': 0.0,
+	'stimulusThreshold': 0,
+	'synPermInactiveDec': 0.121754178434,
 	'synPermActiveInc': 0.1,
 	'synPermConnected': 0.107148493503,
-	'minPctOverlapDutyCycle': 0.302678328031,
-	'minPctActiveDutyCycle': 0.0,
+	'minPctOverlapDutyCycle': 0.137190887797,
+	'minPctActiveDutyCycle': 0.1,
 	'dutyCyclePeriod': 15,
 	'maxBoost': 1.0,
 	'seed': 42,
 	'spVerbosity': 0,
-	'wrapAround': True
+	'wrapAround': False
 }
 generalTMArgs = {
 	'columnDimensions': (1152,),
@@ -32,7 +32,7 @@ generalTMArgs = {
 	'minThreshold': 4,
 	'maxNewSynapseCount': 4,
 	'permanenceIncrement': 0.117671359444,
-	'permanenceDecrement': 0.732209460692,
+	'permanenceDecrement': 0.52118115778,
 	'predictedSegmentDecrement': 0.0,
 	'seed': 42
 }
@@ -52,8 +52,8 @@ Model trained 50 iterations
 
 Results:
 
-	Number of Success     : 63.54%
-	Number of Half Success: 28.12%
+	Number of Success     : 65.97%
+	Number of Half Success: 25.69%
 	Number of Failures    : 8.33%
 
 
@@ -82,7 +82,7 @@ Obtained Action: nothing-event izquierda-event izquierda-event
 
 Input Sentence: mover hacia arriba
 Expected Action: mover-event arriba-event
-Obtained Action: nothing-event arriba-event nothing-event
+Obtained Action: nothing-event arriba-event arriba-event
 
 
 -----------------------------
@@ -90,20 +90,6 @@ Obtained Action: nothing-event arriba-event nothing-event
 Input Sentence: mover hacia el norte
 Expected Action: mover-event arriba-event
 Obtained Action: nothing-event arriba-event arriba-event
-
-
------------------------------
-
-Input Sentence: mover hacia abajo
-Expected Action: mover-event abajo-event
-Obtained Action: nothing-event abajo-event nothing-event
-
-
------------------------------
-
-Input Sentence: mover hacia el sur
-Expected Action: mover-event abajo-event
-Obtained Action: nothing-event abajo-event abajo-event
 
 
 -----------------------------
@@ -122,9 +108,23 @@ Obtained Action: nothing-event derecha-event derecha-event
 
 -----------------------------
 
+Input Sentence: mover a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: nothing-event izquierda-event izquierda-event
+
+
+-----------------------------
+
+Input Sentence: mover a el oeste
+Expected Action: mover-event izquierda-event
+Obtained Action: nothing-event izquierda-event izquierda-event
+
+
+-----------------------------
+
 Input Sentence: mover a arriba
 Expected Action: mover-event arriba-event
-Obtained Action: nothing-event arriba-event nothing-event
+Obtained Action: nothing-event arriba-event arriba-event
 
 
 -----------------------------
@@ -138,7 +138,7 @@ Obtained Action: nothing-event arriba-event arriba-event
 
 Input Sentence: mover a abajo
 Expected Action: mover-event abajo-event
-Obtained Action: nothing-event abajo-event nothing-event
+Obtained Action: nothing-event abajo-event abajo-event
 
 
 -----------------------------
@@ -146,13 +146,6 @@ Obtained Action: nothing-event abajo-event nothing-event
 Input Sentence: mover a el sur
 Expected Action: mover-event abajo-event
 Obtained Action: nothing-event abajo-event abajo-event
-
-
------------------------------
-
-Input Sentence: mover para la derecha
-Expected Action: mover-event derecha-event
-Obtained Action: nothing-event derecha-event derecha-event
 
 
 -----------------------------
@@ -171,9 +164,16 @@ Obtained Action: nothing-event izquierda-event izquierda-event
 
 -----------------------------
 
-Input Sentence: mover para el norte
-Expected Action: mover-event arriba-event
-Obtained Action: nothing-event arriba-event arriba-event
+Input Sentence: mover para el oeste
+Expected Action: mover-event izquierda-event
+Obtained Action: nothing-event izquierda-event izquierda-event
+
+
+-----------------------------
+
+Input Sentence: mover para abajo
+Expected Action: mover-event abajo-event
+Obtained Action: nothing-event abajo-event abajo-event
 
 
 -----------------------------
@@ -199,16 +199,37 @@ Obtained Action: nothing-event derecha-event derecha-event
 
 -----------------------------
 
-Input Sentence: por favor mover a el este
+Input Sentence: por favor mover hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: nothing-event izquierda-event izquierda-event
+
+
+-----------------------------
+
+Input Sentence: por favor mover hacia arriba
+Expected Action: mover-event arriba-event
+Obtained Action: nothing-event arriba-event arriba-event
+
+
+-----------------------------
+
+Input Sentence: por favor mover hacia el norte
+Expected Action: mover-event arriba-event
+Obtained Action: nothing-event arriba-event arriba-event
+
+
+-----------------------------
+
+Input Sentence: por favor mover a la derecha
 Expected Action: mover-event derecha-event
 Obtained Action: nothing-event derecha-event derecha-event
 
 
 -----------------------------
 
-Input Sentence: por favor mover a la izquierda
-Expected Action: mover-event izquierda-event
-Obtained Action: nothing-event izquierda-event izquierda-event
+Input Sentence: por favor mover a el este
+Expected Action: mover-event derecha-event
+Obtained Action: nothing-event derecha-event derecha-event
 
 
 -----------------------------
@@ -222,7 +243,7 @@ Obtained Action: nothing-event izquierda-event izquierda-event
 
 Input Sentence: por favor mover a arriba
 Expected Action: mover-event arriba-event
-Obtained Action: nothing-event arriba-event nothing-event
+Obtained Action: nothing-event arriba-event arriba-event
 
 
 -----------------------------
@@ -236,7 +257,7 @@ Obtained Action: nothing-event arriba-event arriba-event
 
 Input Sentence: por favor mover a abajo
 Expected Action: mover-event abajo-event
-Obtained Action: nothing-event abajo-event nothing-event
+Obtained Action: nothing-event abajo-event abajo-event
 
 
 -----------------------------
@@ -248,30 +269,9 @@ Obtained Action: nothing-event abajo-event abajo-event
 
 -----------------------------
 
-Input Sentence: por favor mover para la derecha
-Expected Action: mover-event derecha-event
-Obtained Action: nothing-event derecha-event derecha-event
-
-
------------------------------
-
-Input Sentence: por favor mover para el este
-Expected Action: mover-event derecha-event
-Obtained Action: nothing-event derecha-event derecha-event
-
-
------------------------------
-
-Input Sentence: por favor mover para la izquierda
-Expected Action: mover-event izquierda-event
-Obtained Action: nothing-event izquierda-event izquierda-event
-
-
------------------------------
-
-Input Sentence: por favor mover para el oeste
-Expected Action: mover-event izquierda-event
-Obtained Action: nothing-event izquierda-event izquierda-event
+Input Sentence: por favor mover para el sur
+Expected Action: mover-event abajo-event
+Obtained Action: nothing-event abajo-event abajo-event
 
 
 -----------------------------
@@ -306,7 +306,7 @@ Obtained Action: nothing-event izquierda-event izquierda-event
 
 Input Sentence: moverse hacia arriba
 Expected Action: mover-event arriba-event
-Obtained Action: nothing-event arriba-event nothing-event
+Obtained Action: nothing-event arriba-event arriba-event
 
 
 -----------------------------
@@ -314,20 +314,6 @@ Obtained Action: nothing-event arriba-event nothing-event
 Input Sentence: moverse hacia el norte
 Expected Action: mover-event arriba-event
 Obtained Action: nothing-event arriba-event arriba-event
-
-
------------------------------
-
-Input Sentence: moverse hacia abajo
-Expected Action: mover-event abajo-event
-Obtained Action: nothing-event abajo-event nothing-event
-
-
------------------------------
-
-Input Sentence: moverse hacia el sur
-Expected Action: mover-event abajo-event
-Obtained Action: nothing-event abajo-event abajo-event
 
 
 -----------------------------
@@ -346,9 +332,23 @@ Obtained Action: nothing-event derecha-event derecha-event
 
 -----------------------------
 
+Input Sentence: moverse a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: nothing-event izquierda-event izquierda-event
+
+
+-----------------------------
+
+Input Sentence: moverse a el oeste
+Expected Action: mover-event izquierda-event
+Obtained Action: nothing-event izquierda-event izquierda-event
+
+
+-----------------------------
+
 Input Sentence: moverse a arriba
 Expected Action: mover-event arriba-event
-Obtained Action: nothing-event arriba-event nothing-event
+Obtained Action: nothing-event arriba-event arriba-event
 
 
 -----------------------------
@@ -362,7 +362,7 @@ Obtained Action: nothing-event arriba-event arriba-event
 
 Input Sentence: moverse a abajo
 Expected Action: mover-event abajo-event
-Obtained Action: nothing-event abajo-event nothing-event
+Obtained Action: nothing-event abajo-event abajo-event
 
 
 -----------------------------
@@ -370,13 +370,6 @@ Obtained Action: nothing-event abajo-event nothing-event
 Input Sentence: moverse a el sur
 Expected Action: mover-event abajo-event
 Obtained Action: nothing-event abajo-event abajo-event
-
-
------------------------------
-
-Input Sentence: moverse para la derecha
-Expected Action: mover-event derecha-event
-Obtained Action: nothing-event derecha-event derecha-event
 
 
 -----------------------------
@@ -395,9 +388,16 @@ Obtained Action: nothing-event izquierda-event izquierda-event
 
 -----------------------------
 
-Input Sentence: moverse para el norte
-Expected Action: mover-event arriba-event
-Obtained Action: nothing-event arriba-event arriba-event
+Input Sentence: moverse para el oeste
+Expected Action: mover-event izquierda-event
+Obtained Action: nothing-event izquierda-event izquierda-event
+
+
+-----------------------------
+
+Input Sentence: moverse para abajo
+Expected Action: mover-event abajo-event
+Obtained Action: nothing-event abajo-event abajo-event
 
 
 -----------------------------
@@ -405,27 +405,6 @@ Obtained Action: nothing-event arriba-event arriba-event
 Input Sentence: moverse para el sur
 Expected Action: mover-event abajo-event
 Obtained Action: nothing-event abajo-event abajo-event
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo hacia abajo ?
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event el
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo a abajo ?
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event el
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo para abajo ?
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event el
 
 
 -----------------------------
@@ -594,34 +573,6 @@ Obtained Action: mover-event el el
 Input Sentence: muevete para el sur por favor
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event el el
-
-
------------------------------
-
-Input Sentence: ¿ podrias hacia abajo ?
-Expected Action: nothing-event abajo-event
-Obtained Action: nothing-event arriba-event el
-
-
------------------------------
-
-Input Sentence: ¿ podrias a abajo ?
-Expected Action: nothing-event abajo-event
-Obtained Action: nothing-event arriba-event el
-
-
------------------------------
-
-Input Sentence: ¿ podrias para la derecha ?
-Expected Action: nothing-event derecha-event
-Obtained Action: mover-event derecha-event el
-
-
------------------------------
-
-Input Sentence: ¿ podrias para abajo ?
-Expected Action: nothing-event abajo-event
-Obtained Action: nothing-event arriba-event el
 
 
 -----------------------------

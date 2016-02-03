@@ -143,7 +143,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___stimulusThreshold',
                 dataType='int',
-                value=0,
+                value=2,
                 minVal=0,
                 maxVal=10,
                 maxChange=5,
@@ -152,7 +152,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___synPermInactiveDec',
                 dataType='float',
-                value=0.121754178434,
+                value=0.0,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
@@ -170,7 +170,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___synPermConnected',
                 dataType='float',
-                value=0.107148493503,
+                value=0.163485726079,
                 minVal=0.0,
                 maxVal=0.9,
                 maxChange=0.3,
@@ -179,7 +179,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___minPctOverlapDutyCycle',
                 dataType='float',
-                value=0.137190887797,
+                value=0.302204519404,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.2,
@@ -188,7 +188,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___minPctActiveDutyCycle',
                 dataType='float',
-                value=0.1,
+                value=0.0,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.2,
@@ -215,7 +215,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___wrapAround',
                 dataType='bool',
-                value=False,
+                value=True,
                 minVal=0,
                 maxVal=9223372036854775807,
                 maxChange=9223372036854775807,
@@ -293,7 +293,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___permanenceDecrement',
                 dataType='float',
-                value=0.52118115778,
+                value=1.0,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
