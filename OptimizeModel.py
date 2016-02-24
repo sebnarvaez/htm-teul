@@ -107,7 +107,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___potentialRadius',
                 dataType='int',
-                value=297,
+                #value=297,
                 minVal=1,
                 maxVal=297,
                 maxChange=29,
@@ -116,7 +116,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___potentialPct',
                 dataType='float',
-                value=0.726248028695,
+                #value=0.726248028695,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
@@ -125,7 +125,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___globalInhibition',
                 dataType='bool',
-                value=True,
+                #value=True,
                 minVal=0,
                 maxVal=9223372036854775807,
                 maxChange=9223372036854775807,
@@ -134,7 +134,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___numActiveColumnsPerInhArea',
                 dataType='float',
-                value=4.0,
+                #value=4.0,
                 minVal=0.0,
                 maxVal=297,
                 maxChange=2.0,
@@ -143,7 +143,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___stimulusThreshold',
                 dataType='int',
-                value=2,
+                #value=2,
                 minVal=0,
                 maxVal=10,
                 maxChange=5,
@@ -152,7 +152,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___synPermInactiveDec',
                 dataType='float',
-                value=0.0,
+                #value=0.0,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
@@ -161,7 +161,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___synPermActiveInc',
                 dataType='float',
-                value=0.1,
+                #value=0.1,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
@@ -170,7 +170,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___synPermConnected',
                 dataType='float',
-                value=0.163485726079,
+                #value=0.163485726079,
                 minVal=0.0,
                 maxVal=0.9,
                 maxChange=0.3,
@@ -179,7 +179,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___minPctOverlapDutyCycle',
                 dataType='float',
-                value=0.302204519404,
+                #value=0.302204519404,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.2,
@@ -188,7 +188,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___minPctActiveDutyCycle',
                 dataType='float',
-                value=0.0,
+                #value=0.0,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.2,
@@ -197,7 +197,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___dutyCyclePeriod',
                 dataType='int',
-                value=15,
+                #value=15,
                 minVal=1,
                 maxVal=200,
                 maxChange=10,
@@ -206,7 +206,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___maxBoost',
                 dataType='float',
-                value=1.0,
+                #value=1.0,
                 minVal=1.0,
                 maxVal=50.0,
                 maxChange=4.0,
@@ -215,7 +215,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalSP___wrapAround',
                 dataType='bool',
-                value=True,
+                #value=True,
                 minVal=0,
                 maxVal=9223372036854775807,
                 maxChange=9223372036854775807,
@@ -226,11 +226,10 @@ if __name__ == '__main__':
             nonMutableParams[moduleName + '___columnDimensions'] = (columnDimensions,)
             nonMutableParams[moduleName + '___seed'] = model.tmSeed
             
-            
             paramList.append(Parameter(
                 name='generalTM___cellsPerColumn',
                 dataType='int',
-                value=64,
+                #value=64,
                 minVal=1,
                 maxVal=500,
                 maxChange=15,
@@ -239,7 +238,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___activationThreshold',
                 dataType='int',
-                value=1,
+                #value=1,
                 minVal=1,
                 maxVal=499,
                 maxChange=5,
@@ -248,7 +247,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___initialPermanence',
                 dataType='float',
-                value=0.22382208699,
+                #value=0.22382208699,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
@@ -257,7 +256,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___connectedPermanence',
                 dataType='float',
-                value=0.674714438958,
+                #value=0.674714438958,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
@@ -266,7 +265,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___minThreshold',
                 dataType='int',
-                value=4,
+                #value=4,
                 minVal=1,
                 maxVal=100,
                 maxChange=5,
@@ -275,7 +274,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___maxNewSynapseCount',
                 dataType='int',
-                value=4,
+                #value=4,
                 minVal=1,
                 maxVal=20,
                 maxChange=3,
@@ -284,7 +283,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___permanenceIncrement',
                 dataType='float',
-                value=0.117671359444,
+                #value=0.117671359444,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
@@ -293,7 +292,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___permanenceDecrement',
                 dataType='float',
-                value=1.0,
+                #value=1.0,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.3,
@@ -302,7 +301,7 @@ if __name__ == '__main__':
             paramList.append(Parameter(
                 name='generalTM___predictedSegmentDecrement',
                 dataType='float',
-                value=0.0,
+                #value=0.0,
                 minVal=0.0,
                 maxVal=1.0,
                 maxChange=0.2,
@@ -332,10 +331,10 @@ if __name__ == '__main__':
         selectionTechnique='RouletteWheel',
         randomizeFirstGen=True,
         maxIterations=-1,
-        maxTime=20 * 60, #hours
+        maxTime=24 * 60, #hours
         #maxTime=-1,
         minScore=95,
-        nParallelEvals=4,
+        nParallelEvals=3,
         savingFrequency=2,
         verbosity=2
     )

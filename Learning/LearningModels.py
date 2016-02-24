@@ -510,20 +510,20 @@ class OneLevelExpModel(LearningModel):
             localAreaDensity=-1.0,
             #4, 4.5 -> 86%
             numActiveColumnsPerInhArea=4.0,
-            stimulusThreshold=0,
-            synPermInactiveDec=0.121754178434,
+            stimulusThreshold=2,
+            synPermInactiveDec=0.0,
             synPermActiveInc=0.1,
             #0.15 -> 86%
-            synPermConnected=0.107148493503,
-            minPctOverlapDutyCycle=0.137190887797,
-            minPctActiveDutyCycle=0.1,
+            synPermConnected=0.163485726079,
+            minPctOverlapDutyCycle=0.302204519404,
+            minPctActiveDutyCycle=0.0,
             #20
             dutyCyclePeriod=15, 
             #3
             maxBoost=1.0,
             seed=self.spSeed,
             spVerbosity=0,
-            wrapAround=False
+            wrapAround=True
         ) 
         
         self.generalTM = TemporalMemory(
@@ -537,7 +537,7 @@ class OneLevelExpModel(LearningModel):
             minThreshold=4,
             maxNewSynapseCount=4,
             permanenceIncrement=0.117671359444,
-            permanenceDecrement=0.52118115778,
+            permanenceDecrement=1.0,
             predictedSegmentDecrement=0.0,
             seed=self.tmSeed
         )

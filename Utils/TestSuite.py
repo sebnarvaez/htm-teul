@@ -107,5 +107,5 @@ def testModel(model, testData, maxTime=-1, saveResults=True, fileName='log'):
     return {
         'successPercent': successPercent,
         'halfPercent': halfPercent,
-        'halfPercent': failPercent
+        'failPercent': failPercent
     }
