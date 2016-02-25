@@ -11,3 +11,5 @@
     
 + Buscar la manera de que sólo se predigan acciones, no lo que sigue de la oración
 
++ Aprendizaje supervisado en donde se altera manualmente la conectividad de las 
+sinapsis.
