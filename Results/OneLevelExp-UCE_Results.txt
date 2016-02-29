@@ -73,240 +73,442 @@ Obtained Action: mover-event izquierda-event mover-event
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo hacia arriba ?
 Expected Action: mover-event arriba-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo hacia la izquierda ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo hacia el norte ?
 Expected Action: mover-event arriba-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo hacia el oeste ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo hacia abajo ?
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo hacia arriba ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo hacia el sur ?
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo hacia el norte ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a la derecha ?
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo a el este ?
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo a arriba ?
 Expected Action: mover-event arriba-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo a la izquierda ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo a el norte ?
 Expected Action: mover-event arriba-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo a el oeste ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo a abajo ?
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo a arriba ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo a el sur ?
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo a el norte ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para la derecha ?
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo para el este ?
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo para arriba ?
 Expected Action: mover-event arriba-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo para la izquierda ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo para el norte ?
 Expected Action: mover-event arriba-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo para el oeste ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo para abajo ?
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo para arriba ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: ¿ podrias moverlo para el sur ?
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Input Sentence: ¿ podrias moverlo para el norte ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete hacia la derecha por favor
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete hacia el este por favor
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+
+
+-----------------------------
+
+Input Sentence: muevete hacia la izquierda por favor
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event el el
+
+
+-----------------------------
+
+Input Sentence: muevete hacia el oeste por favor
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete hacia arriba por favor
 Expected Action: mover-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete hacia el norte por favor
 Expected Action: mover-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete hacia abajo por favor
 Expected Action: mover-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete hacia el sur por favor
 Expected Action: mover-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event hacia el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete a la derecha por favor
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete a el este por favor
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+
+
+-----------------------------
+
+Input Sentence: muevete a la izquierda por favor
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event el el
+
+
+-----------------------------
+
+Input Sentence: muevete a el oeste por favor
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete a arriba por favor
 Expected Action: mover-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete a el norte por favor
 Expected Action: mover-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete a abajo por favor
 Expected Action: mover-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete a el sur por favor
 Expected Action: mover-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event hacia el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete para la derecha por favor
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete para el este por favor
 Expected Action: mover-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+
+
+-----------------------------
+
+Input Sentence: muevete para la izquierda por favor
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event el el
+
+
+-----------------------------
+
+Input Sentence: muevete para el oeste por favor
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete para arriba por favor
 Expected Action: mover-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete para el norte por favor
 Expected Action: mover-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete para abajo por favor
 Expected Action: mover-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: muevete para el sur por favor
 Expected Action: mover-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event hacia el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
@@ -404,7 +606,11 @@ Obtained Action: mover-event arriba-event arriba-event
 
 Input Sentence: a el norte
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event arriba-event mover-event
+=======
+Obtained Action: mover-event arriba-event arriba-event
+>>>>>>> master
 
 
 -----------------------------
@@ -418,7 +624,11 @@ Obtained Action: mover-event abajo-event abajo-event
 
 Input Sentence: a el sur
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event abajo-event mover-event
+=======
+Obtained Action: mover-event abajo-event abajo-event
+>>>>>>> master
 
 
 -----------------------------
@@ -460,7 +670,11 @@ Obtained Action: mover-event arriba-event arriba-event
 
 Input Sentence: para el norte
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event arriba-event mover-event
+=======
+Obtained Action: mover-event arriba-event arriba-event
+>>>>>>> master
 
 
 -----------------------------
@@ -474,7 +688,11 @@ Obtained Action: mover-event abajo-event abajo-event
 
 Input Sentence: para el sur
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event abajo-event mover-event
+=======
+Obtained Action: mover-event abajo-event abajo-event
+>>>>>>> master
 
 
 -----------------------------
@@ -516,7 +734,11 @@ Obtained Action: mover-event arriba-event arriba-event
 
 Input Sentence: por favor hacia el norte
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event arriba-event mover-event
+=======
+Obtained Action: mover-event arriba-event arriba-event
+>>>>>>> master
 
 
 -----------------------------
@@ -530,7 +752,11 @@ Obtained Action: mover-event abajo-event abajo-event
 
 Input Sentence: por favor hacia el sur
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event abajo-event mover-event
+=======
+Obtained Action: mover-event abajo-event abajo-event
+>>>>>>> master
 
 
 -----------------------------
@@ -572,7 +798,11 @@ Obtained Action: mover-event arriba-event arriba-event
 
 Input Sentence: por favor a el norte
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event arriba-event mover-event
+=======
+Obtained Action: mover-event arriba-event arriba-event
+>>>>>>> master
 
 
 -----------------------------
@@ -586,7 +816,11 @@ Obtained Action: mover-event abajo-event abajo-event
 
 Input Sentence: por favor a el sur
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event abajo-event mover-event
+=======
+Obtained Action: mover-event abajo-event abajo-event
+>>>>>>> master
 
 
 -----------------------------
@@ -628,6 +862,7 @@ Obtained Action: mover-event arriba-event arriba-event
 
 Input Sentence: por favor para el norte
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event arriba-event mover-event
 
 
@@ -643,6 +878,9 @@ Obtained Action: mover-event abajo-event abajo-event
 Input Sentence: por favor para el sur
 Expected Action: nothing-event abajo-event
 Obtained Action: mover-event abajo-event mover-event
+=======
+Obtained Action: mover-event arriba-event arriba-event
+>>>>>>> master
 
 
 -----------------------------
@@ -675,6 +913,7 @@ Obtained Action: mover-event izquierda-event izquierda-event
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: quiero que te hacia arriba
 Expected Action: nothing-event arriba-event
 Obtained Action: mover-event arriba-event arriba-event
@@ -703,6 +942,8 @@ Obtained Action: mover-event abajo-event mover-event
 
 -----------------------------
 
+=======
+>>>>>>> master
 Input Sentence: quiero que te a la derecha
 Expected Action: nothing-event derecha-event
 Obtained Action: mover-event derecha-event derecha-event
@@ -731,6 +972,7 @@ Obtained Action: mover-event izquierda-event izquierda-event
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: quiero que te a arriba
 Expected Action: nothing-event arriba-event
 Obtained Action: mover-event arriba-event arriba-event
@@ -759,6 +1001,8 @@ Obtained Action: mover-event abajo-event mover-event
 
 -----------------------------
 
+=======
+>>>>>>> master
 Input Sentence: quiero que te para la derecha
 Expected Action: nothing-event derecha-event
 Obtained Action: mover-event derecha-event derecha-event
@@ -787,6 +1031,7 @@ Obtained Action: mover-event izquierda-event izquierda-event
 
 -----------------------------
 
+<<<<<<< HEAD
 Input Sentence: quiero que te para arriba
 Expected Action: nothing-event arriba-event
 Obtained Action: mover-event arriba-event arriba-event
@@ -815,6 +1060,8 @@ Obtained Action: mover-event abajo-event mover-event
 
 -----------------------------
 
+=======
+>>>>>>> master
 Input Sentence: hacia la derecha
 Expected Action: nothing-event derecha-event
 Obtained Action: mover-event derecha-event derecha-event
@@ -908,7 +1155,11 @@ Obtained Action: mover-event arriba-event arriba-event
 
 Input Sentence: a el norte
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event arriba-event mover-event
+=======
+Obtained Action: mover-event arriba-event arriba-event
+>>>>>>> master
 
 
 -----------------------------
@@ -922,7 +1173,11 @@ Obtained Action: mover-event abajo-event abajo-event
 
 Input Sentence: a el sur
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event abajo-event mover-event
+=======
+Obtained Action: mover-event abajo-event abajo-event
+>>>>>>> master
 
 
 -----------------------------
@@ -964,7 +1219,11 @@ Obtained Action: mover-event arriba-event arriba-event
 
 Input Sentence: para el norte
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event arriba-event mover-event
+=======
+Obtained Action: mover-event arriba-event arriba-event
+>>>>>>> master
 
 
 -----------------------------
@@ -978,340 +1237,536 @@ Obtained Action: mover-event abajo-event abajo-event
 
 Input Sentence: para el sur
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event abajo-event mover-event
+=======
+Obtained Action: mover-event abajo-event abajo-event
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias hacia la derecha ?
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias hacia el este ?
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias hacia la izquierda ?
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias hacia el oeste ?
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias hacia arriba ?
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias hacia el norte ?
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias hacia abajo ?
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias hacia el sur ?
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias a la derecha ?
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias a el este ?
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias a la izquierda ?
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias a el oeste ?
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias a arriba ?
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias a el norte ?
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias a abajo ?
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias a el sur ?
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias para la derecha ?
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias para el este ?
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias para la izquierda ?
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias para el oeste ?
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias para arriba ?
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias para el norte ?
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias para abajo ?
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias para el sur ?
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event mover-event
+=======
+Obtained Action: mover-event abajo-event el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: hacia la derecha por favor
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: hacia el este por favor
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: hacia la izquierda por favor
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: hacia el oeste por favor
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: hacia arriba por favor
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: hacia el norte por favor
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: hacia abajo por favor
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: hacia el sur por favor
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event hacia el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: a la derecha por favor
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: a el este por favor
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: a la izquierda por favor
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: a el oeste por favor
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: a arriba por favor
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: a el norte por favor
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: a abajo por favor
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: a el sur por favor
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event hacia el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: para la derecha por favor
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: para el este por favor
 Expected Action: nothing-event derecha-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: para la izquierda por favor
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: para el oeste por favor
 Expected Action: nothing-event izquierda-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: para arriba por favor
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: para el norte por favor
 Expected Action: nothing-event arriba-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: para abajo por favor
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event izquierda-event el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master
 
 
 -----------------------------
 
 Input Sentence: para el sur por favor
 Expected Action: nothing-event abajo-event
+<<<<<<< HEAD
 Obtained Action: mover-event hacia el
+=======
+Obtained Action: mover-event el el
+>>>>>>> master

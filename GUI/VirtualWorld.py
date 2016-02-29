@@ -205,7 +205,7 @@ class Cell(QLabel):
         self.setPixmap(QPixmap())
         self.setStyleSheet("QLabel { background-color : green }")
     
-    def objectArrives(self, objId, obj:
+    def objectArrives(self, objId, obj):
         """
         The object is added to this cell's list of objects and is
         painted.
