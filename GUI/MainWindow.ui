@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
+    <width>875</width>
     <height>599</height>
    </rect>
   </property>
@@ -14,6 +14,9 @@
    <string>HTM - Task Execution Using Language</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QWidget" name="virtualWorld" native="true">
@@ -35,7 +38,7 @@
      <widget class="QWidget" name="controlPanel" native="true">
       <property name="maximumSize">
        <size>
-        <width>300</width>
+        <width>320</width>
         <height>16777215</height>
        </size>
       </property>
@@ -77,6 +80,13 @@
                </property>
               </widget>
              </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="btn_grab">
+               <property name="text">
+                <string>Coger</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -91,9 +101,26 @@
            <widget class="QWidget" name="wgt_otherControls" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <widget class="QPushButton" name="btn_saludar">
+              <widget class="QPushButton" name="btn_greet">
                <property name="text">
                 <string>Saludar</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="ln_greet">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lnEdt_speak"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_speak">
+               <property name="text">
+                <string>Habla</string>
                </property>
               </widget>
              </item>
@@ -104,61 +131,190 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="grpBx_learningControls">
+        <widget class="QGroupBox" name="grpBox_worldControls">
          <property name="title">
-          <string>Controles de aprendizaje</string>
+          <string>Controles del mundo</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_2">
+         <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
-           <widget class="QLabel" name="lbl_sentence">
-            <property name="text">
-             <string>Frase:</string>
-            </property>
+           <widget class="QComboBox" name="cmbBx_insertObj">
+            <item>
+             <property name="text">
+              <string>Hat-Hunter</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hat-Nurse</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lnEdt_sentence"/>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="btn_execSentence">
+           <widget class="QPushButton" name="btn_insertObj">
             <property name="text">
-             <string>Ejecutar</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="lbl_log">
-            <property name="text">
-             <string>Log:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QTextEdit" name="txtEdt_log">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="btn_clearLog">
-            <property name="text">
-             <string>Limpiar</string>
+             <string>Insertar</string>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
        </item>
+       <item>
+        <widget class="QTabWidget" name="tbWdgt_userControls">
+         <property name="focusPolicy">
+          <enum>Qt::TabFocus</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tb_execute">
+          <attribute name="title">
+           <string>Ejecutar</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="btn_execSentence">
+             <property name="text">
+              <string>Ejecutar</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_log">
+             <property name="text">
+              <string>Log:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="lbl_sentence_execute">
+             <property name="text">
+              <string>Frase:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lnEdt_sentence_execute"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QTextEdit" name="txtEdt_log">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QPushButton" name="btn_clearLog">
+             <property name="text">
+              <string>Limpiar</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+          <zorder>lbl_sentence_execute</zorder>
+          <zorder>lnEdt_sentence_execute</zorder>
+          <zorder>btn_execSentence</zorder>
+          <zorder>lbl_log</zorder>
+          <zorder>txtEdt_log</zorder>
+          <zorder>btn_clearLog</zorder>
+         </widget>
+         <widget class="QWidget" name="tb_train">
+          <attribute name="title">
+           <string>Entrenar</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="lbl_sentence_train">
+             <property name="text">
+              <string>Frase:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lnEdt_sentence_train"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="lbl_argument">
+             <property name="text">
+              <string>Argumento:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_action">
+             <property name="text">
+              <string>Accion:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="cmbBx_action">
+             <item>
+              <property name="text">
+               <string>Mover arriba</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Mover abajo</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Mover a la derecha</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Mover a la izquierda</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Saludar</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Hablar</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Recoger</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="btn_train">
+             <property name="text">
+              <string>Entrenar</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="lnEdt_argument">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
       </layout>
-      <zorder>grpBx_learningControls</zorder>
-      <zorder>grpBx_playerControls</zorder>
      </widget>
     </item>
    </layout>
@@ -170,7 +326,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>824</width>
+     <width>875</width>
      <height>19</height>
     </rect>
    </property>

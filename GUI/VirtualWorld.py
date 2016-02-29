@@ -7,36 +7,37 @@
 #  Versión: 1.1 [Stable]
 
 """
-This code is partly based on ZetCode PyQt5 tutorial 
-
-author: Jan Bodnar
+This code is partly based on ZetCode PyQt5 tutorial, by Jan Bodnar
 website: zetcode.com 
 """
 
 import sys, random
 from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication,\
     QLabel, QGridLayout
-from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QSize
-from PyQt5.QtGui import QPainter, QColor, QPixmap
+from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QSize, QPoint
+from PyQt5.QtGui import QPainter, QColor, QImage, QPixmap, QIcon
 
 RESOURCES_PATH = 'Resources/'
 IMG_PATHS = {
-    'ectatomma' : RESOURCES_PATH + 'Ectatomma.png',
-    'ectatomma-hunter' : RESOURCES_PATH + 'Ectatomma-Hunter.png',
-    'ectatomma-nurse' : RESOURCES_PATH + 'Ectatomma-Nurse.png',
-    'hat-hunter' : RESOURCES_PATH + 'Hat-Hunter.png',
-    'hat-nurse' : RESOURCES_PATH + 'Hat-Nurse.png'
+    'Ectatomma' : RESOURCES_PATH + 'Ectatomma.png',
+    'Ectatomma-Hat-Hunter' : RESOURCES_PATH + 'Ectatomma-Hunter.png',
+    'Ectatomma-Hat-Nurse' : RESOURCES_PATH + 'Ectatomma-Nurse.png',
+    'Hat-Hunter' : RESOURCES_PATH + 'Hat-Hunter.png',
+    'Hat-Nurse' : RESOURCES_PATH + 'Hat-Nurse.png'
 }
 
 class VirtualWorld(QFrame):
     
-    NUM_COLUMNS = 5
-    NUM_ROWS = 5
-    OBJECTS = dict()
-
-    def __init__(self, parent):
+    def __init__(self, parent, numColumns=5, numRows=5):
     
         super(VirtualWorld, self).__init__(parent)
+        
+        self.numColumns = numColumns
+        self.numRows = numRows
+        
+        self._objects = dict()
+        self._objsCount = dict()
+        self._totalObjs = 0
         
         self.initVirtualWorld()
         
@@ -48,98 +49,199 @@ class VirtualWorld(QFrame):
         self.setFocusPolicy(Qt.StrongFocus)
         self.setFrameStyle(QFrame.Box | QFrame.Plain)
         self.setLineWidth(1)
-        self.CELL_WIDTH = self.width() // self.NUM_COLUMNS
-        self.CELL_HEIGHT = self.height() // self.NUM_ROWS
+        Cell.CELL_WIDTH = self.width() // self.numColumns
+        Cell.CELL_HEIGHT = self.height() // self.numRows
 
         grid = QGridLayout()
         self.setLayout(grid)
         
-        for column in xrange(self.NUM_COLUMNS):
+        for row in xrange(self.numRows):
             self.worldGrid.append([])
             
-            for row in xrange(self.NUM_ROWS):
-                self.worldGrid[column].append(QLabel())
-                self.worldGrid[column][row].setStyleSheet(
-                    "QLabel { background-color : green }"
-                )
-                grid.addWidget(self.worldGrid[column][row], column, row)
+            for column in xrange(self.numColumns):
+                self.worldGrid[row].append(Cell(row, column))
+                grid.addWidget(self.worldGrid[row][column], row, column)
         
-        self.addObj('P1', 'ectatomma', 3, 3)
+        self.addObj('P1', 'Ectatomma', 3, 3)
         
-    def addObj(self, objId, objType, x, y, imgWidth = None, imgHeight = None):
+    def addObj(self, objId, objType, x, y, imgWidth=None, imgHeight=None):
         """ Adds an object to the Virtual World """
         
-        if imgWidth == None: 
-            imgWidth = self.CELL_WIDTH - 10
-            
-        if imgHeight == None:
-            imgHeight = self.CELL_HEIGHT - 10
-        obj = WorldObject(objType, x, y, imgWidth, imgHeight)
-        self.OBJECTS[objId] = obj
-        self.worldGrid[x][y].setPixmap(obj.pixmap)
-                
+        self._objects[objId] = WorldObject(objType, x, y)
+        self.worldGrid[x][y].objectArrives(objId, self._objects[objId])
+        
     def moveObj(self, objId, direction):
         """
-        Moves an object in the Virtual World
-        @param objId : id of the object. See OBJECTS.keys() for a list
-            of the available objects.
-        @param direction
+        Moves an object in the Virtual World.
+        
+        @param objId: id of the object. See _objects.keys() for a list
+            of the available _objects.
+        @param direction: Can be 'izquierda', 'derecha', 'arriba' or
+            'abajo'
         """
         
-        obj = self.OBJECTS[objId]
+        obj = self._objects[objId]
+        
+        newX = obj.x
+        newY = obj.y
         
         if direction == 'izquierda':
             if obj.x > 0: 
-                self.worldGrid[obj.y][obj.x].setPixmap(QPixmap())
-                obj.x += -1 
-                self.worldGrid[obj.y][obj.x].setPixmap(obj.pixmap)
-            
+                newX += -1 
+        
         elif direction == 'derecha':
-            if obj.x < self.NUM_COLUMNS - 1:
-                self.worldGrid[obj.y][obj.x].setPixmap(QPixmap())
-                obj.x += 1 
-                self.worldGrid[obj.y][obj.x].setPixmap(obj.pixmap)
-            
+            if obj.x < self.numColumns - 1:
+                newX += 1 
+        
         elif direction == 'arriba':
             if obj.y > 0: 
-                self.worldGrid[obj.y][obj.x].setPixmap(QPixmap())
-                obj.y += -1
-                self.worldGrid[obj.y][obj.x].setPixmap(obj.pixmap)
+                newY += -1
             
         elif direction == 'abajo':
-            if obj.y < self.NUM_ROWS - 1: 
-                self.worldGrid[obj.y][obj.x].setPixmap(QPixmap())
-                obj.y += 1
-                self.worldGrid[obj.y][obj.x].setPixmap(obj.pixmap)
+            if obj.y < self.numRows - 1: 
+                newY += 1
         
         else:
             return "No se a que direccion moverme"
-            
+        
+        self.worldGrid[obj.y][obj.x].objectLeaves(objId)
+        self.worldGrid[newY][newX].objectArrives(objId, obj)
+        obj.x = newX
+        obj.y = newY
+        
         return "{obj}: Me he movido hacia {direction}\n".format(
                 obj = objId,
                 direction = direction
             )
+    
+    def insertObj(self, objType):
+        """
+        Inserts an object in a random position of the Virtual World.
+        
+        @param objType
+        """
+        
+        if self._totalObjs >= ((self.numColumns * self.numRows) - 1):
+            return -1
+        
+        if objType not in self._objsCount:
+            self._objsCount[objType] = 1
+        
+        objId = objType + str(self._objsCount[objType])
+        validCoordinate = False
+        
+        while (not validCoordinate):
+            objX = random.randint(0, self.numColumns - 1)
+            objY = random.randint(0, self.numRows - 1)
             
+            validCoordinate = (len(self.worldGrid[objX][objY].objects) == 0)
+        
+        self.addObj(objId, objType, objX, objY)
+        self._totalObjs += 1
+    
+    def grabObj(self):
+        """
+        Make the P1 grab the object that is in the same cell it's in.
+        """
+        
+        p1 = self._objects['P1']
+        x = p1.x
+        y = p1.y
+        
+        cell = self.worldGrid[y][x]
+        cell.objectLeaves('P1')
+        
+        for objToGrabId in cell.objects.keys():
+            p1.transform(p1.objType + '-' + cell.objects[objToGrabId].objType)
+            cell.objectLeaves(objToGrabId)
+        
+        cell.objectArrives('P1', p1)
+
 class WorldObject:
     
-    def __init__(self, objType, x, y, imgWidth, imgHeight):
+    def __init__(self, objType, x, y):
         """
-        Creates an object of the virtual world 
+        Creates an object of the virtual world.
+        
         @param objType : The type of the object. See IMG_PATHS.keys()
             for a list of the available types.
         @param x, y : Coordenates of the object in the virtual world
-        @param imgWidth, imgHeight: Width and Height of the object's icon
         """
         
         self.x = x
         self.y = y
+        self.objType = objType
         self.img = IMG_PATHS[objType]
         self.pixmap = QPixmap(self.img)
-        self.resizePixmap(imgWidth, imgHeight)
+        #self.resizePixmap(imgWidth, imgHeight)
         
-    def resizePixmap(self, imgWidth, imgHeight):
+    def transform(self, objType):
+        """
+        Change the objType and consecuentially its image.
+        """
     
-        self.pixmap = self.pixmap.scaled(imgWidth, imgHeight, Qt.KeepAspectRatio)
+        self.img = IMG_PATHS[objType]
+        self.pixmap = QPixmap(self.img)
+
+class Cell(QLabel):
+    """
+    A Cell is a square representing a coordinate in the Virtual World.
+    It inherits from QLabel.
+    """
+    CELL_WIDTH = 0
+    CELL_HEIGHT = 0
+    
+    def __init__(self, x, y):
+        """
+        @param x, y : Coordenates of the cell in the virtual world
+        """
+        
+        super(Cell, self).__init__()
+        
+        self.objects = dict()
+        self.x = x
+        self.y = y
+        
+        self.setPixmap(QPixmap())
+        self.setStyleSheet("QLabel { background-color : green }")
+    
+    def objectArrives(self, objId, obj:
+        """
+        The object is added to this cell's list of objects and is
+        painted.
+        
+        @param objId
+        @param obj
+        """
+        
+        self.objects[objId] = obj
+        self.paintObjects()
+    
+    def objectLeaves(self, objId):
+        """
+        The object is removed from the cell's list of objects and is
+        unpainted.
+        
+        @param objId
+        """
+        
+        self.objects.pop(objId)
+        self.paintObjects()
+    
+    def paintObjects(self):
+        """ Paints all the objects from this cell's list of objects. """
+        
+        combined = QPixmap(Cell.CELL_WIDTH - 10, Cell.CELL_HEIGHT - 10)
+        combined.fill(Qt.transparent)
+        painter = QPainter(combined)
+        
+        for obj in self.objects.values():
+            painter.drawPixmap(0, 0, obj.pixmap.scaled(Cell.CELL_WIDTH - 10,
+                    Cell.CELL_HEIGHT - 10, Qt.KeepAspectRatio))
+        
+        painter.end()
+        
+        self.setPixmap(combined)
 
 if __name__ == '__main__':
     

@@ -45,20 +45,31 @@ class MainWindow:
             objId="P1", direction='arriba'))
         self.frame.btn_down.clicked.connect(partial(self.world.moveObj,
             objId="P1", direction='abajo'))
+        
+        self.frame.btn_grab.clicked.connect(self.world.grabObj)
+        
+        self.frame.btn_insertObj.clicked.connect(self.insertObj)
+        
         self.frame.btn_execSentence.clicked.connect(self.execSentence)
-        self.frame.lnEdt_sentence.returnPressed.connect(self.execSentence)
+        self.frame.lnEdt_sentence_execute.returnPressed.connect(
+            self.execSentence)
+        
         self.frame.btn_clearLog.clicked.connect(self.frame.txtEdt_log.clear)
+        
+        self.frame.cmbBx_action.currentIndexChanged.connect(
+            self.actionForTrainChanged,
+        )
     
     def execSentence(self):
         
-        sentence = self.frame.lnEdt_sentence.text().lower()
+        sentence = self.frame.lnEdt_sentence_execute.text().lower()
         
         if sentence == None:
             sentence = ""
         
-        self.frame.txtEdt_log.append("<b>>></b>" + sentence)
+        self.frame.txtEdt_log.append("<b>>></b> " + sentence)
         sentence = sentence.split()
-        predictions = self.model.inputSentence(sentence, verbose=1,
+        predictions = self.model.inputSentence(sentence, verbosity=1,
             learn=False)
         
         if predictions[0] == 'action-mover':
@@ -67,4 +78,16 @@ class MainWindow:
             )
             
         self.model.reset()
-
+    
+    def actionForTrainChanged(self):
+        
+        newAction = self.frame.cmbBx_action.currentText()
+        print(newAction)
+        self.frame.lnEdt_argument.setEnabled((newAction == 'Saludar') or\
+            (newAction == 'Hablar'))
+        
+    def insertObj(self):
+        
+        objType = self.frame.cmbBx_insertObj.currentText()
+        self.world.insertObj(objType)
+        

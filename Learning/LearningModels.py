@@ -511,14 +511,14 @@ class OneLevelExpModel(LearningModel):
             #4, 4.5 -> 86%
             numActiveColumnsPerInhArea=4.0,
             stimulusThreshold=2,
-            synPermInactiveDec=0.0,
+            synPermInactiveDec=0.165088154764,
             synPermActiveInc=0.1,
             #0.15 -> 86%
-            synPermConnected=0.163485726079,
+            synPermConnected=0.236217765977,
             minPctOverlapDutyCycle=0.302204519404,
             minPctActiveDutyCycle=0.0,
             #20
-            dutyCyclePeriod=15, 
+            dutyCyclePeriod=9, 
             #3
             maxBoost=1.0,
             seed=self.spSeed,
@@ -532,7 +532,7 @@ class OneLevelExpModel(LearningModel):
             # 4
             activationThreshold=1,
             # 0.3
-            initialPermanence=0.22382208699,
+            initialPermanence=0.263488191214,
             connectedPermanence=0.674714438958,
             minThreshold=4,
             maxNewSynapseCount=4,
