@@ -102,14 +102,18 @@ class VirtualWorld(QFrame):
                 newY += 1
         
         else:
-            return "No se a que direccion moverme"
+            return '<font color="Orange">'\
+                'No se a que direccion moverme'\
+                '</font><br>'
         
         self.worldGrid[obj.y][obj.x].objectLeaves(objId)
         self.worldGrid[newY][newX].objectArrives(objId, obj)
         obj.x = newX
         obj.y = newY
         
-        return "{obj}: Me he movido hacia {direction}\n".format(
+        return '<font color="Green">'\
+            '{obj}: Me he movido hacia {direction}'\
+            '</font><br>'.format(
                 obj = objId,
                 direction = direction
             )
@@ -156,6 +160,10 @@ class VirtualWorld(QFrame):
             cell.objectLeaves(objToGrabId)
         
         cell.objectArrives('P1', p1)
+        
+        return '<font color="Green">'\
+            'P1: ¿Que tal me va?'\
+            '</font><br>'
 
 class WorldObject:
     
@@ -231,13 +239,15 @@ class Cell(QLabel):
     def paintObjects(self):
         """ Paints all the objects from this cell's list of objects. """
         
-        combined = QPixmap(Cell.CELL_WIDTH - 10, Cell.CELL_HEIGHT - 10)
+        pading = 9
+        
+        combined = QPixmap(Cell.CELL_WIDTH - pading , Cell.CELL_HEIGHT - pading)
         combined.fill(Qt.transparent)
         painter = QPainter(combined)
         
         for obj in self.objects.values():
-            painter.drawPixmap(0, 0, obj.pixmap.scaled(Cell.CELL_WIDTH - 10,
-                    Cell.CELL_HEIGHT - 10, Qt.KeepAspectRatio))
+            painter.drawPixmap(0, 0, obj.pixmap.scaled(Cell.CELL_WIDTH - pading,
+                    Cell.CELL_HEIGHT - pading, Qt.KeepAspectRatio))
         
         painter.end()
         
