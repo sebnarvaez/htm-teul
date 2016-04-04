@@ -293,4 +293,4 @@ trainingData = (
     (['para', 'el', 'sur', 'por', 'favor'], ['nothing-event', 'abajo-event'])
 )
 inputIdx = {'actionInput': 1, 'wordInput': 0}
-categories = [set(['a', 'este', 'quiero', '?', 'para', 'el', 'podrias', 'norte', 'la', 'por', 'favor', 'abajo', 'derecha', 'izquierda', 'arriba', 'que', 'sur', 'hacia', 'te', '\xc2\xbf', 'oeste']), set(['izquierda-event', 'derecha-event', 'abajo-event', 'nothing-event', 'arriba-event'])]
+categories = [set(['este', 'el', 'por', 'hacia', 'mover', 'quiero', 'muevete', 'la', 'moverse', 'derecha', 'favor', 'arriba', 'sur', 'te', '?', 'podrias', 'para', 'norte', 'abajo', 'que', 'oeste', 'a', 'moverlo', 'izquierda', 'muevas', '\xc2\xbf']), set(['derecha-event', 'mover-event', 'nothing-event', 'izquierda-event', 'arriba-event', 'abajo-event'])]

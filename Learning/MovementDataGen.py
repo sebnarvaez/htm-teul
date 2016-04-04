@@ -6,7 +6,6 @@
 #  Fecha última modificación: 2015-11-26
 #  Versión: 1.0 [Stable]
 
-import glob
 import csv
 
 """
@@ -37,18 +36,22 @@ def addData(inputFilePaths, mode='wb'):
         outputFile.write('\n')
         outputFile.write('trainingData = (\n')
         
+        global categories
+        categories = []
+        inputIdx = {}
+        
         for inputFilePath in inputFilePaths:
             with open(inputFilePath, 'rb') as inputFile:
                 csvReader = csv.reader(inputFile)
-                # categories will hold the different data from each column
-                global categories
                 headers = csvReader.next()
-                
-                categories = [set() for _ in xrange(len(headers))]
-                inputIdx = {}
-                
-                for index, inputName in enumerate(headers):
-                    inputIdx[inputName] = index
+
+                # Assumes all files have the same columns
+                if len(inputIdx) == 0:
+                    for index, inputName in enumerate(headers):
+                        inputIdx[inputName] = index
+                # categories will hold the different data from each column
+                if len(categories) == 0:
+                    categories = [set() for _ in xrange(len(headers))]
                 
                 for row in csvReader:
                     

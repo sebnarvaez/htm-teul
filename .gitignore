@@ -1,3 +1,7 @@
 *.pyc
 *.pck
 *.geany
+.idea
+.project
+.pydevproject
+.settings

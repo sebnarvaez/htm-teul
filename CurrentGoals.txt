@@ -13,3 +13,10 @@
 
 + Aprendizaje supervisado en donde se altera manualmente la conectividad de las 
 sinapsis.
+
+
+Ruta Librerias:
+
+/usr/lib/python2.7/site-packages/nupic/
+/usr/lib/python2.7/site-packages/nupic/research/spatial_pooler.py
+/usr/lib/python2.7/site-packages/nupic/research/temporal_memory.py
