@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 #  Copyright (C) {2016}  {Sebastián Narváez Rodríguez}
 #
 #  This program is free software; you can redistribute it and/or modify
