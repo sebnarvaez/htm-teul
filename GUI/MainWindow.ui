@@ -7,17 +7,32 @@
     <x>0</x>
     <y>0</y>
     <width>875</width>
-    <height>599</height>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>HTM - Task Execution Using Language</string>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
+     <number>5</number>
+    </property>
     <item>
      <widget class="QWidget" name="virtualWorld" native="true">
       <property name="minimumSize">
@@ -101,9 +116,9 @@
            <widget class="QWidget" name="wgt_otherControls" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <widget class="QPushButton" name="btn_greet">
+              <widget class="QPushButton" name="btn_dance">
                <property name="text">
-                <string>Saludar</string>
+                <string>Bailar</string>
                </property>
               </widget>
              </item>
@@ -169,7 +184,7 @@
           <bool>false</bool>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tb_execute">
           <attribute name="title">
@@ -232,82 +247,196 @@
           <attribute name="title">
            <string>Entrenar</string>
           </attribute>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QLabel" name="lbl_sentence_train">
-             <property name="text">
-              <string>Frase:</string>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QWidget" name="wdgt_trainInputs" native="true">
+             <layout class="QGridLayout" name="gridLayout_2">
+              <property name="leftMargin">
+               <number>3</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>3</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <property name="horizontalSpacing">
+               <number>6</number>
+              </property>
+              <item row="2" column="0">
+               <widget class="QLabel" name="lbl_argument">
+                <property name="text">
+                 <string>Argumento:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="lnEdt_argument">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="lbl_sentence_train">
+                <property name="text">
+                 <string>Frase:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="lbl_action">
+                <property name="text">
+                 <string>Accion:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QComboBox" name="cmbBx_action">
+                <item>
+                 <property name="text">
+                  <string>Mover arriba</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mover abajo</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mover derecha</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mover izquierda</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Hablar</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Bailar</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Recoger</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="lnEdt_sentence_train"/>
+              </item>
+              <item row="3" column="1">
+               <widget class="QPushButton" name="btn_addTrainInput">
+                <property name="text">
+                 <string>Añadir</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tblWdgt_trainingList">
+             <property name="columnCount">
+              <number>0</number>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="lnEdt_sentence_train"/>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="lbl_argument">
-             <property name="text">
-              <string>Argumento:</string>
-             </property>
+           <item>
+            <widget class="QWidget" name="widget" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <property name="spacing">
+               <number>6</number>
+              </property>
+              <property name="leftMargin">
+               <number>3</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>3</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="lbl_iterations">
+                <property name="text">
+                 <string>Iterations</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lnEdt_iterations">
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="text">
+                 <string>10</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_clear_train">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Limpiar Tabla</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="lbl_action">
-             <property name="text">
-              <string>Accion:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QComboBox" name="cmbBx_action">
-             <item>
-              <property name="text">
-               <string>Mover arriba</string>
+           <item>
+            <widget class="QWidget" name="wdgt_trainButtons" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <property name="leftMargin">
+               <number>3</number>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Mover abajo</string>
+              <property name="topMargin">
+               <number>3</number>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Mover a la derecha</string>
+              <property name="rightMargin">
+               <number>3</number>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Mover a la izquierda</string>
+              <property name="bottomMargin">
+               <number>3</number>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Saludar</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Hablar</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Recoger</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QPushButton" name="btn_train">
-             <property name="text">
-              <string>Entrenar</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="lnEdt_argument">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
+              <item>
+               <widget class="QPushButton" name="btn_import">
+                <property name="text">
+                 <string>Importar...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_train">
+                <property name="text">
+                 <string>Entrenar</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
@@ -327,7 +456,7 @@
      <x>0</x>
      <y>0</y>
      <width>875</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

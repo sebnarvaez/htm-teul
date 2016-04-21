@@ -1,6 +1,6 @@
 *.pyc
 *.pck
-*.geany
+*.proj
 .idea
 .project
 .pydevproject

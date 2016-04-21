@@ -28,6 +28,7 @@ import random
 import numpy
 import string
 
+from Utils.CustomCategoryEncoder import CustomCategoryEncoder
 from nupic.encoders.base import Encoder
 from nupic.encoders.category import CategoryEncoder
 
@@ -55,15 +56,22 @@ def charToBinary(character, wordLen=8, bitSeparation=0):
         word.extend(charBitsList)
         return word
 
-class UnifiedCategoryEncoder(CategoryEncoder):
+class UnifiedCategoryEncoder(CustomCategoryEncoder):
 
     __doc__ = "docstring inherited from CategoryEncoder:\n" +\
         CategoryEncoder.__doc__
     
-    def __init__(self, categories, w=11, forced=True):
+    def __init__(self, categories, w=11, nAdditionalCategorySlots=10, forced=True):
         """
-        Goes through the training data, exctracts the categories and makes
-        one Category Encoder for all of them.
+        @param categories: Contains the categories for each input.
+        @param w: (default: 11) Number of bits that will be on for
+            each category.
+        @param nAditionalCategorySlots: (default: 10) After assigning
+            the corresponding bits to each category, make this number
+            of 'annonymous' categories. If novel categories are fed,
+            they'll be mapped into this categories
+        @param forced: (default: True) Force the CategoryEncoder to
+            work with these parameters.
         """
         categoryList = []
         for inputCategories in categories:
@@ -72,6 +80,7 @@ class UnifiedCategoryEncoder(CategoryEncoder):
         super(UnifiedCategoryEncoder, self).__init__(
                 w=w,
                 categoryList=categoryList,
+                nAdditionalCategorySlots=nAdditionalCategorySlots,
                 forced=forced
             )
             

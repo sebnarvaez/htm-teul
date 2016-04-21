@@ -25,6 +25,9 @@
 from VirtualWorld import VirtualWorld
 from functools import partial
 from PyQt5 import uic
+from PyQt5.QtWidgets import QTableWidgetItem, QFileDialog
+from PyQt5.QtGui import QIntValidator
+import imp
 
 class MainWindow:
 
@@ -43,6 +46,18 @@ class MainWindow:
     def configFrame(self):
         
         self.frame.virtualWorld = self.world
+
+        # Init the table of inputs widget
+        self.frame.tblWdgt_trainingList.setColumnCount(3)
+        self.frame.tblWdgt_trainingList.setHorizontalHeaderLabels(
+            ['Frase', 'Accion', 'Argumento']
+        )
+        self.frame.tblWdgt_trainingList.horizontalHeader().setStretchLastSection(
+            True)
+
+        self.frame.lnEdt_iterations.setValidator(QIntValidator(0, 1000,
+            self.frame))
+        
         self.initEvents()
         
     def configVirtualWorld(self):
@@ -63,8 +78,9 @@ class MainWindow:
             objId="P1", direction='abajo'))
         
         self.frame.btn_grab.clicked.connect(self.world.grabObj)
-        
+
         self.frame.btn_speak.clicked.connect(self.talk)
+        self.frame.lnEdt_speak.returnPressed.connect(self.talk)
         
         self.frame.btn_insertObj.clicked.connect(self.insertObj)
         
@@ -73,11 +89,18 @@ class MainWindow:
             self.execSentence)
         
         self.frame.btn_clearLog.clicked.connect(self.frame.txtEdt_log.clear)
-        
+
         self.frame.cmbBx_action.currentIndexChanged.connect(
             self.actionForTrainChanged,
         )
-    
+        
+        self.frame.btn_addTrainInput.clicked.connect(self.addTrainInput)
+        self.frame.lnEdt_sentence_train.returnPressed.connect(self.addTrainInput)
+        self.frame.lnEdt_argument.returnPressed.connect(self.addTrainInput)
+        
+        self.frame.btn_train.clicked.connect(self.trainFromInputList)
+        self.frame.btn_clear_train.clicked.connect(self.clearInputTable)
+
     def execSentence(self):
         
         sentence = self.frame.lnEdt_sentence_execute.text().lower()
@@ -114,18 +137,126 @@ class MainWindow:
         
         if (speech == None) or (not speech):
             speech = self.frame.lnEdt_speak.displayText()
+            self.frame.lnEdt_speak.clear()
         
         self.frame.txtEdt_log.append('<font color="Green">'\
             'P1: ' + speech +\
             '</font><br>')
     
     def actionForTrainChanged(self):
+        """ Manages the currentIndexChanges of cmbBx_action. """
         
         newAction = self.frame.cmbBx_action.currentText()
-        print(newAction)
-        self.frame.lnEdt_argument.setEnabled((newAction == 'Saludar') or\
-            (newAction == 'Hablar'))
+        self.frame.lnEdt_argument.setEnabled(newAction == 'Hablar')
+            
+    def addTrainInput(self):
+        """
+        Adds an input to the list of inputs that will be used for
+        training.
+        """
+        
+        sentence = self.frame.lnEdt_sentence_train.text()
+        action = self.frame.cmbBx_action.currentText()
+        
+        if action == 'Mover arriba':
+            action = 'mover-event'
+            argument = 'arriba-event'
+        
+        elif action == 'Mover abajo':
+            action = 'mover-event'
+            argument = 'abajo-event'
+        
+        elif action == 'Mover izquierda':
+            action = 'mover-event'
+            argument = 'izquierda-event'
+        
+        elif action == 'Mover derecha':
+            action = 'mover-event'
+            argument = 'derecha-event'
+        
+        elif action == 'Hablar':
+            action = 'hablar-event'
+            argument = self.frame.lnEdt_argument.text()
+            
+            if argument == '':
+                argument = 'nothing-event'
+        
+        elif action == 'Bailar':
+            action = 'bailar-event'
+            argument = 'nothing-event'
+        
+        elif action == 'Recoger':
+            action = 'recoger-event'
+            argument = 'nothing-event'
+        
+        else:
+            action = 'nothing-event'
+            argument = 'nothing-event'
+        
+        rowCount = self.frame.tblWdgt_trainingList.rowCount()
+        self.frame.tblWdgt_trainingList.setRowCount(rowCount + 1)
+        self.frame.tblWdgt_trainingList.setItem(
+            rowCount,
+            0,
+            QTableWidgetItem(sentence)
+        )
+        self.frame.tblWdgt_trainingList.setItem(
+            rowCount,
+            1,
+            QTableWidgetItem(action)
+        )
+        self.frame.tblWdgt_trainingList.setItem(
+            rowCount,
+            2,
+            QTableWidgetItem(argument)
+        )
+        self.frame.tblWdgt_trainingList.resizeColumnsToContents()
     
+    def trainFromInputList(self):
+        """
+        Gets the Input List from the tblWdgt_trainingList and starts
+        training the model.
+        """
+        
+        trainingList = []
+        sourceTable = self.frame.tblWdgt_trainingList
+        
+        for row in xrange(sourceTable.rowCount()):
+            sentence = sourceTable.item(row, 0).text().split()
+            event = [sourceTable.item(row, 1).text(),
+                sourceTable.item(row, 2).text()]
+            
+            trainingList.append((sentence, event))
+        
+        iterations = int(self.frame.lnEdt_iterations.text())
+        self.frame.controlPanel.setEnabled(False)
+        self.frame.statusBar().showMessage("Training in progress...")
+        self.model.train(iterations, trainingData=trainingList, maxTime=-1,
+            verbosity=1)
+        self.frame.controlPanel.setEnabled(True)
+        self.frame.statusBar().showMessage("Done!", 2000)
+
+    def importInputList(self):
+        """
+        Opens a file selection window to select the csv where the Inputs
+        List is going to be imported from.
+        """
+
+        fileData = QFileDialog.getOpenFileName(self.frame, "Import Input List",
+            "", "Python Files (*.py)")
+
+        trainingSet = imp.load_source('TrainingSet', fileData[0])
+
+    def clearInputTable(self):
+
+        self.frame.tblWdgt_trainingList.clear()
+        self.frame.tblWdgt_trainingList.setRowCount(0)
+        self.frame.tblWdgt_trainingList.setHorizontalHeaderLabels(
+            ['Frase', 'Accion', 'Argumento']
+        )
+        self.frame.tblWdgt_trainingList.horizontalHeader().setStretchLastSection(
+            True)
+
     def insertObj(self):
         
         objType = self.frame.cmbBx_insertObj.currentText()

@@ -51,18 +51,15 @@ class Layer():
         self.modules    = modules
         self.classifier = classifier
 
-    def applyStructure(self, value, inputName, verbosity=0, recordNum=0, 
-            learn=True):
+    def applyStructure(self, value, inputName, verbosity=0, learn=True):
         """
         Applies the Layer structure to a value.
         s
         @param value
         @param inputName: The name of the input module corresponding
             to the value.
-        @param verbosity=0
-        @param recordNum=0: The position of the current value in the
-            sequence, starting from 0.
-        @param learn=True: Whether to enable learning.
+        @param verbosity (default: 0)
+        @param learn: (default: True) Whether to enable learning.
         
         @return A dictionary containing:
             'lastModType': The type of the last module executed (at the

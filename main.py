@@ -28,26 +28,41 @@ from Utils import TestSuite
 from PyQt5.QtWidgets import QApplication
 from GUI.MainWindow import MainWindow
 from Learning.EncoderFactory import *
+from Utils.CustomCategoryEncoder import CustomCategoryEncoder
 from Learning.LearningModels import *
 from Learning import MovementTrainingSet as MTS
 
 if __name__ == '__main__':
 
-    wordEncoder = actionEncoder = UnifiedCategoryEncoder(MTS.categories)
+    wordEncoder = CustomCategoryEncoder(
+        11,
+        list(MTS.categories[MTS.inputIdx['wordInput']]),
+        nAdditionalCategorySlots=15,
+        forced=True
+    )
+    actionEncoder = CustomCategoryEncoder(
+        11,
+        list(MTS.categories[MTS.inputIdx['actionInput']]),
+        nAdditionalCategorySlots=15,
+        forced=True
+    )
+    #wordEncoder = actionEncoder = UnifiedCategoryEncoder(MTS.categories,
+    #    nAdditionalCategorySlots=15)
     #wordEncoder = actionEncoder = RandomizedLetterEncoder(600, 10)
     #wordEncoder = actionEncoder = TotallyRandomEncoder(50, 10)
     encoderName = wordEncoder.__class__.__name__
     
     #model = ClassicModel(wordEncoder, actionEncoder, MTS)
     #model = OneLevelModel(wordEncoder, actionEncoder, MTS)
-    model = OneLevelExpModel(wordEncoder, actionEncoder, MTS)
+    #model = OneLevelExpModel(wordEncoder, actionEncoder, MTS)
+    model = FeedbackModel(wordEncoder, actionEncoder, MTS)
     #model = JoinedInputsModel(wordEncoder, actionEncoder, MTS)
     modelName = model.__class__.__name__
     
     print(modelName)
     print(encoderName)
-    model.train(5, maxTime=-1, verbosity=1)
-    
+    model.train(50, maxTime=-1, verbosity=1)
+
     #fileName = 'Results/'
     ## Strips the 'Model' fron the name
     #fileName += modelName[:-5] + '-'
