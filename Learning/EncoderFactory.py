@@ -130,6 +130,9 @@ class RandomizedLetterEncoder(CustomEncoder):
         self.nRandBits = nRandBits
         self.actBitsPerLetter = actBitsPerLetter
         self.alreadyEncoded = dict()
+        self.catEnc = CategoryEncoder(self.actBitsPerLetter,
+                                      list(string.ascii_lowercase),
+                                      forced=True)
 
     def getWidth(self):
     
@@ -141,9 +144,7 @@ class RandomizedLetterEncoder(CustomEncoder):
         @param verbose=0
         """
         
-        catEnc = CategoryEncoder(self.actBitsPerLetter, list(string.ascii_lowercase),
-            forced=True)
-        strBinaryLen = len(inputData) * catEnc.getWidth()
+        strBinaryLen = len(inputData) * self.catEnc.getWidth()
         
         if (strBinaryLen + self.nRandBits) > self.width:
             raise ValueError("The string is too long to be encoded with the"\
@@ -152,7 +153,7 @@ class RandomizedLetterEncoder(CustomEncoder):
         
         # Encode each char of the string 
         for letter in inputData:
-            strBinary.extend(list(catEnc.encode(letter)))
+            strBinary.extend(list(self.catEnc.encode(letter)))
         
         if inputData not in self.alreadyEncoded:
             self.alreadyEncoded[inputData] = (
@@ -168,8 +169,6 @@ class RandomizedLetterEncoder(CustomEncoder):
 
 class TotallyRandomEncoder(CustomEncoder):
     """
-    Encoder for strings. It encodes each letter into binary and appends
-    a random chain of bits at the end.
     """
     
     def __init__(self, width, nActiveBits):
