@@ -120,7 +120,7 @@ class MainWindow:
             self.frame.txtEdt_log.append(self.world.moveObj('P1', argument))
             
         elif task == 'recoger-event':
-            self.frame.append(self.world.grabObj())
+            self.frame.txtEdt_log.append(self.world.grabObj())
         
         elif task == 'hablar-event':
             self.talk(argument)
