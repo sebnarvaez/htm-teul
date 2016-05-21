@@ -24,10 +24,10 @@
 
 
 from __future__ import print_function
-
 import numpy
 
-class Layer():
+
+class Layer(object):
     """A Layer contains a structure of Nupic modules and executes it."""
 
     def __init__(self, structure, modules, classifier):
@@ -47,8 +47,8 @@ class Layer():
         *Enc : For an Encoder Module
         *Input: For an Input Module
         """
-        self.structure  = structure
-        self.modules    = modules
+        self.structure = structure
+        self.modules = modules
         self.classifier = classifier
 
     def applyStructure(self, value, inputName, verbosity=0, learn=True):
@@ -58,7 +58,7 @@ class Layer():
         @param value
         @param inputName: The name of the input module corresponding
             to the value.
-        @param verbosity (default: 0)
+        @param verbosity: (default=0)
         @param learn: (default: True) Whether to enable learning.
         
         @return A dictionary containing:
@@ -74,13 +74,13 @@ class Layer():
         prevModName = ''
         bucketIdx = 0
         
-        if verbosity > 2 :
+        if verbosity > 2:
             print("Value: " + str(value))
         
         while True:
             
             module = self.modules[moduleName]
-            if verbosity > 2 :
+            if verbosity > 2:
                 print("Current module: " + moduleName)
             
             if moduleName[-3:] == 'Enc':
@@ -110,7 +110,7 @@ class Layer():
                 
                 module.compute(set(prevOutput), learn)
                 
-                if verbosity > 2 :
+                if verbosity > 2:
                 
                     predictedColumns = module.mapCellsToColumns(
                         module.predictiveCells).keys()
@@ -124,25 +124,27 @@ class Layer():
                 raise ValueError("Invalid Module Name. See the function's "\
                     "docstring to see the correct usage.")
             
-            if verbosity > 2 :
-                print(moduleName + " Output = " + str(numpy.where(prevOutput > 0)[0]))
+            if verbosity > 2:
+                print(moduleName + " Output = " +
+                      str(numpy.where(prevOutput > 0)[0]))
             
-            if self.structure[moduleName] == None:
+            if self.structure[moduleName] is None:
                 return {
-                    'lastModName' : prevModName,
-                    'lastOutput' : prevOutput,
-                    'lastBucketIdx' : bucketIdx
+                    'lastModName': prevModName,
+                    'lastOutput': prevOutput,
+                    'lastBucketIdx': bucketIdx
                 }
                 
             moduleName = self.structure[moduleName]
     
-    def toPatterNZ(self, lastModName, lastModOutput):
+    @staticmethod
+    def toPatterNZ(lastModName, lastModOutput):
         """ Correctly format the output of a module for the classifier """
         
         if (lastModName[-3:] == 'Enc') or (lastModName[-2:] == 'SP'):
             return numpy.where(lastModOutput > 0)[0]
         
-        elif (lastModName[-2:] == 'TM'):
+        elif lastModName[-2:] == 'TM':
             return lastModOutput
         
         else:
@@ -158,14 +160,13 @@ class Layer():
             one is its corresponding sequence. Note that the order of
             the list is important.
         @param verbosity = 0
-        @param learn = True: Whether to enable learning.
+        @param learn: (default=True) Whether to enable learning.
         """
         
         recordNum = 0
-        retVal = None
-        
+
         for inputModule in inputData:
-            if verbosity > 1 : 
+            if verbosity > 1:
                 print("===== " + inputModule[0] + ": " + str(inputModule[1]) +
                     " =====")
         
@@ -175,15 +176,15 @@ class Layer():
                 patternNZ = self.toPatterNZ(structureOutput['lastModName'], 
                     structureOutput['lastOutput'])
                 retVal = self.classifier.compute(
-                        recordNum=recordNum,
-                        patternNZ=patternNZ,
-                        classification={
-                            'bucketIdx': structureOutput['lastBucketIdx'], 
-                            'actValue': value
-                        },
-                        learn=learn,
-                        infer=True
-                    )
+                    recordNum=recordNum,
+                    patternNZ=patternNZ,
+                    classification={
+                        'bucketIdx': structureOutput['lastBucketIdx'],
+                        'actValue': value
+                    },
+                    learn=learn,
+                    infer=True
+                )
                 
                 bestPredictions = []
                 
@@ -191,15 +192,16 @@ class Layer():
                     if step == 'actualValues':
                         continue
                     higherProbIndex = retVal[step].tolist().index(
-                                    max(retVal[step].tolist()))
+                        max(retVal[step].tolist())
+                    )
                     bestPredictions.append(
                         retVal['actualValues'][higherProbIndex]
                     )
                 
-                if verbosity > 2 :
+                if verbosity > 2:
                     print('Best Predictions: ' + str(bestPredictions))
                 
-                if verbosity > 3 :
+                if verbosity > 3:
                     print("  |  CLAClassifier best predictions for step1: ")
                     top = sorted(retVal[1].tolist(), reverse=True)[:3]
                     
@@ -222,7 +224,7 @@ class Layer():
                 
                 recordNum += 1
             
-            if verbosity > 1 :
+            if verbosity > 1:
                 print('Best Predictions for next module: ' + str(bestPredictions))
                 
         return bestPredictions

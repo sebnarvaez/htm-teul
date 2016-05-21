@@ -37,7 +37,7 @@ class CommonOverlap:
     Counts the fulfillment of a certain condition across numpy arrays.
     """
 
-    def __init__(self, compOperator, compValue, arrayShape, threshold=0):
+    def __init__(self, compOperator, compValue, arrayShape, threshold=0.0):
         """
         @param compOperator: The operator used to make the comparission
             between each element of an array and the compValue.

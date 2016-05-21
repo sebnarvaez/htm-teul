@@ -29,6 +29,7 @@ from PyQt5.QtWidgets import QTableWidgetItem, QFileDialog
 from PyQt5.QtGui import QIntValidator
 import imp
 
+
 class MainWindow:
 
     def __init__(self, model):
@@ -71,7 +72,7 @@ class MainWindow:
         self.frame.btn_left.clicked.connect(partial(self.world.moveObj,
             objId="P1", direction='izquierda'))
         self.frame.btn_right.clicked.connect(partial(self.world.moveObj,
-            objId="P1",  direction='derecha'))
+            objId="P1", direction='derecha'))
         self.frame.btn_up.clicked.connect(partial(self.world.moveObj,
             objId="P1", direction='arriba'))
         self.frame.btn_down.clicked.connect(partial(self.world.moveObj,
@@ -105,7 +106,7 @@ class MainWindow:
         
         sentence = self.frame.lnEdt_sentence_execute.text().lower()
         
-        if (sentence == None) or (not sentence):
+        if (sentence is None) or (not sentence):
             sentence = "-"
         
         self.frame.txtEdt_log.append("<b>>></b> " + sentence)
@@ -126,8 +127,8 @@ class MainWindow:
             self.talk(argument)
         
         else:
-            self.frame.txtEdt_log.append('<font color="Red">'\
-                'P1: No se que hacer'\
+            self.frame.txtEdt_log.append('<font color="Red">'
+                'P1: No se que hacer'
                 '</font><br>')
             
         self.model.reset()
@@ -135,7 +136,7 @@ class MainWindow:
     def talk(self, speech=None):
         """ Displays a sentence in the log """
         
-        if (speech == None) or (not speech):
+        if (speech is None) or (not speech):
             speech = self.frame.lnEdt_speak.displayText()
             self.frame.lnEdt_speak.clear()
         
