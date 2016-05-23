@@ -53,31 +53,29 @@ class JoinedInputsModel(LearningModel):
             in categories to an input name.
         """
         
-        super(self, JoinedInputsModel).__init__()
+        super(self, JoinedInputsModel).__init__(wordEncoder, actionEncoder,
+            trainingSet)
         
         self.buckets = dict()
         self.iterationsTrained = 0
-        self.wordEncoder = wordEncoder
-        self.actionEncoder = actionEncoder
-        self.trainingData = trainingSet.trainingData
-        
+
         self.initModules(trainingSet.categories, trainingSet.inputIdx)
         
         self.structure = {
-            'wordInput' : 'wordEnc',
-            'wordEnc' : 'generalSP',
+            'wordInput': 'wordEnc',
+            'wordEnc': 'generalSP',
             ###
-            'actionInput' : 'actionEnc',
-            'actionEnc' : 'generalSP',
+            'actionInput': 'actionEnc',
+            'actionEnc': 'generalSP',
             ###
-            'generalSP' : 'generalTM',
-            'generalTM' : None
+            'generalSP': 'generalTM',
+            'generalTM': None
         }
         self.modules = {
-            'generalTM' : self.generalTM,
-            'generalSP' : self.generalSP,
-            'wordEnc' : self.wordEncoder, 
-            'actionEnc' : self.actionEncoder
+            'generalTM': self.generalTM,
+            'generalSP': self.generalSP,
+            'wordEnc': self.wordEncoder,
+            'actionEnc': self.actionEncoder
         }
         
         self.layer = Layer(self.structure, self.modules, self.classifier)

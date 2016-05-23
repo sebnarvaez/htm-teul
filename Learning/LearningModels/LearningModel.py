@@ -31,7 +31,7 @@ class LearningModel(object):
     It doesn't do anything by itself.
     """
 
-    def __init__(self):
+    def __init__(self, wordEncoder, actionEncoder, trainingSet):
         """
         Initialize the module objects, the modules and the structure
         dicts, the layer and any other object you'll need for your
@@ -45,8 +45,11 @@ class LearningModel(object):
         self.iterationsTrained = 0
         self.spSeed = 42
         self.tmSeed = 42
+        self.wordEncoder = wordEncoder
+        self.actionEncoder = actionEncoder
+        self.trainingData = trainingSet.trainingData
 
-    def initModules(self):
+    def initModules(self, categories, inputIdx):
 
         pass
 

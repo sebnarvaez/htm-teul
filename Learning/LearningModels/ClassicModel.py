@@ -35,6 +35,7 @@ from Learning.Layer import Layer
 from LearningModel import LearningModel
 from Utils.ArrayCommonOverlap import CommonOverlap
 
+
 class ClassicModel(LearningModel):
     """
      Structure:
@@ -47,42 +48,39 @@ class ClassicModel(LearningModel):
         """
         @param wordEncoder
         @param actionEncoder
-        @param dataSet: A module containing the trainingData, all of
+        @param trainingSet: A module containing the trainingData, all of
             its categories and the inputIdx dict that maps each index
             in categories to an input name.
         """
 
-        super(ClassicModel, self).__init__()
-
-        self.wordEncoder = wordEncoder
-        self.actionEncoder = actionEncoder
-        self.trainingData = trainingSet.trainingData
+        super(ClassicModel, self).__init__(wordEncoder, actionEncoder,
+            trainingSet)
 
         self.initModules(trainingSet.categories, trainingSet.inputIdx)
 
         self.structure = {
-            'wordInput' : 'wordEnc',
-            'wordEnc' : 'wordSP',
-            'wordSP' : 'wordTM',
-            'wordTM' : 'generalSP',
+            'wordInput': 'wordEnc',
+            'wordEnc': 'wordSP',
+            'wordSP': 'wordTM',
+            'wordTM': 'generalSP',
             ###
-            'actionInput' : 'actionEnc',
-            'actionEnc' : 'actionSP',
-            'actionSP' : 'actionTM',
-            'actionTM' : 'generalSP',
+            'actionInput': 'actionEnc',
+            'actionEnc': 'actionSP',
+            'actionSP': 'actionTM',
+            'actionTM': 'generalSP',
             ###
-            'generalSP' : 'generalTM',
-            'generalTM' : None
+            'generalSP': 'generalTM',
+            'generalTM': None
         }
         self.modules = {
-            'generalTM' : self.generalTM,
-            'generalSP' : self.generalSP,
-            'wordTM' : self.wordTM,
-            'wordSP' : self.wordSP,
-            'wordEnc' : self.wordEncoder,
-            'actionTM' : self.actionTM,
-            'actionSP' : self.actionSP,
-            'actionEnc' : self.actionEncoder
+            'generalTM': self.generalTM,
+            'generalSP': self.generalSP,
+            'wordTM': self.wordTM,
+            'wordSP': self.wordSP,
+            'wordEnc': self.wordEncoder,
+            'actionTM': self.actionTM,
+            'actionSP': self.actionSP,
+            'actionEnc': self.actionEncoder
         }
 
         self.layer = Layer(self.structure, self.modules,

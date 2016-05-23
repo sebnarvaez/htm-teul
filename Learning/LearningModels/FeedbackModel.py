@@ -47,16 +47,13 @@ class FeedbackModel(LearningModel):
         """
         @param wordEncoder
         @param actionEncoder
-        @param dataSet: A module containing the trainingData, all of
+        @param trainingSet: A module containing the trainingData, all of
             its categories and the inputIdx dict that maps each index
             in categories to an input name.
         """
 
-        super(FeedbackModel, self).__init__()
-
-        self.wordEncoder = wordEncoder
-        self.actionEncoder = actionEncoder
-        self.trainingData = trainingSet.trainingData
+        super(FeedbackModel, self).__init__(wordEncoder, actionEncoder,
+            trainingSet)
 
         self.initModules(trainingSet.categories, trainingSet.inputIdx)
 
@@ -245,13 +242,12 @@ class FeedbackModel(LearningModel):
 
             recordNum += 1
 
-
         bestPredictions = []
 
-        properIdx = [idx for idx in xrange(len(retVal['actualValues'])) if 
+        properIdx = [idx for idx in xrange(len(retVal['actualValues'])) if
                 retVal['actualValues'][idx].endswith('-event')]
-        
-        if properIdx == []:
+
+        if not properIdx:
             properIdx = range(len(retVal['actualValues']))
 
         for step in retVal:
@@ -327,8 +323,8 @@ class FeedbackModel(LearningModel):
                 recordNum=recordNum,
                 patternNZ=actionActiveCells,
                 classification={
-                    'bucketIdx': self.wordEncoder.getWidth() +\
-                                 self.actionEncoder.getBucketIndices(action)[0],
+                    'bucketIdx': self.wordEncoder.getWidth() +
+                        self.actionEncoder.getBucketIndices(action)[0],
                     'actValue': action
                 },
                 learn=learn,
@@ -371,11 +367,9 @@ class FeedbackModel(LearningModel):
 
     def train(self, numIterations, trainingData=None,
               maxTime=-1, verbosity=0):
-        # type: (int, int, iterable, int, int) -> None
         """
         @param numIterations
-        @param region1PreTraining: (default: 0) Number of iterations
-            training region 1 only.
+        @param trainingData
         @param maxTime: (default: -1) Training stops if maxTime (in
             minutes) is exceeded. Note that this may interrupt an
             ongoing train ireration. -1 is no time restrictions.
@@ -402,17 +396,15 @@ class FeedbackModel(LearningModel):
         for iteration in xrange(numIterations):
             print("Iteration " + str(iteration))
 
-            generalPrediction = set()
-
             for sentence, actionSeq in trainingData:
                 self.processInput(sentence, actionSeq, wordSDR, actionSDR)
                 self.reset()
                 recordNum += 1
 
-                if (maxTime > 0):
+                if maxTime > 0:
                     elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
 
-                    if (elapsedMinutes > maxTime):
+                    if elapsedMinutes > maxTime:
                         maxTimeReached = True
                         print("maxTime reached, training stoped at iteration "\
                             "{}!".format(self.iterationsTrained))
