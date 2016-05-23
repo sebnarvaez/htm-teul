@@ -35,6 +35,7 @@ outputFilePath = 'TotalTrainingSet.py'
 categories = []
 inputIdx = {}
 
+
 def addMovementData(inputFilePaths, outputFile):
     """
     @param inputFilePaths: A list of paths of the files where the data
@@ -106,6 +107,7 @@ def addMovementData(inputFilePaths, outputFile):
                     'argumento': 'abajo'
                 }
                 writeDataUnit(row, formatArgs, outputFile)
+
 
 def addPickData(inputFilePaths, outputFile):
     """
@@ -213,6 +215,7 @@ def addPickData(inputFilePaths, outputFile):
                 }
                 writeDataUnit(row, formatArgs, outputFile)
 
+
 def addDanceData(inputFilePaths, outputFile):
     """
     @param inputFilePaths: A list of paths of the files where the data
@@ -238,6 +241,7 @@ def addDanceData(inputFilePaths, outputFile):
             for row in csvReader:
                 writeDataUnit(row, {}, outputFile)
 
+
 def writeDataUnit(columns, formatArgs, outputFile):
 
     outputFile.write(INDENT + '(')
@@ -247,7 +251,6 @@ def writeDataUnit(columns, formatArgs, outputFile):
         dataUnit = dataUnit.format(**formatArgs).split()
         outputFile.write(str(dataUnit) + ', ')
         categories[columnIdx].update(dataUnit)
-
 
     outputFile.seek(-2, 2)
     outputFile.write('),\n')
@@ -263,7 +266,7 @@ if __name__ == '__main__':
 
         addMovementData(
             [
-                'Data/MovimientoPerfecto.csv'#,
+                'Data/MovimientoPerfecto.csv'  # ,
                 #'Data/MovimientoImperfectoReordenado2.csv'
             ],
             outputFile
@@ -286,5 +289,5 @@ if __name__ == '__main__':
         outputFile.write('categories = {0}'.format(categories))
 
         print("Data was written to {0}.".format(outputFilePath))
-        #for filePath in glob.glob('Data/*.csv'):
-            #addData(filePath)
+#        for filePath in glob.glob('Data/*.csv'):
+#            addData(filePath)

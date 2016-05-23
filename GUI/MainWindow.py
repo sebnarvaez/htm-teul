@@ -140,8 +140,8 @@ class MainWindow:
             speech = self.frame.lnEdt_speak.displayText()
             self.frame.lnEdt_speak.clear()
         
-        self.frame.txtEdt_log.append('<font color="Green">'\
-            'P1: ' + speech +\
+        self.frame.txtEdt_log.append('<font color="Green">'
+            'P1: ' + speech +
             '</font><br>')
     
     def actionForTrainChanged(self):

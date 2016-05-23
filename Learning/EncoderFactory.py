@@ -34,6 +34,7 @@ from nupic.encoders.category import CategoryEncoder
 
 """ A collection of encoders for use in different Learning Models """
 
+
 def charToBinary(character, wordLen=8, bitSeparation=0):
     """ 
     Returns: a list of integers containing the binary representation of
@@ -42,7 +43,7 @@ def charToBinary(character, wordLen=8, bitSeparation=0):
     
     charBits = bin(ord(character))[2:]
     
-    if (wordLen < len(charBits)):
+    if wordLen < len(charBits):
         raise ValueError("The wordLen is not big enough to store the binary "\
             "representation of the character '{0}': {1}".format(character, charBits))
     else:
@@ -56,17 +57,19 @@ def charToBinary(character, wordLen=8, bitSeparation=0):
         word.extend(charBitsList)
         return word
 
+
 class UnifiedCategoryEncoder(CustomCategoryEncoder):
 
     __doc__ = "docstring inherited from CategoryEncoder:\n" +\
         CategoryEncoder.__doc__
     
-    def __init__(self, categories, w=11, nAdditionalCategorySlots=10, forced=True):
+    def __init__(self, categories, w=11, nAdditionalCategorySlots=10,
+            forced=True):
         """
         @param categories: Contains the categories for each input.
         @param w: (default: 11) Number of bits that will be on for
             each category.
-        @param nAditionalCategorySlots: (default: 10) After assigning
+        @param nAdditionalCategorySlots: (default: 10) After assigning
             the corresponding bits to each category, make this number
             of 'annonymous' categories. If novel categories are fed,
             they'll be mapped into this categories
@@ -86,7 +89,8 @@ class UnifiedCategoryEncoder(CustomCategoryEncoder):
             
     def getBucketIndex(self, inputData):
         return self.getBucketIndices(inputData)[0]
-        
+
+
 class CustomEncoder(Encoder):
     """
     Base class that provides some general stuff to use in custom
@@ -105,6 +109,7 @@ class CustomEncoder(Encoder):
             self.encode(inputData)
         
         return self.alreadyEncoded[inputData][1]
+
 
 class RandomizedLetterEncoder(CustomEncoder):
     """
@@ -166,6 +171,7 @@ class RandomizedLetterEncoder(CustomEncoder):
         output[:strBinaryLen] = strBinary
         output[self.alreadyEncoded[inputData][0]] = 1
         return output
+
 
 class TotallyRandomEncoder(CustomEncoder):
     """

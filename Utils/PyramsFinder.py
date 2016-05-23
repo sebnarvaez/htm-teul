@@ -33,6 +33,7 @@ import sys
 import time
 import traceback
 
+
 # Functions defined at the module level because of conflicts with the
 # python's multiprocessing module.
 def _applyParams(params):
@@ -54,6 +55,7 @@ def _applyParams(params):
         traceback.print_exc()
     return score
 
+
 def _applyParamsToInstanceMethod(params):
     """
     @param params: A tuple such that
@@ -74,6 +76,7 @@ def _applyParamsToInstanceMethod(params):
             "these parameters will be set to zero:\n{}\n".format(methodParams))
         traceback.print_exc()
     return score
+
 
 class Parameter:
     """
@@ -151,6 +154,7 @@ class Parameter:
                 self.dataType, self.value, self.minVal, self.maxVal,
                 self.maxChange, self.mutationProb)
 
+
 class Individual:
     
     def __init__(self, parameters, score=0, aptitude=0.0):
@@ -174,6 +178,7 @@ class Individual:
         indivParams.update(nonOptimParams)
         
         return indivParams
+
 
 class ParametersFinder:
     """
@@ -405,46 +410,46 @@ class ParametersFinder:
         
         @param populationSize: The size of the population for each
             generation.
-        @param maxMutations=2: The maximum number a mutations that is
+        @param maxMutations: (default=2) The maximum number a mutations that is
             allowed to be done to an individual.
-        @param variety=2: The number of individuals that will be taken
+        @param variety: (default=2) The number of individuals that will be taken
             as base for the next generation.
-        @param elitism=1: The number of 'elite' individuals (i.e. those
+        @param elitism: (default=1) The number of 'elite' individuals (i.e. those
             with the best score so far) that will be included in the
             population for the next generation. If 0 the new population
             will consist of freshly generated individuals only.
-        @param selectionTechnique='RouletteWheel': Can be one of the
+        @param selectionTechnique: (default='RouletteWheel') Can be one of the
             following:
             
             'RouletteWheel'
             'StochasticUniversalSampling'--> NOT YET IMPLEMENTED
             'Tournament' --> NOT YET IMPLEMENTED
-        @param randomizeFirstGen=False: Whether to create totally 
+        @param randomizeFirstGen: (default=False) Whether to create totally
             random individuals as parents for the first generation
             until variety is reached, or stay with the paramsDefinition
             as the only parent. This can provide diversity but may lead
             the search far away from the default values provided in
             paramsDefinition (if any default values were provided).
-        @param maxIterations=200: The maximum number of Iterations the
+        @param maxIterations: (default=200) The maximum number of Iterations the
             function will make. Values <= 0 mean no maxIterations.
-        @param maxTime=-1: The maximum time (in minutes) that the
+        @param maxTime: (default=-1) The maximum time (in minutes) that the
             algorithm will iterate. The time is checked after each
             iteration, so it won't interrupt any. Values <= 0 mean no
             maxTime.
-        @param minScore=-1: The minimum score that the algorithm must
+        @param minScore: (default=-1) The minimum score that the algorithm must
             reach until it stops. Note that the algorithm may never
             reach a very high score, so it is recommended to always set
             at least one of the other two options (maxIterations and
             maxTime).
-        @params nParallelEvals=1: With this you can evaluate multiple
+        @params nParallelEvals: (default=1: With this you can evaluate multiple
             individuals from the population at the same time. If > 1,
             the python's multiprocessing module is used. This is useful
             when evalFunc is heavy load. A recommended value would be
             the number of cores of your CPU.
-        @param savingFrequency=-1: How often (in generations) the best
+        @param savingFrequency: (default=-1) How often (in generations) the best
             parameters found so far will be saved to a file. Files will
             be saved on {function's-name}_Optim/Iteration_{}.py
-        @param verbosity=0: How much verbose about the procedure.
+        @param verbosity: (default=0) How much verbose about the procedure.
             0 doesn't print anything.
         
         @returns A dictionary with the parameter names as keys and the
@@ -473,7 +478,7 @@ class ParametersFinder:
                         ))
                 parents.append(Individual(newParams))
         
-        while(True):
+        while True:
             
             population = self._createPopulation(populationSize, parents, elite,
                 maxMutations, verbosity)
@@ -488,9 +493,9 @@ class ParametersFinder:
             
             elite = population[:elitism]
             
-            parents = self._selectParents(population, variety, 
+            parents = self._selectParents(population, variety,
                 selectionTechnique, verbosity)
-            
+
             iterationCount +=1
             elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
             

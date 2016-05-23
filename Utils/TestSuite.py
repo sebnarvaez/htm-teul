@@ -24,8 +24,20 @@
 
 import time
 
+
 def testModel(model, testData, maxTime=-1, saveResults=True, fileName='log'):
-    """ Creates a report about the success of a trained model """
+    """
+    Creates a report about the success of a trained model
+    @param model
+    @param testData
+    @param maxTime: If maxTime (in minutes) is exceeded, the tests
+        will end. Note that this won't interrupt an ongoing test.
+        The TestSuite will wait until the sequence is passed to
+        the model and the corresponding result is processed.
+    @param saveResults: (boolean)
+    @param fileName
+    @return:
+    """
     
     fileName += '.txt'
     nSuccess = 0
@@ -51,7 +63,7 @@ def testModel(model, testData, maxTime=-1, saveResults=True, fileName='log'):
         logFile = open(fileName, 'wb')
         logFile.write('')
         logFile.write(description)
-        logFile.write('.'*107) # Leave space for the execution Results
+        logFile.write('.' * 107)  # Leave space for the execution Results
     
     if maxTime > 0:
         startTime = time.time()
@@ -98,7 +110,7 @@ def testModel(model, testData, maxTime=-1, saveResults=True, fileName='log'):
         if maxTime > 0:
             elapsedMinutes = (time.time() - startTime) * (1.0 / 60.0)
             
-            if (elapsedMinutes > maxTime):
+            if elapsedMinutes > maxTime:
                 print("maxTime reached, tests stoped.")
                 break
         
@@ -112,11 +124,11 @@ def testModel(model, testData, maxTime=-1, saveResults=True, fileName='log'):
         logFile.write('\n\n')
         logFile.write('Results:\n\n')
         logFile.write('\tNumber of Success     : {0}%\n'.format(
-                successPercent))
+            successPercent))
         logFile.write('\tNumber of Half Success: {0}%\n'.format(
-                halfPercent))
+            halfPercent))
         logFile.write('\tNumber of Failures    : {0}%\n'.format(
-                failPercent))
+            failPercent))
         
         print("Results written to {0}!".format(fileName))
     
