@@ -1,0 +1,9 @@
+wordInput,actionInput
+{favor-opc1} recoge {objeto} {favor-opc2},recoger-event nothing-event
+{favor-opc1} alza {objeto} {favor-opc2},recoger-event nothing-event
+{favor-opc1} levanta {objeto} {favor-opc2},recoger-event nothing-event
+{favor-opc1} ponte {objeto} {favor-opc2},recoger-event nothing-event
+{favor-opc1} recogelo {favor-opc2},recoger-event nothing-event
+{favor-opc1} alzalo {favor-opc2},recoger-event nothing-event
+{favor-opc1} levantalo {favor-opc2},recoger-event nothing-event
+{favor-opc1} pontelo {favor-opc2},recoger-event nothing-event

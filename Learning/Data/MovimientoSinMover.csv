@@ -1,0 +1,19 @@
+wordInput,actionInput
+hacia {direccion},nothing-event {argumento}-event
+a {direccion},nothing-event {argumento}-event
+para {direccion},nothing-event {argumento}-event
+por favor hacia {direccion},nothing-event {argumento}-event
+por favor a {direccion},nothing-event {argumento}-event
+por favor para {direccion},nothing-event {argumento}-event
+quiero que te hacia {direccion},nothing-event {argumento}-event
+quiero que te a {direccion},nothing-event {argumento}-event
+quiero que te para {direccion},nothing-event {argumento}-event
+hacia {direccion},nothing-event {argumento}-event
+a {direccion},nothing-event {argumento}-event
+para {direccion},nothing-event {argumento}-event
+¿ podrias hacia {direccion} ?,nothing-event {argumento}-event
+¿ podrias a {direccion} ?,nothing-event {argumento}-event
+¿ podrias para {direccion} ?,nothing-event {argumento}-event
+hacia {direccion} por favor,nothing-event {argumento}-event
+a {direccion} por favor,nothing-event {argumento}-event
+para {direccion} por favor,nothing-event {argumento}-event
