@@ -69,7 +69,7 @@ if __name__ == '__main__':
     
     print(modelName)
     print(encoderName)
-    model.train(5, maxTime=-1, verbosity=1)
+    model.train(10, maxTime=-1, verbosity=1)
 
     #fileName = 'Results/'
     ## Strips the 'Model' fron the name

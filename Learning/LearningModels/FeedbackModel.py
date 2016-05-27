@@ -30,6 +30,7 @@ import time
 from nupic.research.spatial_pooler import SpatialPooler
 from nupic.research.temporal_memory import TemporalMemory
 from nupic.algorithms.CLAClassifier import CLAClassifier
+from Utils.CLAClassifierCond import CLAClassifierCond
 from LearningModel import LearningModel
 from Utils.ArrayCommonOverlap import CommonOverlap
 
@@ -192,7 +193,7 @@ class FeedbackModel(LearningModel):
             seed=self.tmSeed
         )
 
-        self.classifier = CLAClassifier(
+        self.classifier = CLAClassifierCond(
             steps=[1, 2, 3],
             alpha=0.1,
             actValueAlpha=0.3,
@@ -237,23 +238,18 @@ class FeedbackModel(LearningModel):
                     'actValue': word
                 },
                 learn=learn,
-                infer=True
+                infer=True,
+                conditionFunc=lambda x: x.endswith("-event")
             )
 
             recordNum += 1
 
         bestPredictions = []
 
-        properIdx = [idx for idx in xrange(len(retVal['actualValues'])) if
-                retVal['actualValues'][idx].endswith('-event')]
-
-        if not properIdx:
-            properIdx = range(len(retVal['actualValues']))
-
         for step in retVal:
             if step == 'actualValues':
                 continue
-            higherProbIndex = properIdx[numpy.argmax(retVal[step][properIdx])]
+            higherProbIndex = numpy.argmax(retVal[step])
             bestPredictions.append(
                 retVal['actualValues'][higherProbIndex]
             )
@@ -328,7 +324,8 @@ class FeedbackModel(LearningModel):
                     'actValue': action
                 },
                 learn=learn,
-                infer=True
+                infer=True,
+                conditionFunc=lambda x: x.endswith("-event")
             )
 
             recordNum += 1

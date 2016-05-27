@@ -183,22 +183,17 @@ class Layer(object):
                         'actValue': value
                     },
                     learn=learn,
-                    infer=True
+                    infer=True,
+                    conditionFunc=lambda x: x.endswith("-event")
                 )
 
                 bestPredictions = []
-
-                properIdx = [idx for idx in xrange(len(retVal['actualValues'])) if
-                             retVal['actualValues'][idx].endswith('-event')]
-
-                if not properIdx:
-                    properIdx = range(len(retVal['actualValues']))
 
                 for step in retVal:
                     if step == 'actualValues':
                         continue
 
-                    higherProbIndex = properIdx[numpy.argmax(retVal[step][properIdx])]
+                    higherProbIndex = numpy.argmax(retVal[step])
                     bestPredictions.append(
                         retVal['actualValues'][higherProbIndex]
                     )

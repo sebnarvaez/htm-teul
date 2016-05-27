@@ -27,6 +27,7 @@ from __future__ import print_function
 import numpy
 import time
 
+from Utils.CLAClassifierCond import CLAClassifierCond
 from nupic.algorithms.CLAClassifier import CLAClassifier
 from nupic.encoders.scalar import ScalarEncoder
 from nupic.research.spatial_pooler import SpatialPooler
@@ -192,7 +193,7 @@ class ClassicModel(LearningModel):
             seed=self.tmSeed
         )
 
-        self.classifier = CLAClassifier(
+        self.classifier = CLAClassifierCond(
             steps=[1, 2, 3],
             alpha=0.1,
             actValueAlpha=0.3,

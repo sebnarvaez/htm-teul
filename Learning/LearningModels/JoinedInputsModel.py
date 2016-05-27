@@ -27,6 +27,7 @@ from __future__ import print_function
 import numpy
 import time
 
+from utils.CLAClassifierCond import CLAClassifierCond
 from nupic.algorithms.CLAClassifier import CLAClassifier
 from nupic.encoders.scalar import ScalarEncoder
 from nupic.research.spatial_pooler import SpatialPooler
@@ -124,7 +125,7 @@ class JoinedInputsModel(LearningModel):
             seed=self.tmSeed
         )
         
-        self.classifier = CLAClassifier(
+        self.classifier = CLAClassifierCond(
             steps=[1, 2],
             alpha=0.1,
             actValueAlpha=0.3,
@@ -198,7 +199,8 @@ class JoinedInputsModel(LearningModel):
                     'actValue': actualValue
                 },
                 learn=learn,
-                infer=True
+                infer=True,
+                conditionFunc=lambda x: x.endswith("-event")
             )
         
         bestPredictions = []
@@ -206,12 +208,12 @@ class JoinedInputsModel(LearningModel):
         for step in retVal:
             if step == 'actualValues':
                 continue
-            higherProbIndex = retVal[step].tolist().index(
-                            max(retVal[step].tolist()))
+
+            higherProbIndex = numpy.argmax(retVal[step])
             bestPredictions.append(
                 retVal['actualValues'][higherProbIndex]
             )
-        
+
         if verbosity > 2 :
             print("  |  CLAClassifier best predictions for step1: ")
             top = sorted(retVal[1].tolist(), reverse=True)[:3]
