@@ -7,7 +7,3 @@ wordInput,actionInput
 {favor-opc1} alzalo {favor-opc2},recoger-event nothing-event
 {favor-opc1} levantalo {favor-opc2},recoger-event nothing-event
 {favor-opc1} pontelo {favor-opc2},recoger-event nothing-event
-could you {please} put {object} on ?,recoger-event nothing-event
-{please} put {object} on,recoger-event nothing-event
-put it on {please},recoger-event nothing-event
-grab {object} {please},recoger-event nothing-event

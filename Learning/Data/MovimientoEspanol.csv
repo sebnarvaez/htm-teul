@@ -11,11 +11,3 @@ gira {direccion},mover-event {argumento}-event
 vuleve {direccion},mover-event {argumento}-event
 ir {direccion},mover-event {argumento}-event
 desplazate {direccion},mover-event {argumento}-event
-move {direction},mover-event {argumento}-event
-please move {direction},mover-event {argumento}-event
-I want you to move {direction},mover-event {argumento}-event
-can you please move it {direction},mover-event {argumento}-event
-go {direction},mover-event {argumento}-event
-turn {direction},mover-event {argumento}-event
-head {direction},mover-event {argumento}-event
-could you head {direction},mover-event {argumento}-event

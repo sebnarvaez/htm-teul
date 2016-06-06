@@ -1,0 +1,19 @@
+wordInput,actionInput
+a mover el esqueleto,bailar-event nothing-event
+mueve ese esqueleto,bailar-event nothing-event
+mueve el esqueleto,bailar-event nothing-event
+¡ a bailar !,bailar-event nothing-event
+baila,bailar-event nothing-event
+¿ bailas ?,bailar-event nothing-event
+¿ bailamos ?,bailar-event nothing-event
+bailemos,bailar-event nothing-event
+"por favor , baila",bailar-event nothing-event
+no pares de bailar,bailar-event nothing-event
+vamos a bailar,bailar-event nothing-event
+danza,bailar-event nothing-event
+quiero ver tus movimientos,bailar-event nothing-event
+sabor,bailar-event nothing-event
+¡ muevete !,bailar-event nothing-event
+titiru tiru tirutiru,bailar-event nothing-event
+baila la samba,bailar-event nothing-event
+azotar baldosa,bailar-event nothing-event

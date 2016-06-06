@@ -1,0 +1,5 @@
+wordInput,actionInput
+could you {please} put {object} on ?,recoger-event nothing-event
+{please} put {object} on,recoger-event nothing-event
+put it on {please},recoger-event nothing-event
+grab {object} {please},recoger-event nothing-event
