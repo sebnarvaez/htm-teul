@@ -122,23 +122,6 @@
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="Line" name="ln_greet">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lnEdt_speak"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_speak">
-               <property name="text">
-                <string>Habla</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </item>
@@ -184,7 +167,7 @@
           <bool>false</bool>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tb_execute">
           <attribute name="title">
@@ -266,20 +249,6 @@
               <property name="horizontalSpacing">
                <number>6</number>
               </property>
-              <item row="2" column="0">
-               <widget class="QLabel" name="lbl_argument">
-                <property name="text">
-                 <string>Argumento:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLineEdit" name="lnEdt_argument">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="0">
                <widget class="QLabel" name="lbl_sentence_train">
                 <property name="text">
@@ -318,11 +287,6 @@
                 </item>
                 <item>
                  <property name="text">
-                  <string>Hablar</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
                   <string>Bailar</string>
                  </property>
                 </item>
@@ -336,7 +300,7 @@
               <item row="0" column="1">
                <widget class="QLineEdit" name="lnEdt_sentence_train"/>
               </item>
-              <item row="3" column="1">
+              <item row="2" column="1">
                <widget class="QPushButton" name="btn_addTrainInput">
                 <property name="text">
                  <string>Añadir</string>
@@ -456,7 +420,7 @@
      <x>0</x>
      <y>0</y>
      <width>875</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

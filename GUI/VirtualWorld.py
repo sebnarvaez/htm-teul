@@ -24,14 +24,16 @@
 
 """
 This code is partly based on ZetCode PyQt5 tutorial, by Jan Bodnar
-website: zetcode.com 
+website: zetcode.com
 """
 
-import sys, random
+import random
+import sys
+import time
 from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication,\
     QLabel, QGridLayout
-from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QSize, QPoint
-from PyQt5.QtGui import QPainter, QColor, QImage, QPixmap, QIcon
+from PyQt5.QtCore import Qt, QBasicTimer, QThread, pyqtSignal, QSize, QPoint
+from PyQt5.QtGui import QPainter, QColor, QImage, QPixmap, QIcon, QTransform
 
 RESOURCES_PATH = 'Resources/'
 IMG_PATHS = {
@@ -43,24 +45,26 @@ IMG_PATHS = {
 }
 
 class VirtualWorld(QFrame):
-    
-    def __init__(self, parent, numColumns=5, numRows=5):
-    
+
+    finished = pyqtSignal()
+
+    def __init__(self, parent=None, numColumns=5, numRows=5):
+
         super(VirtualWorld, self).__init__(parent)
-        
+
         self.numColumns = numColumns
         self.numRows = numRows
-        
+
         self._objects = dict()
         self._objsCount = dict()
         self._totalObjs = 0
-        
+
         self.initVirtualWorld()
-        
-    def initVirtualWorld(self):     
-        
+
+    def initVirtualWorld(self):
+
         self.worldGrid = []
-        
+
         self.resize(500, 600)
         self.setFocusPolicy(Qt.StrongFocus)
         self.setFrameStyle(QFrame.Box | QFrame.Plain)
@@ -70,140 +74,160 @@ class VirtualWorld(QFrame):
 
         grid = QGridLayout()
         self.setLayout(grid)
-        
+
         for row in xrange(self.numRows):
             self.worldGrid.append([])
-            
+
             for column in xrange(self.numColumns):
                 self.worldGrid[row].append(Cell(row, column))
                 grid.addWidget(self.worldGrid[row][column], row, column)
-        
+
         self.addObj('P1', 'Ectatomma', 3, 3)
-        
+
     def addObj(self, objId, objType, x, y, imgWidth=None, imgHeight=None):
         """ Adds an object to the Virtual World """
-        
+
         self._objects[objId] = WorldObject(objType, x, y)
         self.worldGrid[x][y].objectArrives(objId, self._objects[objId])
-        
+
     def moveObj(self, objId, direction):
         """
         Moves an object in the Virtual World.
-        
+
         @param objId: id of the object. See _objects.keys() for a list
             of the available _objects.
         @param direction: Can be 'izquierda', 'derecha', 'arriba' or
             'abajo'
         """
-        
+
         obj = self._objects[objId]
-        
+
         newX = obj.x
         newY = obj.y
-        
+
         if direction == 'izquierda':
-            if obj.x > 0: 
-                newX += -1 
-        
+            if obj.x > 0:
+                newX += -1
+
         elif direction == 'derecha':
             if obj.x < self.numColumns - 1:
-                newX += 1 
-        
+                newX += 1
+
         elif direction == 'arriba':
-            if obj.y > 0: 
+            if obj.y > 0:
                 newY += -1
-            
+
         elif direction == 'abajo':
-            if obj.y < self.numRows - 1: 
+            if obj.y < self.numRows - 1:
                 newY += 1
-        
+
         else:
-            return '<font color="Orange">'\
-                'No se a que direccion moverme'\
-                '</font><br>'
-        
+            return self._formatReturnMessage('No se a que direccion moverme',
+                'Orange')
+
         self.worldGrid[obj.y][obj.x].objectLeaves(objId)
         self.worldGrid[newY][newX].objectArrives(objId, obj)
         obj.x = newX
         obj.y = newY
-        
-        return '<font color="Green">'\
-            '{obj}: Me he movido hacia {direction}'\
-            '</font><br>'.format(
-                obj = objId,
-                direction = direction
-            )
-    
+
+        return self._formatReturnMessage(
+            '{0}: Me he movido hacia {1}'.format(objId, direction)
+        )
+
     def insertObj(self, objType):
         """
         Inserts an object in a random position of the Virtual World.
-        
+
         @param objType
         """
-        
+
         if self._totalObjs >= ((self.numColumns * self.numRows) - 1):
             return -1
-        
+
         if objType not in self._objsCount:
             self._objsCount[objType] = 1
-        
+
         objId = objType + str(self._objsCount[objType])
         validCoordinate = False
-        
+
         while (not validCoordinate):
             objX = random.randint(0, self.numColumns - 1)
             objY = random.randint(0, self.numRows - 1)
-            
+
             validCoordinate = (len(self.worldGrid[objX][objY].objects) == 0)
-        
+
         self.addObj(objId, objType, objX, objY)
         self._totalObjs += 1
-    
+
     def grabObj(self):
         """
         Make the P1 grab the object that is in the same cell it's in.
         """
-        
+
         p1 = self._objects['P1']
         x = p1.x
         y = p1.y
-        
+
         cell = self.worldGrid[y][x]
         cell.objectLeaves('P1')
-        
+
         for objToGrabId in cell.objects.keys():
-            p1.transform(p1.objType + '-' + cell.objects[objToGrabId].objType)
+            p1.morph(p1.objType + '-' + cell.objects[objToGrabId].objType)
             cell.objectLeaves(objToGrabId)
-        
+
         cell.objectArrives('P1', p1)
-        
-        return '<font color="Green">'\
-            'P1: ¿Que tal me va?'\
-            '</font><br>'
+
+        return self._formatReturnMessage('P1: ¿Que tal se me ve?')
+
+    def dance(self):
+        """
+        Make the P1 dance
+        """
+        p1 = self._objects['P1']
+        x = p1.x
+        y = p1.y
+
+        cell = self.worldGrid[y][x]
+
+        for i in xrange(4):
+            cell.objectLeaves('P1')
+            p1.pixmap = p1.pixmap.transformed(QTransform().scale(-1, 1))
+            cell.objectArrives('P1', p1)
+            time.sleep(0.2)
+
+        return self._formatReturnMessage('P1: ¡Sabor!')
+
+    def _formatReturnMessage(self, message, color='Green'):
+        """
+        Formats with HTML the return message of the events
+        """
+
+        return '<font color="{0}">{1}</font><br>'.format(color, message)
+
 
 class WorldObject:
-    
+
     def __init__(self, objType, x, y):
         """
         Creates an object of the virtual world.
-        
+
         @param objType : The type of the object. See IMG_PATHS.keys()
             for a list of the available types.
         @param x, y : Coordenates of the object in the virtual world
         """
-        
+
         self.x = x
         self.y = y
         self.objType = objType
         self.img = IMG_PATHS[objType]
         self.pixmap = QPixmap(self.img)
         #self.resizePixmap(imgWidth, imgHeight)
-        
-    def transform(self, objType):
+
+    def morph(self, objType):
         """
         Change the objType and consecuentially its image.
         """
-    
+
         self.img = IMG_PATHS[objType]
         self.pixmap = QPixmap(self.img)
 
@@ -214,75 +238,76 @@ class Cell(QLabel):
     """
     CELL_WIDTH = 0
     CELL_HEIGHT = 0
-    
+
     def __init__(self, x, y):
         """
         @param x, y : Coordenates of the cell in the virtual world
         """
-        
+
         super(Cell, self).__init__()
-        
+
         self.objects = dict()
         self.x = x
         self.y = y
-        
+
         self.setPixmap(QPixmap())
         self.setStyleSheet("QLabel { background-color : green }")
-    
+
     def objectArrives(self, objId, obj):
         """
         The object is added to this cell's list of objects and is
         painted.
-        
+
         @param objId
         @param obj
         """
-        
+
         self.objects[objId] = obj
         self.paintObjects()
-    
+
     def objectLeaves(self, objId):
         """
         The object is removed from the cell's list of objects and is
         unpainted.
-        
+
         @param objId
         """
-        
+
         self.objects.pop(objId)
         self.paintObjects()
-    
+
     def paintObjects(self):
         """ Paints all the objects from this cell's list of objects. """
-        
+
         pading = 9
-        
-        combined = QPixmap(Cell.CELL_WIDTH - pading , Cell.CELL_HEIGHT - pading)
+
+        combined = QPixmap(Cell.CELL_WIDTH - pading, Cell.CELL_HEIGHT - pading)
         combined.fill(Qt.transparent)
         painter = QPainter(combined)
-        
+
         for obj in self.objects.values():
             painter.drawPixmap(0, 0, obj.pixmap.scaled(Cell.CELL_WIDTH - pading,
                     Cell.CELL_HEIGHT - pading, Qt.KeepAspectRatio))
-        
+
         painter.end()
-        
+
         self.setPixmap(combined)
+        self.repaint()
 
 if __name__ == '__main__':
-    
+
     app = QApplication([])
     ventana = QMainWindow()
     mundo = VirtualWorld(ventana)
     ventana.setCentralWidget(mundo)
-    
+
     ventana.resize(500, 600)
     ventana.setWindowTitle('Virtual World')
     ventana.show()
 
     screen = QDesktopWidget().screenGeometry()
     size = ventana.geometry()
-    ventana.move((screen.width()-size.width())/2, 
+    ventana.move((screen.width()-size.width())/2,
         (screen.height()-size.height())/2)
-    
+
     sys.exit(app.exec_())
