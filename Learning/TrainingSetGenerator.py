@@ -23,6 +23,7 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import csv
+import random
 
 """
 A standalone tool for generating the Movement data for all directions
@@ -31,12 +32,163 @@ from a single csv file
 
 INDENT = "    "
 #outputFilePath = 'MovementTrainingSet.py'
+altOutputFilePath = 'TotalTestSet.py'
 outputFilePath = 'TotalTrainingSet.py'
 categories = []
 inputIdx = {}
 
 
-def addMovementData(inputFilePaths, outputFile):
+def addEnglMovementData(inputFilePaths, outputFile, probability=1.0,
+        altOutputFile=None):
+    """
+    @param inputFilePaths: A list of paths of the files where the data
+        will be formatted and stored from.
+    @param outputFile
+    """
+    global categories
+    global inputIdx
+
+    for inputFilePath in inputFilePaths:
+        with open(inputFilePath, 'rb') as inputFile:
+            csvReader = csv.reader(inputFile)
+            headers = csvReader.next()
+
+            # Assumes all files have the same columns
+            if len(inputIdx) == 0:
+                for index, inputName in enumerate(headers):
+                    inputIdx[inputName] = index
+            # categories will hold the different data from each column
+            if len(categories) == 0:
+                categories = [set() for _ in xrange(len(headers))]
+
+            for row in csvReader:
+                for preposition in ('to', 'towards'):
+                    formatArgs = {
+                        'direction': preposition + 'the left',
+                        'argumento': 'derecha'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direction': preposition + 'the east',
+                        'argumento': 'derecha'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direction': preposition + 'the right',
+                        'argumento': 'izquierda'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direction': preposition + 'the west',
+                        'argumento': 'izquierda'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    if not preposition == 'towards':
+                        formatArgs = {
+                            'direction': preposition + 'upwards',
+                            'argumento': 'arriba'
+                        }
+                        writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direction': preposition + 'the north',
+                        'argumento': 'arriba'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    if not preposition == 'towards':
+                        formatArgs = {
+                            'direction': preposition + 'downwards',
+                            'argumento': 'abajo'
+                        }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direction': preposition + 'the south',
+                        'argumento': 'abajo'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+def addMovementData(inputFilePaths, outputFile, probability=1.0,
+        altOutputFile=None):
+    """
+    @param inputFilePaths: A list of paths of the files where the data
+        will be formatted and stored from.
+    @param outputFile
+    """
+    global categories
+    global inputIdx
+
+    for inputFilePath in inputFilePaths:
+        with open(inputFilePath, 'rb') as inputFile:
+            csvReader = csv.reader(inputFile)
+            headers = csvReader.next()
+
+            # Assumes all files have the same columns
+            if len(inputIdx) == 0:
+                for index, inputName in enumerate(headers):
+                    inputIdx[inputName] = index
+            # categories will hold the different data from each column
+            if len(categories) == 0:
+                categories = [set() for _ in xrange(len(headers))]
+
+            for row in csvReader:
+                for preposition in ('a', 'hacia', 'para'):
+                    formatArgs = {
+                        'direccion': preposition + 'la derecha',
+                        'argumento': 'derecha'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direccion': preposition + 'el este',
+                        'argumento': 'derecha'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direccion': preposition + 'la izquierda',
+                        'argumento': 'izquierda'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direccion': preposition + 'el oeste',
+                        'argumento': 'izquierda'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direccion': preposition + 'arriba',
+                        'argumento': 'arriba'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direccion': preposition + 'el norte',
+                        'argumento': 'arriba'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direccion': preposition + 'abajo',
+                        'argumento': 'abajo'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+                    formatArgs = {
+                        'direccion': preposition + 'el sur',
+                        'argumento': 'abajo'
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
+
+
+def addEnglPickData(inputFilePaths, outputFile, probability=1.0,
+        altOutputFile=None):
     """
     @param inputFilePaths: A list of paths of the files where the data
         will be formatted and stored from.
@@ -60,56 +212,28 @@ def addMovementData(inputFilePaths, outputFile):
 
             for row in csvReader:
 
-                formatArgs = {
-                    'direccion': 'la derecha',
-                    'argumento': 'derecha'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
+                for please in ('', 'please'):
+                    formatArgs = {
+                        'please': please,
+                        'object': 'the hat',
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
 
-                formatArgs = {
-                    'direccion': 'el este',
-                    'argumento': 'derecha'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
+                    formatArgs = {
+                        'please': please,
+                        'object': 'that object',
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
 
-                formatArgs = {
-                    'direccion': 'la izquierda',
-                    'argumento': 'izquierda'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'direccion': 'el oeste',
-                    'argumento': 'izquierda'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'direccion': 'arriba',
-                    'argumento': 'arriba'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'direccion': 'el norte',
-                    'argumento': 'arriba'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'direccion': 'abajo',
-                    'argumento': 'abajo'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'direccion': 'el sur',
-                    'argumento': 'abajo'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
+                    formatArgs = {
+                        'please': please,
+                        'object': 'that thingy',
+                    }
+                    writeDataUnit(row, formatArgs, outputFile)
 
 
-def addPickData(inputFilePaths, outputFile):
+def addPickData(inputFilePaths, outputFile, probability=1.0,
+        altOutputFile=None):
     """
     @param inputFilePaths: A list of paths of the files where the data
         will be formatted and stored from.
@@ -133,90 +257,38 @@ def addPickData(inputFilePaths, outputFile):
 
             for row in csvReader:
 
-                formatArgs = {
-                    'favor-opc1': '',
-                    'objeto': 'el sombrero',
-                    'favor-opc2': ''
-                }
-                writeDataUnit(row, formatArgs, outputFile)
+                for favor1 in ('', 'por favor'):
+                    for favor2 in ('', 'por favor'):
+                        formatArgs = {
+                            'favor-opc1': favor1,
+                            'objeto': 'el sombrero',
+                            'favor-opc2': favor2
+                        }
+                        writeDataUnit(row, formatArgs, outputFile)
 
-                formatArgs = {
-                    'favor-opc1': 'por favor',
-                    'objeto': 'el sombrero',
-                    'favor-opc2': ''
-                }
-                writeDataUnit(row, formatArgs, outputFile)
+                        formatArgs = {
+                            'favor-opc1': favor1,
+                            'objeto': 'la cachucha',
+                            'favor-opc2': favor2
+                        }
+                        writeDataUnit(row, formatArgs, outputFile)
 
-                formatArgs = {
-                    'favor-opc1': '',
-                    'objeto': 'el sombrero',
-                    'favor-opc2': 'por favor'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
+                        formatArgs = {
+                            'favor-opc1': favor1,
+                            'objeto': 'el objeto',
+                            'favor-opc2': favor2
+                        }
+                        writeDataUnit(row, formatArgs, outputFile)
 
-                formatArgs = {
-                    'favor-opc1': '',
-                    'objeto': 'el objeto',
-                    'favor-opc2': ''
-                }
-                writeDataUnit(row, formatArgs, outputFile)
+                        formatArgs = {
+                            'favor-opc1': favor1,
+                            'objeto': 'lo que esta ahi',
+                            'favor-opc2': favor2
+                        }
+                        writeDataUnit(row, formatArgs, outputFile)
 
-                formatArgs = {
-                    'favor-opc1': 'por favor',
-                    'objeto': 'el objeto',
-                    'favor-opc2': ''
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'favor-opc1': '',
-                    'objeto': 'el objeto',
-                    'favor-opc2': 'por favor'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'favor-opc1': '',
-                    'objeto': 'la cachucha',
-                    'favor-opc2': ''
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-                formatArgs = {
-                    'favor-opc1': 'por favor',
-                    'objeto': 'la cachucha',
-                    'favor-opc2': ''
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-                formatArgs = {
-                    'favor-opc1': '',
-                    'objeto': 'la cachucha',
-                    'favor-opc2': 'por favor'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'favor-opc1': '',
-                    'objeto': 'lo que esta ahi',
-                    'favor-opc2': ''
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'favor-opc1': 'por favor',
-                    'objeto': 'lo que esta ahi',
-                    'favor-opc2': ''
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-                formatArgs = {
-                    'favor-opc1': '',
-                    'objeto': 'lo que esta ahi',
-                    'favor-opc2': 'por favor'
-                }
-                writeDataUnit(row, formatArgs, outputFile)
-
-
-def addDanceData(inputFilePaths, outputFile):
+def addDanceData(inputFilePaths, outputFile, probability=1.0,
+        altOutputFile=None):
     """
     @param inputFilePaths: A list of paths of the files where the data
         will be formatted and stored from.
@@ -242,52 +314,102 @@ def addDanceData(inputFilePaths, outputFile):
                 writeDataUnit(row, {}, outputFile)
 
 
-def writeDataUnit(columns, formatArgs, outputFile):
+def writeDataUnit(columns, formatArgs, outputFile, probability=1.0,
+        altOutputFile=None):
+    """
+    Writes a data unit with certain probability so to induce
+    incompleteness in the training data. Data not written in
+    outputFile is written to altOutputFile.
+    """
+    choosenFile = outputFile
 
-    outputFile.write(INDENT + '(')
+    if probability < 1.0:
+        choice = random.random()
+
+        if choice < probability:
+            choosenFile = altOutputFile
+
+    choosenFile.write(INDENT + '(')
     global categories
 
     for columnIdx, dataUnit in enumerate(columns):
         dataUnit = dataUnit.format(**formatArgs).split()
-        outputFile.write(str(dataUnit) + ', ')
+        choosenFile.write(str(dataUnit) + ', ')
         categories[columnIdx].update(dataUnit)
 
-    outputFile.seek(-2, 2)
-    outputFile.write('),\n')
+    choosenFile.seek(-2, 2)
+    choosenFile.write('),\n')
 
 if __name__ == '__main__':
     #addData('Dropbox/Tesis/htm-teul/Learning/Data/Movimiento.csv')
-    with open(outputFilePath, 'wb') as outputFile:
+    with open(outputFilePath, 'wb') as outputFile, \
+            open(altOutputFilePath, 'wb') as altOutputFile:
         outputFile.write('"""\n')
         outputFile.write('Automatically generated Training Data Set\n')
         outputFile.write('"""\n')
         outputFile.write('\n')
         outputFile.write('trainingData = (\n')
 
+        altOutputFile.write('"""\n')
+        altOutputFile.write('Automatically generated Test Data Set\n')
+        altOutputFile.write('"""\n')
+        altOutputFile.write('\n')
+        altOutputFile.write('trainingData = (\n')
+
         addMovementData(
             [
-                'Data/MovimientoPerfecto.csv'  # ,
-                #'Data/MovimientoImperfectoReordenado2.csv'
+                'Data/MovimientoEspanol.csv'
             ],
-            outputFile
+            outputFile,
+            probability=1.0,
+            altOutputFile=altOutputFile
+        )
+        addEnglMovementData(
+            [
+                'Data/MovimientoEnglish.csv'
+            ],
+            outputFile,
+            probability=1.0,
+            altOutputFile=altOutputFile
+
         )
         addDanceData(
             [
                 'Data/DanzaPerfecto.csv'
             ],
-            outputFile
+            outputFile,
+            probability=1.0,
+            altOutputFile=altOutputFile
+
         )
         addPickData(
             [
-                'Data/RecogerPerfecto.csv'
+                'Data/RecogerEspanol.csv'
             ],
-            outputFile
+            outputFile,
+            probability=1.0,
+            altOutputFile=altOutputFile
+
+        )
+        addEnglPickData(
+            [
+                'Data/RecogerEnglish.csv'
+            ],
+            outputFile,
+            probability=1.0,
+            altOutputFile=altOutputFile
+
         )
 
         outputFile.write('\n)\n')
         outputFile.write('inputIdx = {0}\n'.format(inputIdx))
         outputFile.write('categories = {0}'.format(categories))
 
-        print("Data was written to {0}.".format(outputFilePath))
+        altOutputFile.write('\n)\n')
+        altOutputFile.write('inputIdx = {0}\n'.format(inputIdx))
+        altOutputFile.write('categories = {0}'.format(categories))
+
+        print("Data was written to {0} and {1}.".format(outputFilePath, 
+            altOutputFilePath))
 #        for filePath in glob.glob('Data/*.csv'):
 #            addData(filePath)
