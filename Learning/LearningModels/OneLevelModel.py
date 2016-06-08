@@ -24,17 +24,11 @@
 
 from __future__ import print_function
 
-import numpy
-import time
-
 from Utils.CLAClassifierCond import CLAClassifierCond
-from nupic.algorithms.CLAClassifier import CLAClassifier
-from nupic.encoders.scalar import ScalarEncoder
 from nupic.research.spatial_pooler import SpatialPooler
 from nupic.research.temporal_memory import TemporalMemory
 from Learning.Layer import Layer
 from LearningModel import LearningModel
-from Utils.ArrayCommonOverlap import CommonOverlap
 
 
 class OneLevelModel(LearningModel):
@@ -43,7 +37,8 @@ class OneLevelModel(LearningModel):
        WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
     """
 
-    def __init__(self, wordEncoder, actionEncoder, trainingSet):
+    def __init__(self, wordEncoder, actionEncoder, trainingSet,
+            modulesParams=None):
         """
         @param wordEncoder
         @param actionEncoder
@@ -52,7 +47,7 @@ class OneLevelModel(LearningModel):
             in categories to an input name.
         """
         super(OneLevelModel, self).__init__(wordEncoder, actionEncoder,
-            trainingSet)
+            trainingSet, modulesParams)
 
         self.initModules(trainingSet.categories, trainingSet.inputIdx)
 
@@ -77,48 +72,42 @@ class OneLevelModel(LearningModel):
 
     def initModules(self, categories, inputIdx):
 
+        modulesNames = {'generalSP', 'generalTM'}
+
         nWords = len(categories[inputIdx['wordInput']])
         nActions = len(categories[inputIdx['actionInput']])
 
         inputDimensions = max(
-                self.wordEncoder.getWidth(),
-                self.actionEncoder.getWidth()
-            )
-
-        columnDimensions = 2 * max((nWords + nActions),
-                len(self.trainingData))
-
-        self.generalSP = SpatialPooler(
-            inputDimensions=inputDimensions,
-            columnDimensions=(columnDimensions,),
-            potentialRadius=28,
-            potentialPct=0.5,
-            globalInhibition=True,
-            localAreaDensity=-1.0,
-            numActiveColumnsPerInhArea=5.0,
-            stimulusThreshold=0,
-            synPermInactiveDec=0.1,
-            synPermActiveInc=0.1,
-            synPermConnected=0.1,
-            minPctOverlapDutyCycle=0.1,
-            minPctActiveDutyCycle=0.1,
-            dutyCyclePeriod=10,
-            maxBoost=3,
-            seed=42,
-            spVerbosity=0
+            self.wordEncoder.getWidth(),
+            self.actionEncoder.getWidth()
         )
 
-        self.generalTM = TemporalMemory(
-            columnDimensions=(columnDimensions,),
-            initialPermanence=0.4,
-            connectedPermanence=0.5,
-            minThreshold=4,
-            maxNewSynapseCount=4,
-            permanenceDecrement=0.05,
-            permanenceIncrement=0.05,
-            activationThreshold=4,
-            #seed=self.tmSeed
-        )
+        columnDimensions = (4 * max((nWords + nActions),
+                len(self.trainingData)), )
+
+        defaultGeneralSPParams = {
+            'inputDimensions': inputDimensions,
+            'columnDimensions': columnDimensions,
+            'seed': self.spSeed
+        }
+
+        defaultGeneralTMParams = {
+            'columnDimensions': columnDimensions,
+            'seed': self.tmSeed
+        }
+
+        if (self.modulesParams is not None) and\
+                (set(self.modulesParams) == modulesNames):
+            self.modulesParams['generalSP'].update(defaultGeneralSPParams)
+            self.modulesParams['generalTM'].update(defaultGeneralTMParams)
+
+            self.generalSP = SpatialPooler(**self.modulesParams['generalSP'])
+            self.generalTM = TemporalMemory(**self.modulesParams['generalTM'])
+
+        else:
+            self.generalSP = SpatialPooler(**defaultGeneralSPParams)
+            self.generalTM = TemporalMemory(**defaultGeneralTMParams)
+
 
         self.classifier = CLAClassifierCond(
             steps=[1, 2, 3],

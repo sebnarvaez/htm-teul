@@ -31,7 +31,8 @@ class LearningModel(object):
     It doesn't do anything by itself.
     """
 
-    def __init__(self, wordEncoder, actionEncoder, trainingSet):
+    def __init__(self, wordEncoder, actionEncoder, trainingSet,
+            modulesParams=None):
         """
         Initialize the module objects, the modules and the structure
         dicts, the layer and any other object you'll need for your
@@ -48,6 +49,35 @@ class LearningModel(object):
         self.wordEncoder = wordEncoder
         self.actionEncoder = actionEncoder
         self.trainingData = trainingSet.trainingData
+        self.modulesParams = modulesParams
+
+        nWords = len(trainingSet.categories[
+            trainingSet.inputIdx['wordInput']])
+        nActions = len(trainingSet.categories[
+            trainingSet.inputIdx['actionInput']])
+
+        self.defaultWordSPParams = {
+            'inputDimensions': (self.wordEncoder.getWidth()),
+            'columnDimensions': (nWords * 3,),
+            'seed': self.spSeed
+        }
+
+        self.defaultWordTMParams = {
+            'columnDimensions': (nWords * 3,),
+            'seed': self.tmSeed
+        }
+
+        self.defaultActionSPParams = {
+            'inputDimensions': self.actionEncoder.getWidth(),
+            'columnDimensions': (nActions * 3,),
+            'seed': self.spSeed
+        }
+
+        self.defaultActionTMParams = {
+            'columnDimensions': (nActions * 3,),
+            'seed': self.tmSeed
+        }
+
 
     def initModules(self, categories, inputIdx):
 
@@ -154,7 +184,7 @@ class LearningModel(object):
                     self.modules[modName]._spVerbosity)
                 params += "\t'wrapAround': {0}\n".format(
                     self.modules[modName]._wrapAround)
-                params += "}"
+                params += "}\n"
 
         return params
 
@@ -185,7 +215,7 @@ class LearningModel(object):
                 params += "\t'predictedSegmentDecrement': {0},\n".format(
                     self.modules[modName].predictedSegmentDecrement)
                 params += "\t'seed': {0}\n".format(self.tmSeed)
-                params += "}"
+                params += "}\n"
 
         return params
 

@@ -44,7 +44,8 @@ class FeedbackModel(LearningModel):
 
     """
 
-    def __init__(self, wordEncoder, actionEncoder, trainingSet):
+    def __init__(self, wordEncoder, actionEncoder, trainingSet,
+            modulesParams=None):
         """
         @param wordEncoder
         @param actionEncoder
@@ -54,7 +55,7 @@ class FeedbackModel(LearningModel):
         """
 
         super(FeedbackModel, self).__init__(wordEncoder, actionEncoder,
-            trainingSet)
+            trainingSet, modulesParams)
 
         self.initModules(trainingSet.categories, trainingSet.inputIdx)
 
@@ -87,111 +88,48 @@ class FeedbackModel(LearningModel):
 
     def initModules(self, categories, inputIdx):
 
-        nWords = len(categories[inputIdx['wordInput']])
-        nActions = len(categories[inputIdx['actionInput']])
+        modulesNames = {'wordSP', 'wordTM', 'actionSP', 'actionTM',
+            'generalTM'}
 
-        self.wordSP = SpatialPooler(
-            inputDimensions=(self.wordEncoder.getWidth()),
-            columnDimensions=(nWords * 3),
-            potentialRadius=12,
-            potentialPct=0.5,
-            globalInhibition=True,
-            localAreaDensity=-1.0,
-            numActiveColumnsPerInhArea=5.0,
-            stimulusThreshold=0,
-            synPermInactiveDec=0.1,
-            synPermActiveInc=0.1,
-            synPermConnected=0.1,
-            minPctOverlapDutyCycle=0.1,
-            minPctActiveDutyCycle=0.1,
-            dutyCyclePeriod=10,
-            maxBoost=3,
-            seed=42,
-            spVerbosity=0
-        )
+        if (self.modulesParams is not None) and\
+                (set(self.modulesParams) == modulesNames):
+            self.modulesParams['wordSP'].update(self.defaultWordSPParams)
+            self.modulesParams['wordTM'].update(self.defaultWordTMParams)
+            self.modulesParams['actionSP'].update(self.defaultActionSPParams)
+            self.modulesParams['actionTM'].update(self.defaultActionTMParams)
 
-        self.wordTM = TemporalMemory(
-            columnDimensions=(nWords * 3,),
-            initialPermanence=0.4,
-            connectedPermanence=0.5,
-            minThreshold=4,
-            maxNewSynapseCount=4,
-            permanenceDecrement=0.05,
-            permanenceIncrement=0.05,
-            activationThreshold=4,
-            seed=self.tmSeed
-        )
+            self.wordSP = SpatialPooler(**self.modulesParams['wordSP'])
+            self.wordTM = TemporalMemory(**self.modulesParams['wordTM'])
+            self.actionSP = SpatialPooler(**self.modulesParams['actionSP'])
+            self.actionTM = TemporalMemory(**self.modulesParams['actionTM'])
 
-        self.actionSP = SpatialPooler(
-            inputDimensions=self.actionEncoder.getWidth(),
-            columnDimensions=(nActions * 3),
-            potentialRadius=12,
-            potentialPct=0.5,
-            globalInhibition=True,
-            localAreaDensity=-1.0,
-            numActiveColumnsPerInhArea=5.0,
-            stimulusThreshold=0,
-            synPermInactiveDec=0.1,
-            synPermActiveInc=0.1,
-            synPermConnected=0.1,
-            minPctOverlapDutyCycle=0.1,
-            minPctActiveDutyCycle=0.1,
-            dutyCyclePeriod=10,
-            maxBoost=3,
-            seed=42,
-            spVerbosity=0
-        )
+            defaultGeneralTMParams = {
+                'columnDimensions': (2, max(self.wordTM.numberOfCells(),
+                     self.actionTM.numberOfCells())),
+                'seed': self.tmSeed
+            }
 
-        self.actionTM = TemporalMemory(
-            columnDimensions=(nActions * 3,),
-            initialPermanence=0.4,
-            connectedPermanence=0.5,
-            minThreshold=4,
-            maxNewSynapseCount=4,
-            permanenceDecrement=0.05,
-            permanenceIncrement=0.05,
-            activationThreshold=4,
-            seed=self.tmSeed
-        )
+            self.modulesParams['generalTM'].update(defaultGeneralTMParams)
 
-        generalInputDimensions = max(
-                self.actionTM.numberOfCells() + 1,
-                self.wordTM.numberOfCells() + 1
-            )
+            self.generalTM = TemporalMemory(**self.modulesParams['generalTM'])
+            print("Using external Parameters!")
 
-        self.generalSP = SpatialPooler(
-            inputDimensions=(2, generalInputDimensions),
-            columnDimensions=(2, len(self.trainingData) * 3),
-            potentialRadius=28,
-            potentialPct=0.5,
-            globalInhibition=True,
-            localAreaDensity=-1.0,
-            numActiveColumnsPerInhArea=5.0,
-            stimulusThreshold=0,
-            synPermInactiveDec=0.1,
-            synPermActiveInc=0.1,
-            synPermConnected=0.1,
-            minPctOverlapDutyCycle=0.1,
-            minPctActiveDutyCycle=0.1,
-            dutyCyclePeriod=10,
-            maxBoost=3,
-            seed=42,
-            spVerbosity=0
-        )
+        else:
+            self.wordSP = SpatialPooler(**self.defaultWordSPParams)
+            self.wordTM = TemporalMemory(**self.defaultWordTMParams)
+            self.actionSP = SpatialPooler(**self.defaultActionSPParams)
+            self.actionTM = TemporalMemory(**self.defaultActionTMParams)
+            print("External parameters invalid or not found, using"\
+                " the default ones")
 
-        self.generalTM = TemporalMemory(
-            columnDimensions=(2, max(self.wordTM.numberOfCells(),
-                                     self.actionTM.numberOfCells())),
-            #columnDimensions=(2, generalInputDimensions),
-            initialPermanence=0.4,
-            connectedPermanence=0.5,
-            minThreshold=4,
-            maxNewSynapseCount=4,
-            permanenceDecrement=0.05,
-            permanenceIncrement=0.05,
-            activationThreshold=4,
-            seed=self.tmSeed
-        )
+            defaultGeneralTMParams = {
+                'columnDimensions': (2, max(self.wordTM.numberOfCells(),
+                     self.actionTM.numberOfCells())),
+                'seed': self.tmSeed
+            }
+
+            self.generalTM = TemporalMemory(**defaultGeneralTMParams)
+
 
         self.classifier = CLAClassifierCond(
             steps=[1, 2, 3],
