@@ -1,6 +1,6 @@
-getModelScore_Optim
-getModelScore_Optim-recent
-getModelScore_Optim-old
+getModelScore_Optim/
+getModelScore_Optim-recent/
+getModelScore_Optim-old/
 *.vim
 *.pyc
 *.pck
