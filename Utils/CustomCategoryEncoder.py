@@ -71,7 +71,7 @@ class CustomCategoryEncoder(Encoder):
       self.indexToCategory[self.ncategories + i] = DUMMY_CATEGORY.format(i)
     # update the number of categories
     self.ncategories += nAdditionalCategorySlots
-    
+
     self.encoder = ScalarEncoder(w, minval=0, maxval=self.ncategories - 1,
                       radius=1, periodic=False, forced=forced)
     self.width = w * self.ncategories
@@ -135,7 +135,7 @@ class CustomCategoryEncoder(Encoder):
         self.indexToCategory[index] = input
         self.__nAdditionalSlotsTaken += 1
         val = index
-        
+
       self.encoder.encodeIntoArray(val, output)
 
     if self.verbosity >= 2:
