@@ -30,62 +30,53 @@ from GUI.MainWindow import MainWindow
 from Learning.EncoderFactory import *
 from Utils.CustomCategoryEncoder import CustomCategoryEncoder
 
-#from Learning.LearningModels.ClassicModel import ClassicModel
-from Learning.LearningModels.FeedbackModel import FeedbackModel
-#from Learning.LearningModels.JoinedInputsModel import JoinedInputsModel
-#from Learning.LearningModels.OneLevelExpModel import OneLevelExpModel
-#from Learning.LearningModels.OneLevelModel import OneLevelModel
+from Learning import TotalTrainingSet as trainingSet
+from Learning import TotalTrainingSet as testSet
 
-#from Learning import MovementTrainingSet as _TS
-from Learning import TotalTrainingSet as TTS
+from Learning.LearningModels.OneLevelModel import OneLevelModel as CurrentModel
+import Learning.ModelParameters.Joined__ as BestResults
 
 if __name__ == '__main__':
-    _TS = TTS
-
     wordEncoder = CustomCategoryEncoder(
         11,
-        list(_TS.categories[_TS.inputIdx['wordInput']]),
+        list(trainingSet.categories[trainingSet.inputIdx['wordInput']]),
         nAdditionalCategorySlots=15,
         forced=True
     )
     actionEncoder = CustomCategoryEncoder(
         11,
-        list(_TS.categories[_TS.inputIdx['actionInput']]),
+        list(trainingSet.categories[trainingSet.inputIdx['actionInput']]),
         nAdditionalCategorySlots=15,
         forced=True
     )
-    #wordEncoder = actionEncoder = UnifiedCategoryEncoder(_TS.categories,
+    #wordEncoder = actionEncoder = UnifiedCategoryEncoder(trainingSet.categories,
     #    nAdditionalCategorySlots=15)
     #wordEncoder = actionEncoder = RandomizedLetterEncoder(600, 10)
     #wordEncoder = actionEncoder = TotallyRandomEncoder(50, 10)
     encoderName = wordEncoder.__class__.__name__
-    
-    #model = ClassicModel(wordEncoder, actionEncoder, _TS)
-    #model = OneLevelModel(wordEncoder, actionEncoder, _TS)
-    #model = OneLevelExpModel(wordEncoder, actionEncoder, _TS)
-    model = FeedbackModel(wordEncoder, actionEncoder, _TS)
-    #model = JoinedInputsModel(wordEncoder, actionEncoder, _TS)
+
+    model = CurrentModel(wordEncoder, actionEncoder, trainingSet, BestResults.bestFindings[0])
     modelName = model.__class__.__name__
-    
+
     print(modelName)
     print(encoderName)
     model.train(10, maxTime=-1, verbosity=1)
 
-    #fileName = 'Results/'
-    ## Strips the 'Model' fron the name
-    #fileName += modelName[:-5] + '-'
-    ## Appends only the Capital letters
-    #fileName += ''.join(cap for cap in encoderName if cap.isupper())
-    ##fileName += 'OneRegionExp32'
+    fileName = 'Results/'
+    # Strips the 'Model' fron the name
+    fileName += modelName[:-5] + '-'
+    # Appends only the Capital letters
+    fileName += ''.join(cap for cap in encoderName if cap.isupper())
+    #fileName += 'OneRegionExp32'
 
-    #TestSuite.testModel(model, _TS.trainingData, fileName=(fileName + '_Results'))
+    TestSuite.testModel(model, testSet.trainingData, fileName=(fileName + '_Results'))
 
     #print("Saving the model...")
     #with open((fileName + '.pck'), 'wb') as modelFile:
         #cPickle.dump(model, modelFile, -1)
     #print("Done!")
 
-    app = QApplication([])
-    window = MainWindow(model)
-    app.exec_()
-    #sys.exit(app.exec_())
+#    app = QApplication([])
+#    window = MainWindow(model)
+#    #app.exec_()
+#    sys.exit(app.exec_())
