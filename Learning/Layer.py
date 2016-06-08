@@ -99,6 +99,12 @@ class Layer(object):
 
                 spOutput = numpy.zeros(module.getColumnDimensions(),
                     dtype=numpy.uint8)
+
+                if len(prevOutput) < module.getNumInputs():
+                    indices = numpy.where(prevOutput > 1)
+                    prevOutput = numpy.zeros(module.getInputDimensions())
+                    prevOutput[indices] = 1
+
                 module.compute(prevOutput, learn, spOutput)
 
                 prevOutput = spOutput
@@ -172,7 +178,7 @@ class Layer(object):
 
             for value in inputModule[1]:
                 structureOutput = self.applyStructure(value, inputModule[0],
-                    verbosity, recordNum, learn)
+                    verbosity, learn)
                 patternNZ = self.toPatterNZ(structureOutput['lastModName'],
                     structureOutput['lastOutput'])
                 retVal = self.classifier.compute(
@@ -197,34 +203,34 @@ class Layer(object):
                     bestPredictions.append(
                         retVal['actualValues'][higherProbIndex]
                     )
-                
+
                 if verbosity > 2:
                     print('Best Predictions: ' + str(bestPredictions))
-                
+
                 if verbosity > 3:
                     print("  |  CLAClassifier best predictions for step1: ")
                     top = sorted(retVal[1].tolist(), reverse=True)[:3]
-                    
+
                     for prob in top:
                         probIndex = retVal[1].tolist().index(prob)
                         print(str(retVal['actualValues'][probIndex]) +
                             " - " + str(prob))
-                    
+
                     print("  |  CLAClassifier best predictions for step2: ")
                     top = sorted(retVal[2].tolist(), reverse=True)[:3]
-                    
+
                     for prob in top:
                         probIndex = retVal[2].tolist().index(prob)
                         print(str(retVal['actualValues'][probIndex]) +
                             " - " + str(prob))
-                    
+
                     print("")
                     print("---------------------------------------------------")
                     print("")
-                
+
                 recordNum += 1
-            
+
             if verbosity > 1:
                 print('Best Predictions for next module: ' + str(bestPredictions))
-                
+
         return bestPredictions

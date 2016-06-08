@@ -197,6 +197,8 @@ class CustomCategoryEncoder(Encoder):
 
     return numpy.array([closeness])
 
+  def getBucketIndex(self, input):
+    return self.getBucketIndices(input)[0]
 
   def getBucketValues(self):
     """ See the function description in base.py """
