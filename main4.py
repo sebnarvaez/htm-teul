@@ -38,8 +38,8 @@ from Learning import SpanishTestSet
 from Learning import EnglishTrainingSet
 from Learning import EnglishTestSet
 
-from Learning.LearningModels.ClassicModel import ClassicModel as CurrentModel
-import Learning.ModelParameters.Classic80 as BestResults
+from Learning.LearningModels.OneLevelModel import OneLevelModel as CurrentModel
+import Learning.ModelParameters.OneLevel90 as BestResults
 
 if __name__ == '__main__':
     for currentSets in ((PartialTrainingSet, PartialTestSet, 'Partial'),

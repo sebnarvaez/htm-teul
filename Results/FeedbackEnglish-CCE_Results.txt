@@ -1,0 +1,142 @@
+FeedbackModel
+
+     Structure:
+       WordEncoder -> WordSP -> WordTM
+       ActionEncoder -> ActionSP -> ActionTM
+       WordTM, ActionTM -> GeneralSP -> GeneralTM
+
+    
+actionSPArgs = {
+	'inputDimensions': [264],
+	'columnDimensions': [24],
+	'potentialRadius': 16,
+	'potentialPct': 0.5,
+	'globalInhibition': True,
+	'localAreaDensity': 0.291002732219,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 0,
+	'synPermInactiveDec': 0.1,
+	'synPermActiveInc': 0.1,
+	'synPermConnected': 0.1,
+	'minPctOverlapDutyCycle': 0.1,
+	'minPctActiveDutyCycle': 0.1,
+	'dutyCyclePeriod': 10,
+	'maxBoost': 3,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+wordSPArgs = {
+	'inputDimensions': [825],
+	'columnDimensions': [177],
+	'potentialRadius': 6,
+	'potentialPct': 0.5,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 0,
+	'synPermInactiveDec': 0.1,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.1,
+	'minPctOverlapDutyCycle': 0.1,
+	'minPctActiveDutyCycle': 0.1,
+	'dutyCyclePeriod': 10,
+	'maxBoost': 3,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+
+generalTMArgs = {
+	'columnDimensions': (2, 5664),
+	'cellsPerColumn': 32,
+	'activationThreshold': 4,
+	'initialPermanence': 0.4,
+	'connectedPermanence': 0.430143267031,
+	'minThreshold': 4,
+	'maxNewSynapseCount': 4,
+	'permanenceIncrement': 0.0,
+	'permanenceDecrement': 0.05,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+actionTMArgs = {
+	'columnDimensions': (24,),
+	'cellsPerColumn': 32,
+	'activationThreshold': 4,
+	'initialPermanence': 0.4,
+	'connectedPermanence': 0.690047545165,
+	'minThreshold': 4,
+	'maxNewSynapseCount': 4,
+	'permanenceIncrement': 0.263967058466,
+	'permanenceDecrement': 0.05,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+wordTMArgs = {
+	'columnDimensions': (177,),
+	'cellsPerColumn': 32,
+	'activationThreshold': 7,
+	'initialPermanence': 0.4,
+	'connectedPermanence': 0.5,
+	'minThreshold': 4,
+	'maxNewSynapseCount': 4,
+	'permanenceIncrement': 0.05,
+	'permanenceDecrement': 0.05,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+
+CustomCategoryEncoder
+Encodes a list of discrete categories (described by strings), that aren't
+  related to each other, so we never emit a mixture of categories.
+
+  The value of zero is reserved for "unknown category"
+
+  Internally we use a ScalarEncoder with a radius of 1, but since we only encode
+  integers, we never get mixture outputs.
+
+  The SDRCategoryEncoder uses a different method to encode categories
+
+Model trained 30 iterations
+
+Results:
+
+	Number of Success     : 82.75%
+	Number of Half Success: 0.0%
+	Number of Failures    : 17.24%
+.
+
+-----------------------------
+
+Input Sentence: move your bones !
+Expected Action: bailar-event nothing-event
+Obtained Action: ! bailar-event bailar-event
+
+
+-----------------------------
+
+Input Sentence: shake your moneymaker
+Expected Action: bailar-event nothing-event
+Obtained Action: moneymaker moneymaker moneymaker
+
+
+-----------------------------
+
+Input Sentence: shake your booty
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event izquierda-event booty
+
+
+-----------------------------
+
+Input Sentence: boogie
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event izquierda-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: grab that thingy
+Expected Action: recoger-event nothing-event
+Obtained Action: thingy recoger-event nothing-event

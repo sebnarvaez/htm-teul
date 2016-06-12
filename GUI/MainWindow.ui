@@ -98,7 +98,7 @@
              <item row="1" column="1">
               <widget class="QPushButton" name="btn_grab">
                <property name="text">
-                <string>Coger</string>
+                <string>Recog.</string>
                </property>
               </widget>
              </item>
@@ -167,7 +167,7 @@
           <bool>false</bool>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tb_execute">
           <attribute name="title">
@@ -338,7 +338,7 @@
               <item>
                <widget class="QLabel" name="lbl_iterations">
                 <property name="text">
-                 <string>Iterations</string>
+                 <string>Iteraciones</string>
                 </property>
                </widget>
               </item>
@@ -387,13 +387,6 @@
                <number>3</number>
               </property>
               <item>
-               <widget class="QPushButton" name="btn_import">
-                <property name="text">
-                 <string>Importar...</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="btn_train">
                 <property name="text">
                  <string>Entrenar</string>
@@ -420,7 +413,7 @@
      <x>0</x>
      <y>0</y>
      <width>875</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

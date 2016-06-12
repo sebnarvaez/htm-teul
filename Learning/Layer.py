@@ -92,7 +92,7 @@ class Layer(object):
 
             elif moduleName[-2:] == 'SP':
                 if prevModName[-2:] == 'TM':
-                    spInput = numpy.zeros(module.getInputDimensions()[0],
+                    spInput = numpy.zeros(module.getNumInputs(),
                         dtype=numpy.uint8)
                     spInput[list(prevOutput)] = 1
                     prevOutput = spInput

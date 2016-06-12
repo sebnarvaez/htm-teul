@@ -32,8 +32,6 @@ from a single csv file
 
 INDENT = "    "
 #outputFilePath = 'MovementTrainingSet.py'
-altOutputFilePath = 'TotalTestSet.py'
-outputFilePath = 'TotalTrainingSet.py'
 categories = []
 inputIdx = {}
 
@@ -67,51 +65,51 @@ def addEnglMovementData(inputFilePaths, outputFile, probability=1.0,
                         'direction': preposition + 'the left',
                         'argumento': 'derecha'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direction': preposition + 'the east',
                         'argumento': 'derecha'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direction': preposition + 'the right',
                         'argumento': 'izquierda'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direction': preposition + 'the west',
                         'argumento': 'izquierda'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     if not preposition == 'towards':
                         formatArgs = {
                             'direction': preposition + 'upwards',
                             'argumento': 'arriba'
                         }
-                        writeDataUnit(row, formatArgs, outputFile)
+                        writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direction': preposition + 'the north',
                         'argumento': 'arriba'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     if not preposition == 'towards':
                         formatArgs = {
                             'direction': preposition + 'downwards',
                             'argumento': 'abajo'
                         }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direction': preposition + 'the south',
                         'argumento': 'abajo'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
 def addMovementData(inputFilePaths, outputFile, probability=1.0,
         altOutputFile=None):
@@ -142,49 +140,49 @@ def addMovementData(inputFilePaths, outputFile, probability=1.0,
                         'direccion': preposition + 'la derecha',
                         'argumento': 'derecha'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direccion': preposition + 'el este',
                         'argumento': 'derecha'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direccion': preposition + 'la izquierda',
                         'argumento': 'izquierda'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direccion': preposition + 'el oeste',
                         'argumento': 'izquierda'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direccion': preposition + 'arriba',
                         'argumento': 'arriba'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direccion': preposition + 'el norte',
                         'argumento': 'arriba'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direccion': preposition + 'abajo',
                         'argumento': 'abajo'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'direccion': preposition + 'el sur',
                         'argumento': 'abajo'
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
 
 def addEnglPickData(inputFilePaths, outputFile, probability=1.0,
@@ -217,19 +215,19 @@ def addEnglPickData(inputFilePaths, outputFile, probability=1.0,
                         'please': please,
                         'object': 'the hat',
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'please': please,
                         'object': 'that object',
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                     formatArgs = {
                         'please': please,
                         'object': 'that thingy',
                     }
-                    writeDataUnit(row, formatArgs, outputFile)
+                    writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
 
 def addPickData(inputFilePaths, outputFile, probability=1.0,
@@ -264,28 +262,28 @@ def addPickData(inputFilePaths, outputFile, probability=1.0,
                             'objeto': 'el sombrero',
                             'favor-opc2': favor2
                         }
-                        writeDataUnit(row, formatArgs, outputFile)
+                        writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                         formatArgs = {
                             'favor-opc1': favor1,
                             'objeto': 'la cachucha',
                             'favor-opc2': favor2
                         }
-                        writeDataUnit(row, formatArgs, outputFile)
+                        writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                         formatArgs = {
                             'favor-opc1': favor1,
                             'objeto': 'el objeto',
                             'favor-opc2': favor2
                         }
-                        writeDataUnit(row, formatArgs, outputFile)
+                        writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
                         formatArgs = {
                             'favor-opc1': favor1,
                             'objeto': 'lo que esta ahi',
                             'favor-opc2': favor2
                         }
-                        writeDataUnit(row, formatArgs, outputFile)
+                        writeDataUnit(row, formatArgs, outputFile, probability, altOutputFile)
 
 def addDanceData(inputFilePaths, outputFile, probability=1.0,
         altOutputFile=None):
@@ -311,7 +309,7 @@ def addDanceData(inputFilePaths, outputFile, probability=1.0,
                 categories = [set() for _ in xrange(len(headers))]
 
             for row in csvReader:
-                writeDataUnit(row, {}, outputFile)
+                writeDataUnit(row, {}, outputFile, probability, altOutputFile)
 
 
 def writeDataUnit(columns, formatArgs, outputFile, probability=1.0,
@@ -326,7 +324,7 @@ def writeDataUnit(columns, formatArgs, outputFile, probability=1.0,
     if probability < 1.0:
         choice = random.random()
 
-        if choice < probability:
+        if choice > probability:
             choosenFile = altOutputFile
 
     choosenFile.write(INDENT + '(')
@@ -341,9 +339,13 @@ def writeDataUnit(columns, formatArgs, outputFile, probability=1.0,
     choosenFile.write('),\n')
 
 if __name__ == '__main__':
-    #addData('Dropbox/Tesis/htm-teul/Learning/Data/Movimiento.csv')
+    altOutputFilePath = 'SpanishTestSet.py'
+    outputFilePath = 'Spanish.py'
+
     with open(outputFilePath, 'wb') as outputFile, \
             open(altOutputFilePath, 'wb') as altOutputFile:
+        probability = 0.8
+
         outputFile.write('"""\n')
         outputFile.write('Automatically generated Training Data Set\n')
         outputFile.write('"""\n')
@@ -361,45 +363,54 @@ if __name__ == '__main__':
                 'Data/MovimientoEspanol.csv'
             ],
             outputFile,
-            probability=1.0,
+            probability=probability,
             altOutputFile=altOutputFile
         )
-        addEnglMovementData(
-            [
-                'Data/MovimientoEnglish.csv'
-            ],
-            outputFile,
-            probability=1.0,
-            altOutputFile=altOutputFile
 
-        )
+        #addEnglMovementData(
+        #    [
+        #        'Data/MovimientoEnglish.csv'
+        #    ],
+        #    outputFile,
+        #    probability=probability,
+        #    altOutputFile=altOutputFile
+        #)
+
         addDanceData(
             [
-                'Data/DanzaPerfecto.csv'
+                'Data/DanzaEspanol.csv'
             ],
             outputFile,
-            probability=1.0,
+            probability=probability,
             altOutputFile=altOutputFile
-
         )
+
+        #addDanceData(
+        #    [
+        #        'Data/DanzaEnglish.csv'
+        #    ],
+        #    outputFile,
+        #    probability=probability,
+        #    altOutputFile=altOutputFile
+        #)
+
         addPickData(
             [
                 'Data/RecogerEspanol.csv'
             ],
             outputFile,
-            probability=1.0,
+            probability=probability,
             altOutputFile=altOutputFile
-
         )
-        addEnglPickData(
-            [
-                'Data/RecogerEnglish.csv'
-            ],
-            outputFile,
-            probability=1.0,
-            altOutputFile=altOutputFile
 
-        )
+        #addEnglPickData(
+        #    [
+        #        'Data/RecogerEnglish.csv'
+        #    ],
+        #    outputFile,
+        #    probability=probability,
+        #    altOutputFile=altOutputFile
+        #)
 
         outputFile.write('\n)\n')
         outputFile.write('inputIdx = {0}\n'.format(inputIdx))

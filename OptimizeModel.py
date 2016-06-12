@@ -34,8 +34,8 @@ from Learning.EncoderFactory import CustomCategoryEncoder
 from Learning import TotalTrainingSet as trainingSet
 from Learning import TotalTrainingSet as testSet
 
-from Learning.LearningModels.OneLevelModel import OneLevelModel as CurrentModel
-import Learning.ModelParameters.OneLevel__ as BestResults
+from Learning.LearningModels.FeedbackModel import FeedbackModel as CurrentModel
+import Learning.ModelParameters.Feedback81 as BestResults
 
 def saveParamsToFile(population, nonOptimParams, fileName):
     """

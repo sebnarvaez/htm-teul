@@ -38,11 +38,12 @@ from Learning import SpanishTestSet
 from Learning import EnglishTrainingSet
 from Learning import EnglishTestSet
 
-from Learning.LearningModels.ClassicModel import ClassicModel as CurrentModel
-import Learning.ModelParameters.Classic80 as BestResults
+from Learning.LearningModels.FeedbackModel import FeedbackModel as CurrentModel
+import Learning.ModelParameters.Feedback81 as BestResults
 
 if __name__ == '__main__':
-    for currentSets in ((PartialTrainingSet, PartialTestSet, 'Partial'),
+    for currentSets in ((TotalTrainingSet, TotalTrainingSet, 'Total'),
+                        (PartialTrainingSet, PartialTestSet, 'Partial'),
                         (SpanishTrainingSet, SpanishTestSet, 'Spanish'),
                         (EnglishTrainingSet, EnglishTestSet, 'English')):
         trainingSet = currentSets[0]
