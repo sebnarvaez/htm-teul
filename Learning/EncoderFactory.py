@@ -34,6 +34,7 @@ from nupic.encoders.category import CategoryEncoder
 
 """ A collection of encoders for use in different Learning Models """
 
+SEED = 420
 
 def charToBinary(character, wordLen=8, bitSeparation=0):
     """
@@ -126,6 +127,8 @@ class RandomizedLetterEncoder(CustomEncoder):
         @param actBitsPerLetter: The number of active bits per letter.
         """
 
+        random.seed(SEED)
+
         if nRandBits > width:
             raise ValueError("nRandBits can't be greater than width.")
         if actBitsPerLetter < 1:
@@ -184,6 +187,7 @@ class TotallyRandomEncoder(CustomEncoder):
             is generated randomly the first time and then retrieved.
         """
 
+        random.seed(SEED)
         if nActiveBits > width:
             raise ValueError("width must be greater than nActiveBits")
         self.width = width

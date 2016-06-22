@@ -97,92 +97,92 @@ Model trained 30 iterations
 
 Results:
 
-	Number of Success     : 55.17%
+	Number of Success     : 51.72%
 	Number of Half Success: 31.03%
-	Number of Failures    : 13.79%
+	Number of Failures    : 17.24%
 
 -----------------------------
 
 Input Sentence: move towardsthe south
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event nothing-event
+Obtained Action: mover-event arriba-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: please move tothe south
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event nothing-event
+Obtained Action: mover-event arriba-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: I want you to move tothe south
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event nothing-event
-
-
------------------------------
-
-Input Sentence: can you please move it tothe right
-Expected Action: mover-event izquierda-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event arriba-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: head tothe south
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event nothing-event
+Obtained Action: mover-event arriba-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: head towardsthe south
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event nothing-event
+Obtained Action: mover-event arriba-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: could you head towardsthe south
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event nothing-event
+Obtained Action: mover-event arriba-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: move your bones !
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event arriba-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: shake your moneymaker
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event recoger-event mover-event
+Obtained Action: mover-event izquierda-event bailar-event
 
 
 -----------------------------
 
 Input Sentence: shake your booty
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event nothing-event
+Obtained Action: mover-event arriba-event bailar-event
 
 
 -----------------------------
 
 Input Sentence: get down
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event arriba-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: boogie
 Expected Action: bailar-event nothing-event
-Obtained Action: recoger-event nothing-event nothing-event
+Obtained Action: mover-event arriba-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: could you put the hat on ?
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event nothing-event
 
 
 -----------------------------
@@ -190,3 +190,10 @@ Obtained Action: recoger-event nothing-event nothing-event
 Input Sentence: grab that thingy
 Expected Action: recoger-event nothing-event
 Obtained Action: mover-event arriba-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: grab that thingy please
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event mover-event

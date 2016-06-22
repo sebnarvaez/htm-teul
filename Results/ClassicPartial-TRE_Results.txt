@@ -1,35 +1,34 @@
-FeedbackModel
+ClassicModel
 
      Structure:
-       WordEncoder -> WordSP -> WordTM
-       ActionEncoder -> ActionSP -> ActionTM
-       WordTM, ActionTM -> GeneralSP -> GeneralTM
-
+       WordEncoder -> WordsSP -> SentencesTM
+       ActionEncoder -> ActionsSP -> ActionsSeqTM
+           SentencesTM + ActionsSeqTM -> generalTM
     
 actionSPArgs = {
 	'inputDimensions': [100],
 	'columnDimensions': [24],
-	'potentialRadius': 16,
+	'potentialRadius': 33,
 	'potentialPct': 0.5,
 	'globalInhibition': True,
-	'localAreaDensity': 0.291002732219,
+	'localAreaDensity': 0.0,
 	'numActiveColumnsPerInhArea': -1,
 	'stimulusThreshold': 0,
 	'synPermInactiveDec': 0.1,
-	'synPermActiveInc': 0.1,
+	'synPermActiveInc': 0.129931012329,
 	'synPermConnected': 0.1,
-	'minPctOverlapDutyCycle': 0.1,
+	'minPctOverlapDutyCycle': 0.0952354431486,
 	'minPctActiveDutyCycle': 0.1,
 	'dutyCyclePeriod': 10,
-	'maxBoost': 3,
+	'maxBoost': 2.59688691268,
 	'seed': 42,
 	'spVerbosity': 0,
 	'wrapAround': True
 }
-wordSPArgs = {
-	'inputDimensions': [100],
-	'columnDimensions': [408],
-	'potentialRadius': 6,
+generalSPArgs = {
+	'inputDimensions': [13057],
+	'columnDimensions': [1470],
+	'potentialRadius': 53,
 	'potentialPct': 0.5,
 	'globalInhibition': True,
 	'localAreaDensity': 0.02,
@@ -39,48 +38,68 @@ wordSPArgs = {
 	'synPermActiveInc': 0.0,
 	'synPermConnected': 0.1,
 	'minPctOverlapDutyCycle': 0.1,
-	'minPctActiveDutyCycle': 0.1,
+	'minPctActiveDutyCycle': 0.147588233927,
 	'dutyCyclePeriod': 10,
 	'maxBoost': 3,
 	'seed': 42,
 	'spVerbosity': 0,
 	'wrapAround': True
 }
+wordSPArgs = {
+	'inputDimensions': [100],
+	'columnDimensions': [408],
+	'potentialRadius': 12,
+	'potentialPct': 0.344719692589,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 0,
+	'synPermInactiveDec': 0.1,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.13679061984,
+	'minPctOverlapDutyCycle': 0.0,
+	'minPctActiveDutyCycle': 0.0771191794514,
+	'dutyCyclePeriod': 10,
+	'maxBoost': 3,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': False
+}
 
 generalTMArgs = {
-	'columnDimensions': (2, 13056),
-	'cellsPerColumn': 32,
+	'columnDimensions': (1470,),
+	'cellsPerColumn': 19,
 	'activationThreshold': 4,
-	'initialPermanence': 0.4,
-	'connectedPermanence': 0.430143267031,
-	'minThreshold': 4,
-	'maxNewSynapseCount': 4,
-	'permanenceIncrement': 0.0,
-	'permanenceDecrement': 0.05,
-	'predictedSegmentDecrement': 0.0,
-	'seed': 42
-}
-actionTMArgs = {
-	'columnDimensions': (24,),
-	'cellsPerColumn': 32,
-	'activationThreshold': 4,
-	'initialPermanence': 0.4,
-	'connectedPermanence': 0.690047545165,
-	'minThreshold': 4,
-	'maxNewSynapseCount': 4,
-	'permanenceIncrement': 0.263967058466,
-	'permanenceDecrement': 0.05,
+	'initialPermanence': 0.713404063003,
+	'connectedPermanence': 0.5,
+	'minThreshold': 1,
+	'maxNewSynapseCount': 2,
+	'permanenceIncrement': 0.05,
+	'permanenceDecrement': 0.406647028013,
 	'predictedSegmentDecrement': 0.0,
 	'seed': 42
 }
 wordTMArgs = {
 	'columnDimensions': (408,),
 	'cellsPerColumn': 32,
-	'activationThreshold': 7,
-	'initialPermanence': 0.4,
+	'activationThreshold': 5,
+	'initialPermanence': 0.24662289721,
+	'connectedPermanence': 0.253075241572,
+	'minThreshold': 5,
+	'maxNewSynapseCount': 8,
+	'permanenceIncrement': 0.0,
+	'permanenceDecrement': 0.05,
+	'predictedSegmentDecrement': 0.33346513442,
+	'seed': 42
+}
+actionTMArgs = {
+	'columnDimensions': (24,),
+	'cellsPerColumn': 32,
+	'activationThreshold': 1,
+	'initialPermanence': 0.269123270994,
 	'connectedPermanence': 0.5,
 	'minThreshold': 4,
-	'maxNewSynapseCount': 4,
+	'maxNewSynapseCount': 6,
 	'permanenceIncrement': 0.05,
 	'permanenceDecrement': 0.05,
 	'predictedSegmentDecrement': 0.0,
@@ -95,9 +114,9 @@ Model trained 30 iterations
 
 Results:
 
-	Number of Success     : 9.7%
-	Number of Half Success: 64.07%
-	Number of Failures    : 26.21%
+	Number of Success     : 0.0%
+	Number of Half Success: 68.93%
+	Number of Failures    : 31.06%
 .
 
 -----------------------------
@@ -167,7 +186,7 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: quiero que te muevas paraarriba
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -223,21 +242,21 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: muevete haciael oeste por favor
 Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: muevete haciaabajo por favor
 Expected Action: mover-event abajo-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: muevete parael oeste por favor
 Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
@@ -377,7 +396,7 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: vuleve paraarriba
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -391,7 +410,7 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: ir paraarriba
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -676,7 +695,28 @@ Obtained Action: mover-event mover-event mover-event
 
 -----------------------------
 
+Input Sentence: alza lo que esta ahi por favor
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
 Input Sentence: ponte lo que esta ahi
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ponte la cachucha por favor
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ponte el objeto por favor
 Expected Action: recoger-event nothing-event
 Obtained Action: mover-event mover-event mover-event
 
@@ -704,6 +744,20 @@ Obtained Action: mover-event mover-event mover-event
 
 -----------------------------
 
+Input Sentence: por favor recogelo por favor
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: alzalo por favor
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
 Input Sentence: por favor alzalo
 Expected Action: recoger-event nothing-event
 Obtained Action: mover-event mover-event mover-event
@@ -711,7 +765,42 @@ Obtained Action: mover-event mover-event mover-event
 
 -----------------------------
 
+Input Sentence: por favor alzalo por favor
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: por favor alzalo por favor
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
 Input Sentence: levantalo
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: levantalo por favor
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: pontelo por favor
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: pontelo por favor
 Expected Action: recoger-event nothing-event
 Obtained Action: mover-event mover-event mover-event
 
@@ -748,4 +837,4 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: grab the hat please
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event

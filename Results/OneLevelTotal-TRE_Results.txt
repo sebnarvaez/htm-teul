@@ -46,9 +46,9 @@ Model trained 30 iterations
 
 Results:
 
-	Number of Success     : 84.14%
-	Number of Half Success: 9.78%
-	Number of Failures    : 6.07%
+	Number of Success     : 85.83%
+	Number of Half Success: 7.92%
+	Number of Failures    : 6.23%
 .
 
 -----------------------------
@@ -389,14 +389,21 @@ Obtained Action: recoger-event nothing-event nothing-event
 
 -----------------------------
 
-Input Sentence: ¡ a bailar !
+Input Sentence: a mover el esqueleto
 Expected Action: bailar-event nothing-event
-Obtained Action: bailar-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: baila
+Input Sentence: mueve ese esqueleto
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: mueve el esqueleto
 Expected Action: bailar-event nothing-event
 Obtained Action: mover-event nothing-event mover-event
 
@@ -419,35 +426,28 @@ Obtained Action: mover-event nothing-event mover-event
 
 Input Sentence: bailemos
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor , baila
-Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: no pares de bailar
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: vamos a bailar
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: danza
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -466,16 +466,9 @@ Obtained Action: mover-event mover-event mover-event
 
 -----------------------------
 
-Input Sentence: ¡ muevete !
-Expected Action: bailar-event nothing-event
-Obtained Action: bailar-event mover-event mover-event
-
-
------------------------------
-
 Input Sentence: azotar baldosa
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
@@ -489,63 +482,56 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: titiru tiru tirutiru
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: move your bones !
-Expected Action: bailar-event nothing-event
-Obtained Action: bailar-event mover-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: dance now
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: everybody dance now
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: show me what you got
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: shake your moneymaker
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: shake your groove thing
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: shake your booty
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: get down
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
@@ -566,7 +552,7 @@ Obtained Action: recoger-event nothing-event nothing-event
 
 Input Sentence: cut a rug
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -587,70 +573,14 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: boogie down
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: kick up your heels
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: recogelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: recogelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: recogelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: recogelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor recogelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor recogelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor recogelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor recogelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -699,11 +629,11 @@ Obtained Action: mover-event nothing-event mover-event
 
 Input Sentence: grab the hat
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event recoger-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: grab that object
 Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event recoger-event
+Obtained Action: recoger-event recoger-event nothing-event

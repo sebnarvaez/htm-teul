@@ -42,92 +42,68 @@ from Learning.LearningModels.ClassicModel import ClassicModel as CurrentModel
 import Learning.ModelParameters.Classic80 as BestResults
 
 if __name__ == '__main__':
-    for currentSets in ((PartialTrainingSet, PartialTestSet, 'Partial'),
+    for currentSets in ((TotalTrainingSet, TotalTrainingSet, 'Total'),
+                        (PartialTrainingSet, PartialTestSet, 'Partial'),
                         (SpanishTrainingSet, SpanishTestSet, 'Spanish'),
                         (EnglishTrainingSet, EnglishTestSet, 'English')):
         trainingSet = currentSets[0]
         testSet = currentSets[1]
         setsName = currentSets[2]
 
-        wordEncoder = CustomCategoryEncoder(
-            11,
-            list(trainingSet.categories[trainingSet.inputIdx['wordInput']]),
-            nAdditionalCategorySlots=15,
-            forced=True
-        )
-        actionEncoder = CustomCategoryEncoder(
-            11,
-            list(trainingSet.categories[trainingSet.inputIdx['actionInput']]),
-            nAdditionalCategorySlots=15,
-            forced=True
-        )
-        #wordEncoder = actionEncoder = UnifiedCategoryEncoder(trainingSet.categories,
-        #    nAdditionalCategorySlots=15)
-        encoderName = wordEncoder.__class__.__name__
+        for enc in ('rle', 'tre', 'cce'):
 
-        model = CurrentModel(wordEncoder, actionEncoder, trainingSet, BestResults.bestFindings[0])
-        modelName = model.__class__.__name__
+            if enc == 'rle':
+                rleWidth = (26 * 20 * 3) + 200
+                wordEncoder = actionEncoder = RandomizedLetterEncoder(rleWidth,
+                    20, 3)
 
-        print(modelName)
-        print(encoderName)
-        model.train(30, maxTime=-1, verbosity=1)
+            elif enc == 'tre':
+                wordEncoder = actionEncoder = TotallyRandomEncoder(100, 20)
 
-        fileName = 'Results/'
-        # Strips the 'Model' fron the name
-        fileName += modelName[:-5] + setsName + '-'
-        # Appends only the Capital letters
-        fileName += ''.join(cap for cap in encoderName if cap.isupper())
-        #fileName += 'OneRegionExp32'
+            elif enc == 'cce':
+                wordEncoder = CustomCategoryEncoder(
+                    11,
+                    list(trainingSet.categories[
+                            trainingSet.inputIdx['wordInput']
+                        ]),
+                    nAdditionalCategorySlots=15,
+                    forced=True
+                )
+                actionEncoder = CustomCategoryEncoder(
+                    11,
+                    list(trainingSet.categories[
+                            trainingSet.inputIdx['actionInput']
+                        ]),
+                    nAdditionalCategorySlots=15,
+                    forced=True
+                )
 
-        TestSuite.testModel(model, testSet.trainingData, fileName=(fileName + '_Results'))
+            encoderName = wordEncoder.__class__.__name__
 
+            model = CurrentModel(wordEncoder, actionEncoder, trainingSet,
+                BestResults.bestFindings[0])
+            modelName = model.__class__.__name__
 
-        rleWidth = (26 * 20 * 3) + 200
-        wordEncoder = actionEncoder = RandomizedLetterEncoder(rleWidth, 20, 3)
-        encoderName = wordEncoder.__class__.__name__
+            print(modelName)
+            print(encoderName)
+            model.train(30, maxTime=-1, verbosity=1)
 
-        model = CurrentModel(wordEncoder, actionEncoder, trainingSet, BestResults.bestFindings[0])
-        modelName = model.__class__.__name__
+            fileName = 'Results/'
+            # Strips the 'Model' fron the name
+            fileName += modelName[:-5] + setsName + '-'
+            # Appends only the Capital letters
+            fileName += ''.join(cap for cap in encoderName if cap.isupper())
+            #fileName += 'OneRegionExp32'
 
-        print(modelName)
-        print(encoderName)
-        model.train(30, maxTime=-1, verbosity=1)
+            TestSuite.testModel(model, testSet.trainingData,
+                fileName=(fileName + '_Results'))
 
-        fileName = 'Results/'
-        # Strips the 'Model' fron the name
-        fileName += modelName[:-5] + setsName + '-'
-        # Appends only the Capital letters
-        fileName += ''.join(cap for cap in encoderName if cap.isupper())
-        #fileName += 'OneRegionExp32'
+            #print("Saving the model...")
+            #with open((fileName + '.pck'), 'wb') as modelFile:
+                #cPickle.dump(model, modelFile, -1)
+            #print("Done!")
 
-        TestSuite.testModel(model, testSet.trainingData, fileName=(fileName + '_Results'))
-
-
-        wordEncoder = actionEncoder = TotallyRandomEncoder(50, 10)
-        encoderName = wordEncoder.__class__.__name__
-
-        model = CurrentModel(wordEncoder, actionEncoder, trainingSet, BestResults.bestFindings[0])
-        modelName = model.__class__.__name__
-
-        print(modelName)
-        print(encoderName)
-        model.train(30, maxTime=-1, verbosity=1)
-
-        fileName = 'Results/'
-        # Strips the 'Model' fron the name
-        fileName += modelName[:-5] + setsName + '-'
-        # Appends only the Capital letters
-        fileName += ''.join(cap for cap in encoderName if cap.isupper())
-        #fileName += 'OneRegionExp32'
-
-        TestSuite.testModel(model, testSet.trainingData, fileName=(fileName + '_Results'))
-
-    #print("Saving the model...")
-    #with open((fileName + '.pck'), 'wb') as modelFile:
-        #cPickle.dump(model, modelFile, -1)
-    #print("Done!")
-
-#    app = QApplication([])
-#    window = MainWindow(model)
-#    #app.exec_()
-#    sys.exit(app.exec_())
+            app = QApplication([])
+            window = MainWindow(model)
+            #app.exec_()
+            sys.exit(app.exec_())
