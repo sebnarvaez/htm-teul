@@ -60,7 +60,7 @@ def addEnglMovementData(inputFilePaths, outputFile, probability=1.0,
                 categories = [set() for _ in xrange(len(headers))]
 
             for row in csvReader:
-                for preposition in ('to', 'towards'):
+                for preposition in ('to ', 'towards '):
                     formatArgs = {
                         'direction': preposition + 'the left',
                         'argumento': 'derecha'
@@ -135,7 +135,7 @@ def addMovementData(inputFilePaths, outputFile, probability=1.0,
                 categories = [set() for _ in xrange(len(headers))]
 
             for row in csvReader:
-                for preposition in ('a', 'hacia', 'para'):
+                for preposition in ('a ', 'hacia ', ' para'):
                     formatArgs = {
                         'direccion': preposition + 'la derecha',
                         'argumento': 'derecha'
@@ -210,7 +210,7 @@ def addEnglPickData(inputFilePaths, outputFile, probability=1.0,
 
             for row in csvReader:
 
-                for please in ('', 'please'):
+                for please in ('', 'please '):
                     formatArgs = {
                         'please': please,
                         'object': 'the hat',
@@ -255,8 +255,8 @@ def addPickData(inputFilePaths, outputFile, probability=1.0,
 
             for row in csvReader:
 
-                for favor1 in ('', 'por favor'):
-                    for favor2 in ('', 'por favor'):
+                for favor1 in ('', 'por favor '):
+                    for favor2 in ('', 'por favor '):
                         formatArgs = {
                             'favor-opc1': favor1,
                             'objeto': 'el sombrero',
@@ -339,8 +339,8 @@ def writeDataUnit(columns, formatArgs, outputFile, probability=1.0,
     choosenFile.write('),\n')
 
 if __name__ == '__main__':
-    altOutputFilePath = 'SpanishTestSet.py'
-    outputFilePath = 'Spanish.py'
+    altOutputFilePath = 'EnglishTestSet.py'
+    outputFilePath = 'EnglishTrainingSet.py'
 
     with open(outputFilePath, 'wb') as outputFile, \
             open(altOutputFilePath, 'wb') as altOutputFile:
@@ -358,59 +358,59 @@ if __name__ == '__main__':
         altOutputFile.write('\n')
         altOutputFile.write('trainingData = (\n')
 
-        addMovementData(
+#        addMovementData(
+#            [
+#                'Data/MovimientoEspanol.csv'
+#            ],
+#            outputFile,
+#            probability=probability,
+#            altOutputFile=altOutputFile
+#        )
+
+        addEnglMovementData(
             [
-                'Data/MovimientoEspanol.csv'
+                'Data/MovimientoEnglish.csv'
             ],
             outputFile,
             probability=probability,
             altOutputFile=altOutputFile
         )
 
-        #addEnglMovementData(
-        #    [
-        #        'Data/MovimientoEnglish.csv'
-        #    ],
-        #    outputFile,
-        #    probability=probability,
-        #    altOutputFile=altOutputFile
-        #)
+#        addDanceData(
+#            [
+#                'Data/DanzaEspanol.csv'
+#            ],
+#            outputFile,
+#            probability=probability,
+#            altOutputFile=altOutputFile
+#        )
 
         addDanceData(
             [
-                'Data/DanzaEspanol.csv'
+                'Data/DanzaEnglish.csv'
             ],
             outputFile,
             probability=probability,
             altOutputFile=altOutputFile
         )
 
-        #addDanceData(
-        #    [
-        #        'Data/DanzaEnglish.csv'
-        #    ],
-        #    outputFile,
-        #    probability=probability,
-        #    altOutputFile=altOutputFile
-        #)
+#        addPickData(
+#            [
+#                'Data/RecogerEspanol.csv'
+#            ],
+#            outputFile,
+#            probability=probability,
+#            altOutputFile=altOutputFile
+#        )
 
-        addPickData(
+        addEnglPickData(
             [
-                'Data/RecogerEspanol.csv'
+                'Data/RecogerEnglish.csv'
             ],
             outputFile,
             probability=probability,
             altOutputFile=altOutputFile
         )
-
-        #addEnglPickData(
-        #    [
-        #        'Data/RecogerEnglish.csv'
-        #    ],
-        #    outputFile,
-        #    probability=probability,
-        #    altOutputFile=altOutputFile
-        #)
 
         outputFile.write('\n)\n')
         outputFile.write('inputIdx = {0}\n'.format(inputIdx))
@@ -420,7 +420,7 @@ if __name__ == '__main__':
         altOutputFile.write('inputIdx = {0}\n'.format(inputIdx))
         altOutputFile.write('categories = {0}'.format(categories))
 
-        print("Data was written to {0} and {1}.".format(outputFilePath, 
+        print("Data was written to {0} and {1}.".format(outputFilePath,
             altOutputFilePath))
 #        for filePath in glob.glob('Data/*.csv'):
 #            addData(filePath)
