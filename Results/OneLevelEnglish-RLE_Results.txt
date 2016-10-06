@@ -1,0 +1,88 @@
+OneLevelModel
+
+     Structure:
+       WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
+    
+generalSPArgs = {
+	'inputDimensions': [2160],
+	'columnDimensions': [516],
+	'potentialRadius': 285,
+	'potentialPct': 0.550258423626,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 6,
+	'synPermInactiveDec': 0.165088154764,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.154153453054,
+	'minPctOverlapDutyCycle': 0.328915403526,
+	'minPctActiveDutyCycle': 0.0,
+	'dutyCyclePeriod': 16,
+	'maxBoost': 2.49696939107,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+
+generalTMArgs = {
+	'columnDimensions': (516,),
+	'cellsPerColumn': 55,
+	'activationThreshold': 1,
+	'initialPermanence': 0.382070733181,
+	'connectedPermanence': 1.0,
+	'minThreshold': 1,
+	'maxNewSynapseCount': 4,
+	'permanenceIncrement': 0.0,
+	'permanenceDecrement': 0.309537858286,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+
+RandomizedLetterEncoder
+
+    Encoder for strings. It encodes each letter into binary and appends
+    a random chain of bits at the end.
+    
+
+Model trained 30 iterations
+
+Results:
+
+	Number of Success     : 86.84%
+	Number of Half Success: 5.26%
+	Number of Failures    : 7.89%
+.
+
+-----------------------------
+
+Input Sentence: dance now
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: shake your groove thing
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event izquierda-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: shake your booty
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event bailar-event bailar-event
+
+
+-----------------------------
+
+Input Sentence: get down
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event bailar-event mover-event
+
+
+-----------------------------
+
+Input Sentence: bust a move
+Expected Action: bailar-event nothing-event
+Obtained Action: bailar-event bailar-event mover-event

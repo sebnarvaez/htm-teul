@@ -24,35 +24,40 @@
 
 import sys
 import cPickle
-import TestSuite
+import Utils.TestSuite
 from PyQt5.QtWidgets import QApplication
 from GUI.MainWindow import MainWindow
-from Learning import MovementTrainingSet as MTS
+from Learning import TotalTrainingSet as trainingSet
 
 if __name__ == '__main__':
-    
+
     print("Loading the model...")
-    
+
     filePath = 'Results/'
-    
+
     #modelName = 'Classic'
     modelName = 'OneLevel'
-    encoderName = '-UCE'
+#    modelName = 'Feedback'
+    trainingSetName = 'Total'
+#    trainingSetName = 'Partial'
+#    trainingSetName = 'Spanish'
+#    trainingSetName = 'English'
+    encoderName = '-CCE'
     #encoderName = '-RLE'
     #encoderName = '-TRE'
-    
-    fileName = filePath + modelName + encoderName
-    
+
+    fileName = filePath + modelName + trainingSetName + encoderName
+
     with open(fileName + '.pck', 'rb') as modelFile:
         model = cPickle.load(modelFile)
-    
+
     print("Done!")
     #model.train(MTS.trainingData, 5, verbose=0)
-    
-    #TestSuite.testModel(model, MTS.trainingData,
+
+    #TestSuite.testModel(model, trainingSet.trainingData,
     #    fileName=(fileName + '_Results'))
-    
-    #app = QApplication([])
-    #window = MainWindow(model)
+
+    app = QApplication([])
+    window = MainWindow(model)
     #app.exec_()
-    #sys.exit(app.exec_())
+    sys.exit(app.exec_())

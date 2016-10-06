@@ -7,7 +7,7 @@ FeedbackModel
 
     
 actionSPArgs = {
-	'inputDimensions': [264],
+	'inputDimensions': [504],
 	'columnDimensions': [24],
 	'potentialRadius': 16,
 	'potentialPct': 0.5,
@@ -27,8 +27,8 @@ actionSPArgs = {
 	'wrapAround': True
 }
 wordSPArgs = {
-	'inputDimensions': [825],
-	'columnDimensions': [177],
+	'inputDimensions': [1554],
+	'columnDimensions': [174],
 	'potentialRadius': 6,
 	'potentialPct': 0.5,
 	'globalInhibition': True,
@@ -48,7 +48,7 @@ wordSPArgs = {
 }
 
 generalTMArgs = {
-	'columnDimensions': (2, 5664),
+	'columnDimensions': (2, 5568),
 	'cellsPerColumn': 32,
 	'activationThreshold': 4,
 	'initialPermanence': 0.4,
@@ -74,7 +74,7 @@ actionTMArgs = {
 	'seed': 42
 }
 wordTMArgs = {
-	'columnDimensions': (177,),
+	'columnDimensions': (174,),
 	'cellsPerColumn': 32,
 	'activationThreshold': 7,
 	'initialPermanence': 0.4,
@@ -102,23 +102,16 @@ Model trained 30 iterations
 
 Results:
 
-	Number of Success     : 82.75%
-	Number of Half Success: 0.0%
-	Number of Failures    : 17.24%
+	Number of Success     : 84.21%
+	Number of Half Success: 7.89%
+	Number of Failures    : 7.89%
 .
 
 -----------------------------
 
-Input Sentence: move your bones !
+Input Sentence: shake your groove thing
 Expected Action: bailar-event nothing-event
-Obtained Action: ! bailar-event bailar-event
-
-
------------------------------
-
-Input Sentence: shake your moneymaker
-Expected Action: bailar-event nothing-event
-Obtained Action: moneymaker moneymaker moneymaker
+Obtained Action: thing thing bailar-event
 
 
 -----------------------------
@@ -130,13 +123,27 @@ Obtained Action: mover-event izquierda-event booty
 
 -----------------------------
 
-Input Sentence: boogie
+Input Sentence: bust a move
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event izquierda-event nothing-event
+Obtained Action: move recoger-event mover-event
 
 
 -----------------------------
 
-Input Sentence: grab that thingy
+Input Sentence: put the hat on
 Expected Action: recoger-event nothing-event
-Obtained Action: thingy recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: please put the hat on
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: please put that thingy on
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event

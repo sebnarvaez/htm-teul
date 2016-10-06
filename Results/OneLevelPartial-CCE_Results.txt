@@ -4,8 +4,8 @@ OneLevelModel
        WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
     
 generalSPArgs = {
-	'inputDimensions': [1672],
-	'columnDimensions': [1960],
+	'inputDimensions': [3066],
+	'columnDimensions': [1852],
 	'potentialRadius': 285,
 	'potentialPct': 0.550258423626,
 	'globalInhibition': True,
@@ -25,7 +25,7 @@ generalSPArgs = {
 }
 
 generalTMArgs = {
-	'columnDimensions': (1960,),
+	'columnDimensions': (1852,),
 	'cellsPerColumn': 55,
 	'activationThreshold': 1,
 	'initialPermanence': 0.382070733181,
@@ -53,104 +53,153 @@ Model trained 30 iterations
 
 Results:
 
-	Number of Success     : 86.4%
-	Number of Half Success: 8.73%
-	Number of Failures    : 4.85%
-..
+	Number of Success     : 84.78%
+	Number of Half Success: 10.86%
+	Number of Failures    : 4.34%
+
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo ael oeste ?
+Input Sentence: ¿ podrias moverlo a la izquierda ?
 Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event nothing-event recoger-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciael este ?
-Expected Action: mover-event derecha-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo haciael oeste ?
+Input Sentence: ¿ podrias moverlo a el oeste ?
 Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event nothing-event recoger-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo parala izquierda ?
-Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo parael norte ?
+Input Sentence: ¿ podrias moverlo a el norte ?
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event nothing-event recoger-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciael oeste por favor
+Input Sentence: ¿ podrias moverlo a el sur ?
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia el norte ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia abajo ?
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia el sur ?
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo parala derecha ?
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo parael oeste ?
 Expected Action: mover-event izquierda-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: muevete a la derecha por favor
+Expected Action: mover-event derecha-event
 Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciaabajo por favor
+Input Sentence: muevete a el este por favor
+Expected Action: mover-event derecha-event
+Obtained Action: recoger-event nothing-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: muevete hacia el sur por favor
 Expected Action: mover-event abajo-event
 Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete parael oeste por favor
-Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event nothing-event
-
-
------------------------------
-
-Input Sentence: ¿ bailamos ?
-Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: bailemos
-Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: show me what you got
+Input Sentence: ¿ bailas ?
 Expected Action: bailar-event nothing-event
 Obtained Action: mover-event nothing-event recoger-event
 
 
 -----------------------------
 
-Input Sentence: bust a move
+Input Sentence: dance now
 Expected Action: bailar-event nothing-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: could you put that object on ?
-Expected Action: recoger-event nothing-event
+Input Sentence: everybody dance now
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: shake your groove thing
+Expected Action: bailar-event nothing-event
+Obtained Action: recoger-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: shake your booty
+Expected Action: bailar-event nothing-event
 Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: could you put the hat on ?
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: could you please put the hat on ?
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: could you please put that thingy on ?
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: grab that object
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event recoger-event nothing-event

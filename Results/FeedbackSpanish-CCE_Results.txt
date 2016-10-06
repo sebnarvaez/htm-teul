@@ -7,7 +7,7 @@ FeedbackModel
 
     
 actionSPArgs = {
-	'inputDimensions': [264],
+	'inputDimensions': [504],
 	'columnDimensions': [24],
 	'potentialRadius': 16,
 	'potentialPct': 0.5,
@@ -27,8 +27,8 @@ actionSPArgs = {
 	'wrapAround': True
 }
 wordSPArgs = {
-	'inputDimensions': [1386],
-	'columnDimensions': [330],
+	'inputDimensions': [1911],
+	'columnDimensions': [225],
 	'potentialRadius': 6,
 	'potentialPct': 0.5,
 	'globalInhibition': True,
@@ -48,7 +48,7 @@ wordSPArgs = {
 }
 
 generalTMArgs = {
-	'columnDimensions': (2, 10560),
+	'columnDimensions': (2, 7200),
 	'cellsPerColumn': 32,
 	'activationThreshold': 4,
 	'initialPermanence': 0.4,
@@ -74,7 +74,7 @@ actionTMArgs = {
 	'seed': 42
 }
 wordTMArgs = {
-	'columnDimensions': (330,),
+	'columnDimensions': (225,),
 	'cellsPerColumn': 32,
 	'activationThreshold': 7,
 	'initialPermanence': 0.4,
@@ -102,76 +102,34 @@ Model trained 30 iterations
 
 Results:
 
-	Number of Success     : 88.5%
-	Number of Half Success: 5.74%
-	Number of Failures    : 5.74%
-..
+	Number of Success     : 96.0%
+	Number of Half Success: 2.0%
+	Number of Failures    : 2.0%
+....
 
 -----------------------------
 
-Input Sentence: por favor mover paraarriba
+Input Sentence: ¿ podrias moverlo a arriba ?
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event arriba-event
+Obtained Action: mover-event izquierda-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo ael oeste ?
-Expected Action: mover-event izquierda-event
-Obtained Action: mover-event arriba-event nothing-event
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo haciala derecha ?
+Input Sentence: ¿ podrias moverlo parala derecha ?
 Expected Action: mover-event derecha-event
-Obtained Action: mover-event arriba-event nothing-event
+Obtained Action: mover-event izquierda-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo paraabajo ?
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event arriba-event nothing-event
-
-
------------------------------
-
-Input Sentence: muevete ael oeste por favor
-Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event nothing-event
-
-
------------------------------
-
-Input Sentence: muevete haciael sur por favor
+Input Sentence: muevete paraabajo por favor
 Expected Action: mover-event abajo-event
 Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete parala izquierda por favor
-Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event nothing-event
-
-
------------------------------
-
-Input Sentence: muevete paraarriba por favor
-Expected Action: mover-event arriba-event
-Obtained Action: recoger-event nothing-event nothing-event
-
-
------------------------------
-
-Input Sentence: desplazate paraarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event arriba-event
-
-
------------------------------
-
-Input Sentence: ¿ bailas ?
+Input Sentence: ¿ bailamos ?
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event arriba-event nothing-event
+Obtained Action: mover-event izquierda-event mover-event

@@ -4,8 +4,8 @@ OneLevelModel
        WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
     
 generalSPArgs = {
-	'inputDimensions': [1760],
-	'columnDimensions': [2372],
+	'inputDimensions': [2160],
+	'columnDimensions': [2404],
 	'potentialRadius': 285,
 	'potentialPct': 0.550258423626,
 	'globalInhibition': True,
@@ -25,7 +25,7 @@ generalSPArgs = {
 }
 
 generalTMArgs = {
-	'columnDimensions': (2372,),
+	'columnDimensions': (2404,),
 	'cellsPerColumn': 55,
 	'activationThreshold': 1,
 	'initialPermanence': 0.382070733181,
@@ -48,931 +48,777 @@ Model trained 30 iterations
 
 Results:
 
-	Number of Success     : 63.23%
-	Number of Half Success: 27.48%
-	Number of Failures    : 9.27%
-
-
------------------------------
-
-Input Sentence: mover aarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
+	Number of Success     : 73.87%
+	Number of Half Success: 19.3%
+	Number of Failures    : 6.82%
+.
 
 -----------------------------
 
-Input Sentence: mover aabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: mover haciaarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: mover haciaabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: mover paraarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: mover paraabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor mover aarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor mover aabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor mover haciaarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor mover haciaabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor mover paraarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor mover paraabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: quiero que te muevas aarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: quiero que te muevas aabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: quiero que te muevas haciaarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: quiero que te muevas haciaabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: quiero que te muevas paraarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: quiero que te muevas paraabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: moverse aarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: moverse aabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: moverse haciaarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: moverse haciaabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: moverse paraarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: moverse paraabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo ala derecha ?
-Expected Action: mover-event derecha-event
-Obtained Action: mover-event nothing-event nothing-event
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo ael este ?
-Expected Action: mover-event derecha-event
-Obtained Action: mover-event nothing-event nothing-event
-
-
------------------------------
-
-Input Sentence: ¿ podrias moverlo ala izquierda ?
+Input Sentence: mover a la izquierda
 Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo ael oeste ?
+Input Sentence: mover hacia la izquierda
 Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo aarriba ?
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event nothing-event nothing-event
+Input Sentence: mover parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo ael norte ?
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event nothing-event nothing-event
+Input Sentence: por favor mover a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo aabajo ?
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event nothing-event nothing-event
+Input Sentence: por favor mover hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo ael sur ?
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event nothing-event nothing-event
+Input Sentence: por favor mover parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciala derecha ?
+Input Sentence: quiero que te muevas a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: quiero que te muevas hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: quiero que te muevas parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: moverse a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: moverse hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: moverse parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo a la derecha ?
 Expected Action: mover-event derecha-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciael este ?
+Input Sentence: ¿ podrias moverlo a el este ?
 Expected Action: mover-event derecha-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciala izquierda ?
+Input Sentence: ¿ podrias moverlo a la izquierda ?
 Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciael oeste ?
+Input Sentence: ¿ podrias moverlo a el oeste ?
 Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciaarriba ?
+Input Sentence: ¿ podrias moverlo a arriba ?
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciael norte ?
+Input Sentence: ¿ podrias moverlo a el norte ?
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciaabajo ?
+Input Sentence: ¿ podrias moverlo a abajo ?
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ¿ podrias moverlo haciael sur ?
+Input Sentence: ¿ podrias moverlo a el sur ?
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia la derecha ?
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia el este ?
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia la izquierda ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia el oeste ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia arriba ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia el norte ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia abajo ?
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo hacia el sur ?
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo parala derecha ?
 Expected Action: mover-event derecha-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo parael este ?
 Expected Action: mover-event derecha-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo parala izquierda ?
 Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo parael oeste ?
 Expected Action: mover-event izquierda-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo paraarriba ?
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo parael norte ?
 Expected Action: mover-event arriba-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo paraabajo ?
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ podrias moverlo parael sur ?
 Expected Action: mover-event abajo-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: muevete ala derecha por favor
+Input Sentence: muevete a la derecha por favor
 Expected Action: mover-event derecha-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete ael este por favor
+Input Sentence: muevete a el este por favor
 Expected Action: mover-event derecha-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete ala izquierda por favor
+Input Sentence: muevete a la izquierda por favor
 Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete ael oeste por favor
+Input Sentence: muevete a el oeste por favor
 Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete aarriba por favor
+Input Sentence: muevete a arriba por favor
 Expected Action: mover-event arriba-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete ael norte por favor
+Input Sentence: muevete a el norte por favor
 Expected Action: mover-event arriba-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete aabajo por favor
+Input Sentence: muevete a abajo por favor
 Expected Action: mover-event abajo-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete ael sur por favor
+Input Sentence: muevete a el sur por favor
 Expected Action: mover-event abajo-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciala derecha por favor
+Input Sentence: muevete hacia la derecha por favor
 Expected Action: mover-event derecha-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciael este por favor
+Input Sentence: muevete hacia el este por favor
 Expected Action: mover-event derecha-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciala izquierda por favor
+Input Sentence: muevete hacia la izquierda por favor
 Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciael oeste por favor
+Input Sentence: muevete hacia el oeste por favor
 Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciaarriba por favor
+Input Sentence: muevete hacia arriba por favor
 Expected Action: mover-event arriba-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciael norte por favor
+Input Sentence: muevete hacia el norte por favor
 Expected Action: mover-event arriba-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciaabajo por favor
+Input Sentence: muevete hacia abajo por favor
 Expected Action: mover-event abajo-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: muevete haciael sur por favor
+Input Sentence: muevete hacia el sur por favor
 Expected Action: mover-event abajo-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: muevete parala derecha por favor
 Expected Action: mover-event derecha-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: muevete parael este por favor
 Expected Action: mover-event derecha-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: muevete parala izquierda por favor
 Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: muevete parael oeste por favor
 Expected Action: mover-event izquierda-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: muevete paraarriba por favor
 Expected Action: mover-event arriba-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: muevete parael norte por favor
 Expected Action: mover-event arriba-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: muevete paraabajo por favor
 Expected Action: mover-event abajo-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
 Input Sentence: muevete parael sur por favor
 Expected Action: mover-event abajo-event
-Obtained Action: recoger-event nothing-event mover-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
 
-Input Sentence: ve aarriba
-Expected Action: mover-event arriba-event
+Input Sentence: ve a la izquierda
+Expected Action: mover-event izquierda-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ve aabajo
+Input Sentence: ve hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ve parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: dirigite a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: dirigite hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: dirigite parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: gira a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: gira hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: gira parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: vuleve a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: vuleve hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: vuleve parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ir a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ir hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ir parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: desplazate a la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: desplazate hacia la izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: desplazate parala izquierda
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: move to the east
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: move to the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ve haciaarriba
-Expected Action: mover-event arriba-event
+Input Sentence: move towards the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ve haciaabajo
+Input Sentence: move towards the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ve paraarriba
-Expected Action: mover-event arriba-event
+Input Sentence: please move to the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ve paraabajo
+Input Sentence: please move to the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: dirigite aarriba
-Expected Action: mover-event arriba-event
+Input Sentence: please move towards the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: dirigite aabajo
+Input Sentence: please move towards the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: dirigite haciaarriba
-Expected Action: mover-event arriba-event
+Input Sentence: I want you to move to the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: dirigite haciaabajo
+Input Sentence: I want you to move to the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: dirigite paraarriba
-Expected Action: mover-event arriba-event
+Input Sentence: I want you to move towards the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: dirigite paraabajo
+Input Sentence: I want you to move towards the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: gira aarriba
-Expected Action: mover-event arriba-event
+Input Sentence: can you please move it to the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: gira aabajo
+Input Sentence: can you please move it to the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: gira haciaarriba
-Expected Action: mover-event arriba-event
+Input Sentence: can you please move it towards the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: gira haciaabajo
+Input Sentence: can you please move it towards the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: gira paraarriba
-Expected Action: mover-event arriba-event
+Input Sentence: go to the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: gira paraabajo
+Input Sentence: go to the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: vuleve aarriba
-Expected Action: mover-event arriba-event
+Input Sentence: go towards the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: vuleve aabajo
+Input Sentence: go towards the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: vuleve haciaarriba
-Expected Action: mover-event arriba-event
+Input Sentence: turn to the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: vuleve haciaabajo
+Input Sentence: turn to the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: vuleve paraarriba
-Expected Action: mover-event arriba-event
+Input Sentence: turn towards the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: vuleve paraabajo
+Input Sentence: turn towards the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ir aarriba
-Expected Action: mover-event arriba-event
+Input Sentence: head to the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ir aabajo
+Input Sentence: head to the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ir haciaarriba
-Expected Action: mover-event arriba-event
+Input Sentence: head towards the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ir haciaabajo
+Input Sentence: head towards the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ir paraarriba
-Expected Action: mover-event arriba-event
+Input Sentence: could you head to the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: ir paraabajo
+Input Sentence: could you head to the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: desplazate aarriba
-Expected Action: mover-event arriba-event
+Input Sentence: could you head towards the east
+Expected Action: mover-event derecha-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: desplazate aabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: desplazate haciaarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: desplazate haciaabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: desplazate paraarriba
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: desplazate paraabajo
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: move toupwards
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: move tothe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: move towardsthe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: please move toupwards
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: please move tothe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: please move towardsthe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: I want you to move toupwards
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: I want you to move tothe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: I want you to move towardsthe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: can you please move it toupwards
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: can you please move it tothe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: can you please move it towardsthe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: go toupwards
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: go tothe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: go towardsthe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: turn toupwards
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: turn tothe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: turn towardsthe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: head toupwards
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: head tothe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: head towardsthe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: could you head toupwards
-Expected Action: mover-event arriba-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: could you head tothe south
-Expected Action: mover-event abajo-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: could you head towardsthe south
+Input Sentence: could you head towards the south
 Expected Action: mover-event abajo-event
 Obtained Action: mover-event mover-event mover-event
 
@@ -981,19 +827,26 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: a mover el esqueleto
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: mueve ese esqueleto
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: mueve el esqueleto
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¡ a bailar !
 Expected Action: bailar-event nothing-event
 Obtained Action: mover-event nothing-event mover-event
 
@@ -1009,14 +862,14 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: ¿ bailas ?
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: ¿ bailamos ?
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -1037,35 +890,56 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: no pares de bailar
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: vamos a bailar
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
 Input Sentence: danza
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: quiero ver tus movimientos
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event nothing-event recoger-event
 
 
 -----------------------------
 
 Input Sentence: sabor
 Expected Action: bailar-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¡ muevete !
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: titiru tiru tirutiru
+Expected Action: bailar-event nothing-event
 Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: baila la samba
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -1077,16 +951,23 @@ Obtained Action: mover-event mover-event mover-event
 
 -----------------------------
 
-Input Sentence: baila la samba
+Input Sentence: move your bones !
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: dance now
 Expected Action: bailar-event nothing-event
 Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
 
-Input Sentence: titiru tiru tirutiru
+Input Sentence: everybody dance now
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event mover-event mover-event
 
 
 -----------------------------
@@ -1100,7 +981,7 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: shake your moneymaker
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
+Obtained Action: mover-event nothing-event recoger-event
 
 
 -----------------------------
@@ -1121,21 +1002,14 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: get down
 Expected Action: bailar-event nothing-event
-Obtained Action: bailar-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: bust a move
-Expected Action: bailar-event nothing-event
-Obtained Action: mover-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: get your groove on
 Expected Action: bailar-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
+Obtained Action: recoger-event nothing-event nothing-event
 
 
 -----------------------------
@@ -1149,7 +1023,7 @@ Obtained Action: mover-event nothing-event mover-event
 
 Input Sentence: may I have this dance ?
 Expected Action: bailar-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -1163,7 +1037,7 @@ Obtained Action: mover-event mover-event mover-event
 
 Input Sentence: boogie down
 Expected Action: bailar-event nothing-event
-Obtained Action: bailar-event mover-event mover-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
@@ -1175,405 +1049,104 @@ Obtained Action: mover-event mover-event mover-event
 
 -----------------------------
 
-Input Sentence: recoge la cachucha
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: recoge el objeto
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: recoge lo que esta ahi
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor recoge la cachucha
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor recoge el objeto
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor recoge lo que esta ahi
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
-
-
------------------------------
-
-Input Sentence: alza la cachucha
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: alza el objeto
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: alza lo que esta ahi
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor alza la cachucha
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor alza el objeto
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor alza lo que esta ahi
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
-
-
------------------------------
-
-Input Sentence: levanta la cachucha
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: levanta el objeto
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: levanta lo que esta ahi
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor levanta la cachucha
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor levanta el objeto
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor levanta lo que esta ahi
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
-
-
------------------------------
-
-Input Sentence: ponte la cachucha
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: ponte el objeto
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: ponte lo que esta ahi
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor ponte la cachucha
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor ponte el objeto
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event recoger-event
-
-
------------------------------
-
-Input Sentence: por favor ponte lo que esta ahi
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
-
-
------------------------------
-
-Input Sentence: alzalo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: alzalo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: alzalo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: alzalo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor alzalo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor alzalo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor alzalo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor alzalo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event mover-event
-
-
------------------------------
-
-Input Sentence: pontelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: pontelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: pontelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: pontelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor pontelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor pontelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor pontelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
-Input Sentence: por favor pontelo
-Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event mover-event
-
-
------------------------------
-
 Input Sentence: could you put the hat on ?
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: could you put that object on ?
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: could you put that thingy on ?
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: could you please put the hat on ?
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: could you please put that object on ?
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
 Input Sentence: could you please put that thingy on ?
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event nothing-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
-Input Sentence: put the hat on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: put that object on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: put that thingy on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: please put the hat on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: please put that object on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: please put that thingy on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: put it on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: put it on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: put it on
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: grab the hat
-Expected Action: recoger-event nothing-event
-Obtained Action: recoger-event recoger-event nothing-event
-
-
------------------------------
-
-Input Sentence: grab that object
+Input Sentence: put it on please
 Expected Action: recoger-event nothing-event
 Obtained Action: mover-event nothing-event mover-event
 
 
 -----------------------------
 
+Input Sentence: put it on please
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: put it on please
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: grab the hat
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event mover-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: grab that object
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event
+
+
+-----------------------------
+
 Input Sentence: grab that thingy
 Expected Action: recoger-event nothing-event
-Obtained Action: mover-event mover-event recoger-event
+Obtained Action: mover-event nothing-event recoger-event
+
+
+-----------------------------
+
+Input Sentence: grab the hat please
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: grab that object please
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event mover-event
+
+
+-----------------------------
+
+Input Sentence: grab that thingy please
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event nothing-event mover-event

@@ -1,0 +1,114 @@
+OneLevelModel
+
+     Structure:
+       WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
+    
+generalSPArgs = {
+	'inputDimensions': [1386],
+	'columnDimensions': [1404],
+	'potentialRadius': 285,
+	'potentialPct': 0.550258423626,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 6,
+	'synPermInactiveDec': 0.165088154764,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.154153453054,
+	'minPctOverlapDutyCycle': 0.328915403526,
+	'minPctActiveDutyCycle': 0.0,
+	'dutyCyclePeriod': 16,
+	'maxBoost': 2.49696939107,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+
+generalTMArgs = {
+	'columnDimensions': (1404,),
+	'cellsPerColumn': 55,
+	'activationThreshold': 1,
+	'initialPermanence': 0.382070733181,
+	'connectedPermanence': 1.0,
+	'minThreshold': 1,
+	'maxNewSynapseCount': 4,
+	'permanenceIncrement': 0.0,
+	'permanenceDecrement': 0.309537858286,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+
+CustomCategoryEncoder
+Encodes a list of discrete categories (described by strings), that aren't
+  related to each other, so we never emit a mixture of categories.
+
+  The value of zero is reserved for "unknown category"
+
+  Internally we use a ScalarEncoder with a radius of 1, but since we only encode
+  integers, we never get mixture outputs.
+
+  The SDRCategoryEncoder uses a different method to encode categories
+
+Model trained 30 iterations
+
+Results:
+
+	Number of Success     : 90.8%
+	Number of Half Success: 3.44%
+	Number of Failures    : 5.74%
+..
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo ael oeste ?
+Expected Action: mover-event izquierda-event
+Obtained Action: mover-event arriba-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo haciala derecha ?
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event arriba-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo paraabajo ?
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event arriba-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: muevete ael oeste por favor
+Expected Action: mover-event izquierda-event
+Obtained Action: recoger-event nothing-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: muevete haciael sur por favor
+Expected Action: mover-event abajo-event
+Obtained Action: recoger-event nothing-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: muevete parala izquierda por favor
+Expected Action: mover-event izquierda-event
+Obtained Action: recoger-event nothing-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: muevete paraarriba por favor
+Expected Action: mover-event arriba-event
+Obtained Action: recoger-event nothing-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: ¿ bailas ?
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event arriba-event nothing-event

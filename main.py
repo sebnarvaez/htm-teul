@@ -38,96 +38,79 @@ from Learning import SpanishTestSet
 from Learning import EnglishTrainingSet
 from Learning import EnglishTestSet
 
-from Learning.LearningModels.ClassicModel import ClassicModel as CurrentModel
-import Learning.ModelParameters.Classic80 as BestResults
+from Learning.LearningModels.FeedbackModel import FeedbackModel as CurrentModel
+import Learning.ModelParameters.Feedback81 as BestResults
 
 if __name__ == '__main__':
-    for currentSets in ((PartialTrainingSet, PartialTestSet, 'Partial'),
-                        (SpanishTrainingSet, SpanishTestSet, 'Spanish'),
-                        (EnglishTrainingSet, EnglishTestSet, 'English')):
+    for currentSets in ((TotalTrainingSet, TotalTrainingSet, 'Total'),):
+#    for currentSets in ((TotalTrainingSet, TotalTrainingSet, 'Total'),
+#                        (PartialTrainingSet, PartialTestSet, 'Partial'),
+#                        (SpanishTrainingSet, SpanishTestSet, 'Spanish'),
+#                        (EnglishTrainingSet, EnglishTestSet, 'English')):
         trainingSet = currentSets[0]
         testSet = currentSets[1]
         setsName = currentSets[2]
 
-        wordEncoder = CustomCategoryEncoder(
-            11,
-            list(trainingSet.categories[trainingSet.inputIdx['wordInput']]),
-            nAdditionalCategorySlots=15,
-            forced=True
-        )
-        actionEncoder = CustomCategoryEncoder(
-            11,
-            list(trainingSet.categories[trainingSet.inputIdx['actionInput']]),
-            nAdditionalCategorySlots=15,
-            forced=True
-        )
-        #wordEncoder = actionEncoder = UnifiedCategoryEncoder(trainingSet.categories,
-        #    nAdditionalCategorySlots=15)
-        encoderName = wordEncoder.__class__.__name__
+#        for enc in ('rle', 'tre', 'cce'):
+        for enc in ('tre', 'cce'):
 
-        model = CurrentModel(wordEncoder, actionEncoder, trainingSet, BestResults.bestFindings[0])
-        modelName = model.__class__.__name__
+            if enc == 'rle':
+                abcLength = 26
+                bitsPerLetter = 3
+                maxWordLength = 20
+                randomBits = bitsPerLetter * maxWordLength
 
-        print(modelName)
-        print(encoderName)
-        model.train(30, maxTime=-1, verbosity=1)
+                # Mantain sparsity of 10%  in the random bits
+                rleWidth = (abcLength * bitsPerLetter * maxWordLength) +\
+                        (randomBits * 10)
+                wordEncoder = actionEncoder = RandomizedLetterEncoder(rleWidth,
+                    randomBits, bitsPerLetter)
 
-        fileName = 'Results/'
-        # Strips the 'Model' fron the name
-        fileName += modelName[:-5] + setsName + '-'
-        # Appends only the Capital letters
-        fileName += ''.join(cap for cap in encoderName if cap.isupper())
-        #fileName += 'OneRegionExp32'
+            elif enc == 'tre':
+                wordEncoder = actionEncoder = TotallyRandomEncoder(1024, 204)
 
-        TestSuite.testModel(model, testSet.trainingData, fileName=(fileName + '_Results'))
+            elif enc == 'cce':
+                wordEncoder = CustomCategoryEncoder(
+                    21,
+                    list(trainingSet.categories[
+                            trainingSet.inputIdx['wordInput']
+                        ]),
+                    nAdditionalCategorySlots=15,
+                )
+                actionEncoder = CustomCategoryEncoder(
+                    21,
+                    list(trainingSet.categories[
+                            trainingSet.inputIdx['actionInput']
+                        ]),
+                    nAdditionalCategorySlots=15,
+                )
 
+            encoderName = wordEncoder.__class__.__name__
 
-        rleWidth = (26 * 20 * 3) + 200
-        wordEncoder = actionEncoder = RandomizedLetterEncoder(rleWidth, 20, 3)
-        encoderName = wordEncoder.__class__.__name__
+            model = CurrentModel(wordEncoder, actionEncoder, trainingSet,
+                BestResults.bestFindings[0])
+            modelName = model.__class__.__name__
 
-        model = CurrentModel(wordEncoder, actionEncoder, trainingSet, BestResults.bestFindings[0])
-        modelName = model.__class__.__name__
+            print(modelName)
+            print(encoderName)
+            model.train(30, maxTime=-1, verbosity=1)
 
-        print(modelName)
-        print(encoderName)
-        model.train(30, maxTime=-1, verbosity=1)
+            fileName = 'Results/'
+            # Strips the 'Model' fron the name
+            fileName += modelName[:-5] + setsName + '-'
+            # Appends only the Capital letters
+            fileName += ''.join(cap for cap in encoderName if cap.isupper())
+            #fileName += 'OneRegionExp32'
 
-        fileName = 'Results/'
-        # Strips the 'Model' fron the name
-        fileName += modelName[:-5] + setsName + '-'
-        # Appends only the Capital letters
-        fileName += ''.join(cap for cap in encoderName if cap.isupper())
-        #fileName += 'OneRegionExp32'
+            TestSuite.testModel(model, testSet.trainingData,
+                fileName=(fileName + '_Results'))
 
-        TestSuite.testModel(model, testSet.trainingData, fileName=(fileName + '_Results'))
+            #print("Saving the model...")
+            #with open((fileName + '.pck'), 'wb') as modelFile:
+            #    cPickle.dump(model, modelFile, -1)
+            #print("Done!")
 
-
-        wordEncoder = actionEncoder = TotallyRandomEncoder(50, 10)
-        encoderName = wordEncoder.__class__.__name__
-
-        model = CurrentModel(wordEncoder, actionEncoder, trainingSet, BestResults.bestFindings[0])
-        modelName = model.__class__.__name__
-
-        print(modelName)
-        print(encoderName)
-        model.train(30, maxTime=-1, verbosity=1)
-
-        fileName = 'Results/'
-        # Strips the 'Model' fron the name
-        fileName += modelName[:-5] + setsName + '-'
-        # Appends only the Capital letters
-        fileName += ''.join(cap for cap in encoderName if cap.isupper())
-        #fileName += 'OneRegionExp32'
-
-        TestSuite.testModel(model, testSet.trainingData, fileName=(fileName + '_Results'))
-
-    #print("Saving the model...")
-    #with open((fileName + '.pck'), 'wb') as modelFile:
-        #cPickle.dump(model, modelFile, -1)
-    #print("Done!")
-
-#    app = QApplication([])
-#    window = MainWindow(model)
-#    #app.exec_()
-#    sys.exit(app.exec_())
+            #app = QApplication([])
+            #window = MainWindow(model)
+            #app.exec_()
+            #sys.exit(app.exec_())

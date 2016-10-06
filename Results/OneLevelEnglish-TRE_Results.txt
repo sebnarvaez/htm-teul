@@ -1,0 +1,93 @@
+OneLevelModel
+
+     Structure:
+       WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
+    
+generalSPArgs = {
+	'inputDimensions': [1024],
+	'columnDimensions': [516],
+	'potentialRadius': 285,
+	'potentialPct': 0.550258423626,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 6,
+	'synPermInactiveDec': 0.165088154764,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.154153453054,
+	'minPctOverlapDutyCycle': 0.328915403526,
+	'minPctActiveDutyCycle': 0.0,
+	'dutyCyclePeriod': 16,
+	'maxBoost': 2.49696939107,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+
+generalTMArgs = {
+	'columnDimensions': (516,),
+	'cellsPerColumn': 55,
+	'activationThreshold': 1,
+	'initialPermanence': 0.382070733181,
+	'connectedPermanence': 1.0,
+	'minThreshold': 1,
+	'maxNewSynapseCount': 4,
+	'permanenceIncrement': 0.0,
+	'permanenceDecrement': 0.309537858286,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+
+TotallyRandomEncoder
+
+    
+
+Model trained 30 iterations
+
+Results:
+
+	Number of Success     : 84.21%
+	Number of Half Success: 10.52%
+	Number of Failures    : 5.26%
+
+
+-----------------------------
+
+Input Sentence: shake your groove thing
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event arriba-event bailar-event
+
+
+-----------------------------
+
+Input Sentence: shake your booty
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event nothing-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: bust a move
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event abajo-event mover-event
+
+
+-----------------------------
+
+Input Sentence: put the hat on
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: please put the hat on
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: please put that thingy on
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event

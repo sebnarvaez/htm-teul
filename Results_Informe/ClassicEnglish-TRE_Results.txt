@@ -1,0 +1,293 @@
+ClassicModel
+
+     Structure:
+       WordEncoder -> WordsSP -> SentencesTM
+       ActionEncoder -> ActionsSP -> ActionsSeqTM
+           SentencesTM + ActionsSeqTM -> generalTM
+    
+actionSPArgs = {
+	'inputDimensions': [100],
+	'columnDimensions': [24],
+	'potentialRadius': 33,
+	'potentialPct': 0.5,
+	'globalInhibition': True,
+	'localAreaDensity': 0.0,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 0,
+	'synPermInactiveDec': 0.1,
+	'synPermActiveInc': 0.129931012329,
+	'synPermConnected': 0.1,
+	'minPctOverlapDutyCycle': 0.0952354431486,
+	'minPctActiveDutyCycle': 0.1,
+	'dutyCyclePeriod': 10,
+	'maxBoost': 2.59688691268,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+generalSPArgs = {
+	'inputDimensions': [5665],
+	'columnDimensions': [390],
+	'potentialRadius': 53,
+	'potentialPct': 0.5,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 0,
+	'synPermInactiveDec': 0.1,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.1,
+	'minPctOverlapDutyCycle': 0.1,
+	'minPctActiveDutyCycle': 0.147588233927,
+	'dutyCyclePeriod': 10,
+	'maxBoost': 3,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+wordSPArgs = {
+	'inputDimensions': [100],
+	'columnDimensions': [177],
+	'potentialRadius': 12,
+	'potentialPct': 0.344719692589,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 0,
+	'synPermInactiveDec': 0.1,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.13679061984,
+	'minPctOverlapDutyCycle': 0.0,
+	'minPctActiveDutyCycle': 0.0771191794514,
+	'dutyCyclePeriod': 10,
+	'maxBoost': 3,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': False
+}
+
+generalTMArgs = {
+	'columnDimensions': (390,),
+	'cellsPerColumn': 19,
+	'activationThreshold': 4,
+	'initialPermanence': 0.713404063003,
+	'connectedPermanence': 0.5,
+	'minThreshold': 1,
+	'maxNewSynapseCount': 2,
+	'permanenceIncrement': 0.05,
+	'permanenceDecrement': 0.406647028013,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+wordTMArgs = {
+	'columnDimensions': (177,),
+	'cellsPerColumn': 32,
+	'activationThreshold': 5,
+	'initialPermanence': 0.24662289721,
+	'connectedPermanence': 0.253075241572,
+	'minThreshold': 5,
+	'maxNewSynapseCount': 8,
+	'permanenceIncrement': 0.0,
+	'permanenceDecrement': 0.05,
+	'predictedSegmentDecrement': 0.33346513442,
+	'seed': 42
+}
+actionTMArgs = {
+	'columnDimensions': (24,),
+	'cellsPerColumn': 32,
+	'activationThreshold': 1,
+	'initialPermanence': 0.269123270994,
+	'connectedPermanence': 0.5,
+	'minThreshold': 4,
+	'maxNewSynapseCount': 6,
+	'permanenceIncrement': 0.05,
+	'permanenceDecrement': 0.05,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+
+TotallyRandomEncoder
+
+    
+
+Model trained 30 iterations
+
+Results:
+
+	Number of Success     : 13.79%
+	Number of Half Success: 58.62%
+	Number of Failures    : 27.58%
+
+-----------------------------
+
+Input Sentence: move tothe north
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: move towardsthe north
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: move towardsthe south
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: please move tothe left
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: please move tothe north
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: please move tothe south
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: please move towardsthe left
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: I want you to move tothe south
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: I want you to move towardsthe north
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: can you please move it towardsthe east
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event mover-event derecha-event
+
+
+-----------------------------
+
+Input Sentence: go towardsthe left
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: turn towardsthe left
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: turn towardsthe north
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: head tothe left
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: head tothe south
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: head towardsthe south
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: could you head towardsthe south
+Expected Action: mover-event abajo-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: move your bones !
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: shake your moneymaker
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: shake your booty
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event mover-event derecha-event
+
+
+-----------------------------
+
+Input Sentence: get down
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event abajo-event mover-event
+
+
+-----------------------------
+
+Input Sentence: boogie
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event abajo-event mover-event
+
+
+-----------------------------
+
+Input Sentence: could you put the hat on ?
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: grab that thingy
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event
+
+
+-----------------------------
+
+Input Sentence: grab that thingy please
+Expected Action: recoger-event nothing-event
+Obtained Action: mover-event mover-event mover-event

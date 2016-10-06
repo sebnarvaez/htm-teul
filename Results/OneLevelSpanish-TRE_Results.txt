@@ -1,0 +1,79 @@
+OneLevelModel
+
+     Structure:
+       WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
+    
+generalSPArgs = {
+	'inputDimensions': [1024],
+	'columnDimensions': [1336],
+	'potentialRadius': 285,
+	'potentialPct': 0.550258423626,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 6,
+	'synPermInactiveDec': 0.165088154764,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.154153453054,
+	'minPctOverlapDutyCycle': 0.328915403526,
+	'minPctActiveDutyCycle': 0.0,
+	'dutyCyclePeriod': 16,
+	'maxBoost': 2.49696939107,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+
+generalTMArgs = {
+	'columnDimensions': (1336,),
+	'cellsPerColumn': 55,
+	'activationThreshold': 1,
+	'initialPermanence': 0.382070733181,
+	'connectedPermanence': 1.0,
+	'minThreshold': 1,
+	'maxNewSynapseCount': 4,
+	'permanenceIncrement': 0.0,
+	'permanenceDecrement': 0.309537858286,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+
+TotallyRandomEncoder
+
+    
+
+Model trained 30 iterations
+
+Results:
+
+	Number of Success     : 96.0%
+	Number of Half Success: 2.0%
+	Number of Failures    : 2.0%
+....
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo a arriba ?
+Expected Action: mover-event arriba-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: ¿ podrias moverlo parala derecha ?
+Expected Action: mover-event derecha-event
+Obtained Action: mover-event izquierda-event mover-event
+
+
+-----------------------------
+
+Input Sentence: muevete paraabajo por favor
+Expected Action: mover-event abajo-event
+Obtained Action: recoger-event nothing-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: ¿ bailamos ?
+Expected Action: bailar-event nothing-event
+Obtained Action: mover-event izquierda-event mover-event

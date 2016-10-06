@@ -1,0 +1,86 @@
+OneLevelModel
+
+     Structure:
+       WordEncoder, ActionEncoder -> GeneralSP -> GeneralTM
+    
+generalSPArgs = {
+	'inputDimensions': [1554],
+	'columnDimensions': [516],
+	'potentialRadius': 285,
+	'potentialPct': 0.550258423626,
+	'globalInhibition': True,
+	'localAreaDensity': 0.02,
+	'numActiveColumnsPerInhArea': -1,
+	'stimulusThreshold': 6,
+	'synPermInactiveDec': 0.165088154764,
+	'synPermActiveInc': 0.0,
+	'synPermConnected': 0.154153453054,
+	'minPctOverlapDutyCycle': 0.328915403526,
+	'minPctActiveDutyCycle': 0.0,
+	'dutyCyclePeriod': 16,
+	'maxBoost': 2.49696939107,
+	'seed': 42,
+	'spVerbosity': 0,
+	'wrapAround': True
+}
+
+generalTMArgs = {
+	'columnDimensions': (516,),
+	'cellsPerColumn': 55,
+	'activationThreshold': 1,
+	'initialPermanence': 0.382070733181,
+	'connectedPermanence': 1.0,
+	'minThreshold': 1,
+	'maxNewSynapseCount': 4,
+	'permanenceIncrement': 0.0,
+	'permanenceDecrement': 0.309537858286,
+	'predictedSegmentDecrement': 0.0,
+	'seed': 42
+}
+
+CustomCategoryEncoder
+Encodes a list of discrete categories (described by strings), that aren't
+  related to each other, so we never emit a mixture of categories.
+
+  The value of zero is reserved for "unknown category"
+
+  Internally we use a ScalarEncoder with a radius of 1, but since we only encode
+  integers, we never get mixture outputs.
+
+  The SDRCategoryEncoder uses a different method to encode categories
+
+Model trained 30 iterations
+
+Results:
+
+	Number of Success     : 89.47%
+	Number of Half Success: 7.89%
+	Number of Failures    : 2.63%
+.
+
+-----------------------------
+
+Input Sentence: shake your booty
+Expected Action: bailar-event nothing-event
+Obtained Action: izquierda-event bailar-event mover-event
+
+
+-----------------------------
+
+Input Sentence: put the hat on
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: please put the hat on
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event
+
+
+-----------------------------
+
+Input Sentence: please put that thingy on
+Expected Action: recoger-event nothing-event
+Obtained Action: recoger-event recoger-event nothing-event
