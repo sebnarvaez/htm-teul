@@ -42,17 +42,15 @@ from Learning.LearningModels.FeedbackModel import FeedbackModel as CurrentModel
 import Learning.ModelParameters.Feedback81 as BestResults
 
 if __name__ == '__main__':
-    for currentSets in ((TotalTrainingSet, TotalTrainingSet, 'Total'),):
-#    for currentSets in ((TotalTrainingSet, TotalTrainingSet, 'Total'),
-#                        (PartialTrainingSet, PartialTestSet, 'Partial'),
-#                        (SpanishTrainingSet, SpanishTestSet, 'Spanish'),
-#                        (EnglishTrainingSet, EnglishTestSet, 'English')):
+    for currentSets in ((TotalTrainingSet, TotalTrainingSet, 'Total'),
+                        (PartialTrainingSet, PartialTestSet, 'Partial'),
+                        (SpanishTrainingSet, SpanishTestSet, 'Spanish'),
+                        (EnglishTrainingSet, EnglishTestSet, 'English')):
         trainingSet = currentSets[0]
         testSet = currentSets[1]
         setsName = currentSets[2]
 
-#        for enc in ('rle', 'tre', 'cce'):
-        for enc in ('tre', 'cce'):
+        for enc in ('rle', 'tre', 'cce'):
 
             if enc == 'rle':
                 abcLength = 26
