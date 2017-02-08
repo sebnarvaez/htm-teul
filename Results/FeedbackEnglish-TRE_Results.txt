@@ -91,7 +91,7 @@ TotallyRandomEncoder
 
     
 
-Model trained 30 iterations
+Model trained 2 iterations
 
 Results:
 
